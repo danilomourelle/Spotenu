@@ -20,7 +20,10 @@ const middlewares = [
 const store = createStore(generateReducers(history), compose(...middlewares));
 
 const GlobalStyle = createGlobalStyle`
-
+  * {
+    box-sizing:border-box;
+    margin:0
+  }
 `
 
 export const App = () => (
