@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './Header'
+import Header from '../../components/Header'
 import Body from  './Body'
 
 
 function Login() {
   return <>
-    <Header />
+    <Header text='SPOTENU' />
     <Body />
   </>
 }

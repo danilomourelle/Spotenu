@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { routes } from '../../Router/router.js'
 import { BtnGreen, BtnWhite } from '../../components/Buttons'
 
 const Wrapper = styled.div`
@@ -43,8 +45,8 @@ function Upper() {
       <Titulo>Curta 3 meses de Premium grátis</Titulo>
       <SubTitle>Música sem parar, zero propagando e até offline</SubTitle>
       <BtnWrapper>
-        <BtnGreen>SEJA PREMIUM</BtnGreen>
-        <BtnWhite>CONTA FREE</BtnWhite>
+        <Link to={routes.signIn}><BtnGreen onClick={console.log('foi')}>SEJA PREMIUM</BtnGreen></Link>
+        <Link to={routes.signIn}><BtnWhite>CONTA FREE</BtnWhite></Link>
       </BtnWrapper>
     </Wrapper>
   )

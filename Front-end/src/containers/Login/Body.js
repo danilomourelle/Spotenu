@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { routes } from '../../Router/router.js'
 import { BtnWhite, BtnGreen } from '../../components/Buttons'
 import { Input } from '../../components/Input'
 
@@ -24,7 +26,7 @@ function Body() {
       <BtnGreen>Entrar</BtnGreen>
       <br />
       <p>Ainda não tem sua conta?</p>
-      <BtnWhite>Cria uma conta</BtnWhite>
+      <Link to={routes.signIn}><BtnWhite>Cria uma conta</BtnWhite></Link>
     </Wrapper>
   )
 }

@@ -1,13 +1,13 @@
 import React from 'react'
-import Header from '../../components/Header'
+import Header from '../../../components/Header'
 import Body from  './Body'
 
 
-function SignIn() {
+function SignOtherAdmin() {
   return <>
     <Header text='SPOTENU' />
     <Body />
   </>
 }
 
-export default SignIn
+export default SignOtherAdmin
