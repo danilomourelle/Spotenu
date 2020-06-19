@@ -11,10 +11,10 @@ const Wrapper = styled.div`
   justify-content:center;
   align-items:center;
 `
-function Header() {
+function Header(props) {
   return (
     <Wrapper>
-      SPOTENU
+      {props.text}
     </Wrapper>
   )
 }
