@@ -10,7 +10,7 @@ export const routes = {
   home: "/",
   login: "/login",
   signIn: "/signin",
-  page4: "/route4"
+  allBands: "/bands/all"
 };
 
 function Router(props) {

@@ -30,5 +30,6 @@ export const BtnWhite = styled.button`
 `
 
 export const BtnLogin = styled(BtnWhite)`
-  background-color:#AAA;
+  border-color:#fff;
+    color:#FFF;
 `

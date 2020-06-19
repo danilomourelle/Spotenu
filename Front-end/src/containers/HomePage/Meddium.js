@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { BtnWhite } from '../../components/Buttons'
 
+
 const Wrapper = styled.div`
   width: 100%;
   min-height: 900px;

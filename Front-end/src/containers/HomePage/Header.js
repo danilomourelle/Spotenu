@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { BtnLogin } from '../../components/Buttons'
+import { routes } from '../Router'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,7 +22,7 @@ function Header() {
   return (
     <Wrapper>
       <p>PROJETO SPOTENU - DANILO MOURELLE - TURMA SAGAN</p>
-      <BtnLogin>Entrar</BtnLogin>
+      <Link to={routes.login}><BtnLogin>Entrar</BtnLogin></Link>
     </Wrapper>
   )
 }
