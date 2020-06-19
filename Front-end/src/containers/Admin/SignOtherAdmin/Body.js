@@ -6,7 +6,7 @@ import { Input } from '../../../components/Input'
 const Wrapper = styled.main`
   width: 100%;
   height: calc(100vh - 80px);
-  padding:80px 0;
+  padding:150px 0;
   display: flex;
   flex-direction:column;
   align-items:center;

@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { BtnGreen } from '../../../components/Buttons'
-import { Input } from '../../../components/Input'
 import { Link } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 
@@ -40,7 +38,7 @@ function Body() {
   return (
     <Wrapper>
       <Cards>
-        <img src='https://cdn.pixabay.com/photo/2016/11/19/13/57/drum-set-1839383_960_720.jpg' />
+        <img src='https://cdn.pixabay.com/photo/2016/11/19/13/57/drum-set-1839383_960_720.jpg' alt='Aprovão de Banda' />
         <Link to={routes.approveBand}>
           <div>
             <p>Aprovar Bandas</p>
@@ -48,7 +46,7 @@ function Body() {
         </Link>
       </Cards>
       <Cards>
-        <img src='https://cdn.pixabay.com/photo/2017/08/10/08/00/suit-2619784_960_720.jpg' />
+        <img src='https://cdn.pixabay.com/photo/2017/08/10/08/00/suit-2619784_960_720.jpg' alt='Cadastro de Novo Admin' />
         <Link to={routes.createOtherAdmin}>
           <div>
             <p>Cadastrar Administrador</p>
@@ -56,10 +54,10 @@ function Body() {
         </Link>
       </Cards>
       <Cards>
-        <img src='https://cdn.pixabay.com/photo/2016/08/10/20/52/mixing-1584267_960_720.jpg' />
+        <img src='https://cdn.pixabay.com/photo/2016/08/10/20/52/mixing-1584267_960_720.jpg' alt='Cadastro de Gênero Musical' />
         <Link to={routes.createMusicalGenre}>
           <div>
-            <p>Cadastrar Gênero Musical</p>
+            <p>Gênero Musical</p>
           </div>
         </Link>
       </Cards>

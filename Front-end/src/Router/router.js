@@ -7,6 +7,8 @@ import SignIn from "../containers/SignIn";
 import AllBands from "../containers/Bands/AllBands";
 import SignOtherAdmin from "../containers/Admin/SignOtherAdmin";
 import HomeAdmin from "../containers/Admin/Home";
+import ApproveBand from "../containers/Admin/ApproveBand";
+import MusicGenre from "../containers/Admin/MusicalGenres";
 
 
 export const routes = {
@@ -33,8 +35,8 @@ function Router(props) {
         <Route exact path={routes.allBands} component={AllBands} />
         <Route exact path={routes.allBands} component={AllBands} />
         <Route exact path={routes.adminHome} component={HomeAdmin} />
-        <Route exact path={routes.approveBand} component={AllBands} />
-        <Route exact path={routes.createMusicalGenre} component={AllBands} />
+        <Route exact path={routes.approveBand} component={ApproveBand} />
+        <Route exact path={routes.createMusicalGenre} component={MusicGenre} />
         <Route exact path={routes.createOtherAdmin} component={SignOtherAdmin} />
       </Switch>
     </ConnectedRouter>
