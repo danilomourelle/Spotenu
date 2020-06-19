@@ -1,9 +1,9 @@
 import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
-import Home from "../HomePage";
-import Login from "../Login";
-import SignIn from "../SignIn";
+import Home from "../containers/HomePage";
+import Login from "../containers/Login";
+import SignIn from "../containers/SignIn";
 
 
 export const routes = {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { routes } from '../Router'
+import { routes } from '../../Router/router.js'
 import { BtnWhite, BtnGreen } from '../../components/Buttons'
 import { Input, Select } from '../../components/Input'
 

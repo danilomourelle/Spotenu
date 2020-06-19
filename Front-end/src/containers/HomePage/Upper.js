@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { routes } from '../Router'
+import { routes } from '../../Router/router.js'
 import { BtnGreen, BtnWhite } from '../../components/Buttons'
 
 const Wrapper = styled.div`
