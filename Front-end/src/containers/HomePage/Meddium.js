@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BtnWhite } from '../../components/Buttons'
-
+import { Link } from 'react-router-dom'
+import { routes } from '../../Router/router.js'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -47,7 +48,7 @@ function Meddium() {
     <Wrapper>
       <Titulo>É música que você quer?</Titulo>
       <SubTitle> Conheça os melhores lançamentos</SubTitle>
-      <BtnWhite> VEJA NOSSAS BANDAS </BtnWhite>
+      <Link to={routes.allBands}><BtnWhite> VEJA NOSSAS BANDAS </BtnWhite></Link>
       <ImageGrid>
         <img src='https://picsum.photos/300/300' alt='Imagem1'></img>
         <img src='https://picsum.photos/301/301' alt='Imagem1'></img>
