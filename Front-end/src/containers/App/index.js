@@ -20,7 +20,14 @@ const middlewares = [
 const store = createStore(generateReducers(history), compose(...middlewares));
 
 const GlobalStyle = createGlobalStyle`
-
+  * {
+    box-sizing:border-box;
+    margin:0;
+    font-family:  Arial, sans-serif;
+  }
+  body {
+    min-width: 800px;
+  }
 `
 
 export const App = () => (
