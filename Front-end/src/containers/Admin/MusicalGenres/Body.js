@@ -5,18 +5,24 @@ import { Input } from '../../../components/Input'
 
 const Wrapper = styled.main`
   width: 100%;
-  height: calc(100vh - 80px);
-  padding:80px 0;
+  max-width:800px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+  padding:80px 200px;
   display: flex;
   flex-direction:column;
   align-items:center;
-  justify-content: space-evenly;
+  justify-content: start;
+  h4{
+    font-size:1.2rem;
+    margin: 48px 0;
+  }
 `
 const GenreList = styled.div`
-  width: 80%;
+  width: 100%;
   height:300px;
+  margin-bottom:48px;
   overflow-y:scroll;
-  max-width:300px;
   border: 1px solid black;
   border-radius:5px;
   p{
@@ -26,7 +32,7 @@ const GenreList = styled.div`
   }
 `
 const Form = styled.form`
-  width: 80%;
+  width: 100%;
   max-width:400px;
   margin: 0 auto;
   display: grid;
@@ -39,6 +45,7 @@ function Body() {
   const array = ['um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro',]
   return (
     <Wrapper>
+      <h4>Lista de gêneros já cadastrados</h4>
       <GenreList>
         {array.map(elemtent => (<p>{elemtent}</p>))}
       </GenreList>

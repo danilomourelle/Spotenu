@@ -5,17 +5,22 @@ import { Select } from '../../../components/Input'
 
 const Wrapper = styled.main`
   width: 100%;
-  height: calc(100vh - 80px);
-  padding:80px 0;
+  max-width:800px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+  padding:80px 200px;
   display: flex;
   flex-direction:column;
   align-items:center;
-  justify-content: space-evenly;
-`
-const SelectorWrapper = styled.div`
-  width: 80%;
-  max-width:400px;
-  text-align:center;
+  justify-content: start;
+  h4 {
+    margin:48px 0;
+    font-size:1.2rem
+  }
+  select {
+    margin-bottom:40px;
+    text-align: right;
+  }
 `
 const BtnWrapper = styled.div`
   width: 80%;
@@ -28,14 +33,15 @@ const BtnWrapper = styled.div`
 `
 
 function Body() {
-  const array = ['um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro',  'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro',]
+  const array = ['um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro',]
   return (
     <Wrapper>
-      <SelectorWrapper>
+      <h4>Lista de bandas aguardando liberação</h4>
+      
         <Select>
           {array.map(elemtent => (<option>{elemtent}</option>))}
         </Select>
-      </SelectorWrapper>
+      
       <BtnWrapper>
         <BtnGreen>Aprovar Banda</BtnGreen>
         <BtnWhite>Aprovar todos</BtnWhite>

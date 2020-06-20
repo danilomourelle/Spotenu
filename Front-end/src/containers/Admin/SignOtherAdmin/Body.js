@@ -5,15 +5,21 @@ import { Input } from '../../../components/Input'
 
 const Wrapper = styled.main`
   width: 100%;
-  height: calc(100vh - 80px);
-  padding:150px 0;
+  max-width:800px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+  padding:80px 200px;
   display: flex;
   flex-direction:column;
   align-items:center;
-  justify-content: space-evenly;
+  justify-content: start;
+  h4 {
+    margin:48px 0;
+    font-size:1.2rem
+  }
 `
 const Form = styled.form`
-  width: 80%;
+  width: 100%;
   max-width:400px;
   margin: 0 auto;
   display: grid;
@@ -38,7 +44,7 @@ function Body() {
   console.log(form)
   return (
     <Wrapper>
-      <h3>Preencha os campos abaixo</h3>
+      <h4>Preencha os campos abaixo</h4>
       <Form>
         <Input name='name' type='text' placeholder='Nome' onChange={handleInputChange} />
         <Input name='nick' type='text' placeholder='ID do usuário' onChange={handleInputChange} />
