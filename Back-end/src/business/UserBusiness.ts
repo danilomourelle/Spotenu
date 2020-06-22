@@ -38,9 +38,9 @@ export class UserBusiness {
     if (newUserType === UserType.BAND && !description) {
       throw new InvalidParameterError("Users of type BAND need a description");
     }
-    if(newUserType === UserType.ADMIN && token){
+    if (newUserType === UserType.ADMIN && token) {
       const userData = this.tokenManager.retrieveDataFromToken(token)
-      if(userData.type !== UserType.ADMIN){
+      if (userData.type !== UserType.ADMIN) {
         throw new InvalidParameterError("Users of type ADMIN need to be created by another previous logged ADMIN user");
       }
     }
@@ -75,28 +75,28 @@ export class UserBusiness {
       )
     );
 
-    if(newUserType === UserType.CUSTOMER){
+    if (newUserType === UserType.CUSTOMER) {
       return new UserAuth(
         this.tokenManager.generateToken({
           id,
           isActive: false,
           type: newUserType
-        }), 
+        }),
         {
           id,
           isActive: false,
           type: newUserType
-        }, 
+        },
         201
       )
     }
     return new Creation("User created")
   }
 
- /*  public async login(
+  public async login(
     user: string,
     password: string,
-  ): Promise<Token> {
+  ): Promise<UserAuth> {
     if (!user || !password) {
       throw new InvalidParameterError("Missing input");
     }
@@ -107,7 +107,7 @@ export class UserBusiness {
       throw new NotFoundError("User Not Found")
     }
     if (userFound.getType() === UserType.BAND && !userFound.getIsActive()) {
-      throw new UnauthorizedError("Sua banda precisa ser aprovada para liberar essa função")
+      throw new UnauthorizedError("A BAND user needs to be approves first")
     }
 
     const isPasswordValid = await this.hashManager.compareHash(password, userFound.getPassword())
@@ -116,15 +116,18 @@ export class UserBusiness {
       throw new InvalidParameterError("Invalid Password")
     }
 
-    return new Token(
-      202,
+    return new UserAuth(
       this.tokenManager.generateToken({
         id: userFound.getId(),
         isActive: userFound.getIsActive(),
         type: userFound.getType()
-      })
-    )
-  } */
+      }),
+      {
+        id: userFound.getId(),
+        isActive: userFound.getIsActive(),
+        type: userFound.getType()
+      }, 202)
+  }
 
   public async getAllBands(
     token: string,

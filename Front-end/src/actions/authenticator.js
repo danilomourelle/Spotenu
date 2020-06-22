@@ -7,7 +7,6 @@ export const baseURL = 'http://localhost:3003' //TODO: Ajustar endereço
 //*****ASSÍNCRONAS*****//
 export const signIn = (form) => async (dispatch) => {
   try {
-    console.log('signIn', form)
     const previousToken = localStorage.getItem('token')
     const response = await axios.post(`${baseURL}/user/signIn`, form, {
       headers: {
@@ -17,7 +16,6 @@ export const signIn = (form) => async (dispatch) => {
     });
 
     const token = response.data.token
-    console.log(token, previousToken)
     if (token) {
       window.localStorage.setItem("token", token)
       dispatch(replace(routes.bandHome))
@@ -28,7 +26,7 @@ export const signIn = (form) => async (dispatch) => {
     }
     else {
       dispatch(replace(routes.home))
-    } 
+    }
   }
   catch (error) {
     console.error(error)
@@ -37,27 +35,27 @@ export const signIn = (form) => async (dispatch) => {
 
 export const login = (form) => async (dispatch) => {
   try {
-   /*  const response = await axios.post(`${baseURL}/endpoint`, form);
+    console.log('login', form )
+    const response = await axios.post(`${baseURL}/endpoint`, form);
 
     window.localStorage.setItem("token", response.data.token)
 
-    const userRole = response.data.userRole
-    dispatch(setUser(userRole))
+    const user = response.data.user
+    dispatch(setUser(user))
 
-    switch (userRole) {
+    switch (user.type) {
       case 'ADMIN':
         dispatch(push(routes.adminHome))
         break;
       case 'BAND':
-        dispatch(push(routes.bandHome))
+        user.isActive ? dispatch(push(routes.bandHome)) : dispatch(push(routes.home))
         break;
       default:
         //dispatch(push(routes.customerHome))
         break;
-    } */
-    console.log('login')
-
+    }
   }
+
   catch (error) {
     console.error(error)
   }

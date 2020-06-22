@@ -37,7 +37,7 @@ export class UserController {
         token
       );
 
-      res.status(result.statusCode || 201).send(result.message)
+      res.status(result.statusCode).send(result.message)
 
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
@@ -47,7 +47,7 @@ export class UserController {
   }
 
 
- /*  async login(req: Request, res: Response) {
+ async login(req: Request, res: Response) {
     try {
       const {
         user,
@@ -59,13 +59,13 @@ export class UserController {
         password
       );
 
-      res.status(result.msgCode).send({ token: result.token });
+      res.status(result.statusCode).send(result.message);
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {
       await BaseDatabase.desconnectDB()
     }
-  } */
+  }
 
   async getAllBands(req: Request, res: Response) {
     try {

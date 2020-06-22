@@ -6,7 +6,7 @@ export const userRouter = express.Router();
 const user = new UserController();
 
 userRouter.post("/signIn", user.signIn);
-// userRouter.post("/login", user.login)
+userRouter.post("/login", user.login)
 
 userRouter.get("/band", user.getAllBands)
 
