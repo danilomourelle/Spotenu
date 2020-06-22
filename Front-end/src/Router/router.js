@@ -10,22 +10,25 @@ import HomeAdmin from "../containers/Admin/Home";
 import ApproveBand from "../containers/Admin/ApproveBand";
 import MusicGenre from "../containers/Admin/MusicalGenres";
 import HomeBand from "../containers/Bands/Home";
-import EditAlbum from "../containers/Bands/EditAlbum";
-import EditMusic from "../containers/Bands/EditMusic";
+import MyAlbuns from '../containers/Bands/MyAlbuns'
+import EditMusic from "../containers/Bands/MyMusics";
 import NewAlbum from "../containers/Bands/NewAlbum";
 import NewMusic from "../containers/Bands/NewMusic";
 
 
 export const routes = {
+  //auth
   home: "/",
   login: "/login",
   signIn: "/signin",
-  allBands: "/bands/all",
-  bandHome: "/bands",
-  createAlbum: 'bands/album/create',
-  editAlbum: 'bands/album/edit',
-  createMusic: 'bands/music/create',
-  editMusic: 'bands/music/edit',
+  //bands
+  allBands: "/band/all",
+  bandHome: "/band",
+  createAlbum: '/band/create-album',
+  myAlbuns: '/band/my-albuns',
+  createMusic: '/band/create-music',
+  myMusics: '/band/my-music',
+  //admin
   adminHome:'/admin',
   approveBand:'/admin/approve',
   createMusicalGenre: '/admin/genre/create',
@@ -43,9 +46,9 @@ function Router(props) {
         <Route exact path={routes.bandHome} component={HomeBand} />
         <Route exact path={routes.allBands} component={AllBands} />
         <Route exact path={routes.createAlbum} component={NewAlbum} />
-        <Route exact path={routes.editAlbum} component={EditAlbum} />
+        <Route exact path={routes.myAlbuns} component={MyAlbuns} />
         <Route exact path={routes.createMusic} component={NewMusic} />
-        <Route exact path={routes.editMusic} component={EditMusic} />
+        <Route exact path={routes.myMusics} component={EditMusic} />
         <Route exact path={routes.adminHome} component={HomeAdmin} />
         <Route exact path={routes.approveBand} component={ApproveBand} />
         <Route exact path={routes.createMusicalGenre} component={MusicGenre} />

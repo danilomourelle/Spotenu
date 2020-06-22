@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { BtnGreen } from '../../../components/Buttons'
 import { Input } from '../../../components/Input'
-import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { createNewAlbum } from '../../../actions/band'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchMyMusicsList } from '../../../actions/band'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -16,9 +16,22 @@ const Wrapper = styled.main`
   flex-direction:column;
   align-items:center;
   justify-content: start;
-  h4 {
-    margin:48px 0;
-    font-size:1.2rem
+  h4{
+    font-size:1.2rem;
+    margin: 48px 0;
+  }
+`
+const GenreList = styled.div`
+  width: 100%;
+  height:300px;
+  margin-bottom:48px;
+  overflow-y:scroll;
+  border: 1px solid black;
+  border-radius:5px;
+  p{
+    text-align:end;
+    font-size:20px;
+    line-height:1.2em;
   }
 `
 const Form = styled.form`
@@ -32,15 +45,16 @@ const Form = styled.form`
 `
 
 function Body() {
-  const dispatch = useDispatch()
   const history = useHistory()
-
-  const [form, setForm] = useState({ userType: "ADMIN" })
+  const dispatch = useDispatch()
+  const [form, setForm] = useState({})
+  const myMusicsList = useSelector(state => state.band.myMusicsList)
 
   useEffect(() => {
     /* if(window.localStorage.getItem('token')){
       history.push(routes.home)
     } */
+    dispatch(fetchMyMusicsList())
   }, [history])
 
   const handleInputChange = (e) => {
@@ -50,21 +64,19 @@ function Body() {
     })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(createNewAlbum(form))
-  }
-
-  console.log(form)
+  
   return (
+
+    //TODO: Refazer static
+
     <Wrapper>
-      <h4>Preencha os campos abaixo</h4>
-      <Form onSubmit={handleSubmit}>
-        <Input name='name' type='text' placeholder='Nome' onChange={handleInputChange} />
-        <Input name='nick' type='text' placeholder='ID do usuário' onChange={handleInputChange} />
-        <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
-        <Input name='password' type='password' placeholder='Senha' onChange={handleInputChange} />
-        <BtnGreen>Enviar</BtnGreen>
+      <h4>Lista de gêneros já cadastrados</h4>
+      <GenreList>
+        {myMusicsList.map((music) => (<p key={music.id}>{music.name}</p>))}
+      </GenreList>
+      <Form>
+        <Input type='text' placeholder='Novo Gênero Musical' name='name' onChange={handleInputChange} />
+        <BtnGreen>Adicionar</BtnGreen>
       </Form>
     </Wrapper>
   )

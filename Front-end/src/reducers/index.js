@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
-import  reducer1 from "./example" 
 import authenticator from './authenticator'
 import admin from './admin'
+import band from "./band";
 
 export const generateReducers = history =>
   combineReducers({
     router: connectRouter(history),
-    reducer01: reducer1,
     authenticator: authenticator,
-    admin: admin
+    admin: admin,
+    band: band
     //outros reducers
   });

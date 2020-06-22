@@ -59,7 +59,7 @@ function Body() {
   return (
     <Wrapper>
       <h4>Preencha os campos abaixo</h4>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Input name='name' type='text' placeholder='Nome' onChange={handleInputChange} />
         <Input name='nick' type='text' placeholder='ID do usuário' onChange={handleInputChange} />
         <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
