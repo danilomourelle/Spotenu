@@ -1,8 +1,6 @@
-import axios from 'axios';
+/* import axios from 'axios';
 import { push } from "connected-react-router";
-import { routes } from '../Router/router';
-
-export const baseURL = 'link da base da API'
+import { routes } from '../Router/router'; */
 
 //*****ASSÍNCRONAS*****//
 export const fetchBandsToApprove = () => async (dispatch) => {
@@ -15,9 +13,10 @@ export const fetchBandsToApprove = () => async (dispatch) => {
       }
     });
 
-    const bandsListToApprove = response.data.bands
+    const bandsListToApprove = response.data.bands //TODO: Ajustar res.data
 
     dispatch(setBandListToApprove(bandsListToApprove)) */
+    console.log('fetch to aprove')
   }
   catch (error) {
     console.error(error)
@@ -32,11 +31,10 @@ export const approveBand = (id) => async (dispatch) => {
         authorization: token,
         "Content-Type": 'application/json'
       }
-    });
+    });*/
+    console.log('aprove band')
+    dispatch(fetchBandsToApprove()) 
     
-    const bandsListToApprove = response.data.bands
-    
-    dispatch(fetchBandsToApprove()) */
   }
   catch (error) {
     console.error(error)
@@ -53,10 +51,10 @@ export const fetchAllMusicGenre = () => async (dispatch) => {
       }
     });
 
-    const genreList = response.data.genreList
+    const genreList = response.data.genreList //TODO: Ajustar res.data
 
     dispatch(setGenreList(genreList)) */
-    console.log('fetch genreList')
+    console.log('fetch music genre')
   }
   catch (error) {
     console.error(error)
@@ -71,10 +69,9 @@ export const createNewMusicGenre = (name) => async (dispatch) => {
         authorization: token,
         "Content-Type": 'application/json'
       }
-    });
+    });*/
 
-    dispatch(fetchAllMusicGenre()) */
-    console.log('create music genre')
+    dispatch(fetchAllMusicGenre()) 
   }
   catch (error) {
     console.error(error)

@@ -1,13 +1,13 @@
-import axios from 'axios';
+/* import axios from 'axios';
 import { push } from "connected-react-router";
 import { routes } from '../Router/router';
-
-export const baseURL = 'link da base da API'
+ */
+export const baseURL = 'link da base da API' //TODO: Ajustar endereço
 
 //*****ASSÍNCRONAS*****//
 export const signIn = (form) => async (dispatch) => {
   try {
-    const previousToken = localStorage.getItem('token') || 'NO TOKEN'
+    /* const previousToken = localStorage.getItem('token') || 'NO TOKEN'
     const response = await axios.post(`${baseURL}/endpoint`, form, {
       headers: {
         authorization: previousToken,
@@ -26,8 +26,8 @@ export const signIn = (form) => async (dispatch) => {
     }
     else {
       dispatch(push(routes.home))
-    }
-    console.log(form)
+    } */
+    console.log('signIn')
   }
   catch (error) {
     console.error(error)
@@ -36,7 +36,7 @@ export const signIn = (form) => async (dispatch) => {
 
 export const login = (form) => async (dispatch) => {
   try {
-    const response = await axios.post(`${baseURL}/endpoint`, form);
+   /*  const response = await axios.post(`${baseURL}/endpoint`, form);
 
     window.localStorage.setItem("token", response.data.token)
 
@@ -53,7 +53,9 @@ export const login = (form) => async (dispatch) => {
       default:
         //dispatch(push(routes.customerHome))
         break;
-    }
+    } */
+    console.log('login')
+
   }
   catch (error) {
     console.error(error)

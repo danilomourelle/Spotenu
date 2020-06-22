@@ -1,17 +1,15 @@
 const initialState = {
   bandsListToApprove: [
     {name:'Buscando...', id: 'busca'},
-    {name:'Bus...', id: '002'}
+    
   ],
   genreList: [
-    {name:'Buscando...', id: 'busca'},
-    {name:'Bus...', id: '002'},
-    {name:'Buscando...', id: 'buscaa'},
-    {name:'Bus...', id: '002aaa'},
-    {name:'Buscando...', id: 'buscaaa'},
-    {name:'Bus...', id: '002a'},
-    {name:'Buscando...', id: 'buscaaaa'},
-    {name:'Bus...', id: '002aa'},
+    {name:'Genre1...', id: '001'},
+    {name:'Genre2...', id: '002'},
+    {name:'Genre3...', id: '003'},
+    {name:'Genre4...', id: '004'},
+    {name:'Genre5...', id: '005'},
+    {name:'Genre6...', id: '006'},
   ]
 }
 

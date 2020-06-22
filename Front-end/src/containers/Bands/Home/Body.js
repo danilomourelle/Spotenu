@@ -40,7 +40,7 @@ function Body() {
   return (
     <Wrapper>
       <Cards>
-        <Link to={routes.approveBand}>
+        <Link to={routes.createAlbum}>
           <img src='https://cdn.pixabay.com/photo/2016/11/21/12/59/electronics-1845272_960_720.jpg' alt='Aprovão de Banda' />
           <div>
             <p>Criar Album</p>
@@ -48,7 +48,7 @@ function Body() {
         </Link>
       </Cards>
       <Cards>
-        <Link to={routes.createOtherAdmin}>
+        <Link to={routes.myAlbuns}>
           <img src='https://cdn.pixabay.com/photo/2015/03/14/14/22/cd-673227_960_720.jpg' alt='Cadastro de Novo Admin' />
           <div>
             <p>Meus Albuns</p>
@@ -56,7 +56,7 @@ function Body() {
         </Link>
       </Cards>
       <Cards>
-        <Link to={routes.createMusicalGenre}>
+        <Link to={routes.createMusic}>
           <img src='https://cdn.pixabay.com/photo/2019/11/20/22/34/music-4641313_960_720.jpg' alt='Cadastro de Gênero Musical' />
           <div>
             <p>Adicionar Música</p>
@@ -64,7 +64,7 @@ function Body() {
         </Link>
       </Cards>
       <Cards>
-        <Link to={routes.createMusicalGenre}>
+        <Link to={routes.myMusics}>
           <img src='https://cdn.pixabay.com/photo/2016/08/10/20/52/mixing-1584267_960_720.jpg' alt='Cadastro de Gênero Musical' />
           <div>
             <p>Minhas Músicas</p>
