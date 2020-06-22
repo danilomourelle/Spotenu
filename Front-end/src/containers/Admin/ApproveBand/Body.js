@@ -45,9 +45,9 @@ function Body() {
   const [bandIdToApprove, setBandIdToApprove] = useState()
 
   useEffect(() => {
-    /* if(window.localStorage.getItem('token')){
+    if(!window.localStorage.getItem('token')){
       history.push(routes.home)
-    } */
+    } 
     dispatch(fetchBandsToApprove())
   }, [history])
 

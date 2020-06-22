@@ -16,12 +16,12 @@ export const signIn = (form) => async (dispatch) => {
     });
 
     const token = response.data.token
-    if (token) {
+    if (form.userType === "CUSTOMER") {
       window.localStorage.setItem("token", token)
       dispatch(replace(routes.bandHome))
       dispatch(setUser(response.data.user))
     }
-    else if (previousToken) {
+    else if (form.userType === "ADMIN") {
       dispatch(replace(routes.adminHome))
     }
     else {
@@ -36,7 +36,7 @@ export const signIn = (form) => async (dispatch) => {
 export const login = (form) => async (dispatch) => {
   try {
     console.log('login', form )
-    const response = await axios.post(`${baseURL}/endpoint`, form);
+    const response = await axios.post(`${baseURL}/user/login`, form);
 
     window.localStorage.setItem("token", response.data.token)
 

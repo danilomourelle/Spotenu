@@ -15,7 +15,7 @@ export class UserDatabase extends BaseDatabase {
         dbModel.email,
         dbModel.password,
         stringToUserType(dbModel.type),
-        super.convertTinyintToBoolean(dbModel.active),
+        super.convertTinyintToBoolean(dbModel.is_active),
         dbModel.description
       )
     )

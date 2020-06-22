@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 
 const Wrapper = styled.main`
@@ -34,6 +34,13 @@ const Cards = styled.section`
 `
 
 function Body() {
+  const history = useHistory()
+
+  useEffect(() => {
+    if (!window.localStorage.getItem('token')) {
+      history.push(routes.home)
+    }
+  }, [history])
 
   return (
     <Wrapper>
