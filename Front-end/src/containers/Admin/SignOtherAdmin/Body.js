@@ -4,6 +4,7 @@ import { BtnGreen } from '../../../components/Buttons'
 import { Input } from '../../../components/Input'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../../../actions/authenticator.js'
+import { useHistory } from 'react-router-dom'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -32,8 +33,15 @@ const Form = styled.form`
 
 function Body() {
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const [form, setForm] = useState({ userType: "ADMIN" })
+
+  useEffect(() => {
+    /* if(window.localStorage.getItem('token')){
+      history.push(routes.home)
+    } */
+  }, [history])
 
   const handleInputChange = (e) => {
     setForm({

@@ -53,10 +53,28 @@ export const fetchAllMusicGenre = () => async (dispatch) => {
       }
     });
 
-    const bandsListToApprove = response.data.bands
+    const genreList = response.data.genreList
 
-    dispatch(setBandListToApprove(bandsListToApprove)) */
-    console.log('foi')
+    dispatch(setGenreList(genreList)) */
+    console.log('fetch genreList')
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
+
+export const createNewMusicGenre = (name) => async (dispatch) => {
+  try {
+   /*  const token = localStorage.getItem('token')
+    const response = await axios.get(`${baseURL}/endpoint`, {
+      headers: {
+        authorization: token,
+        "Content-Type": 'application/json'
+      }
+    });
+
+    dispatch(fetchAllMusicGenre()) */
+    console.log('create music genre')
   }
   catch (error) {
     console.error(error)
@@ -69,5 +87,12 @@ export const setBandListToApprove = (bandsListToApprove) => (
   {
     type: 'SET_BAND_LIST_TO_APPROVE',
     payload: { bandsListToApprove }
+  }
+)
+
+export const setGenreList = (genreList) => (
+  {
+    type: 'SET_GENRE_LIST',
+    payload: { genreList }
   }
 )
