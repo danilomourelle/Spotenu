@@ -1,5 +1,6 @@
+import { BaseResponse } from "./BaseResponse";
+
 export class ContentList{
-  constructor(public message?: any[]) {
+  constructor(public message: any[], public statusCode: number = 200) {
   }
-  public msgCode: number = 200
 }

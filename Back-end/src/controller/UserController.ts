@@ -81,6 +81,20 @@ export class UserController {
     }
   }
 
+  async getBandsToApprove(req: Request, res: Response) {
+    try {
+      const token = req.headers.authorization as string;
+
+      const result = await UserController.UserBusiness.getBandsToApprove(token);
+
+      res.status(200).send({ bands: result.message });
+    } catch (err) {
+      res.status(err.errorCode || 400).send({ message: err.message });
+    } finally {
+      await BaseDatabase.desconnectDB()
+    }
+  }
+
   async approveBand(req: Request, res: Response) {
     try {
       const token = req.headers.authorization as string;

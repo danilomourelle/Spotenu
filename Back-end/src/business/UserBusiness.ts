@@ -150,7 +150,27 @@ export class UserBusiness {
         nickname: band.getNickname(),
         isActive: band.getIsActive()
       })))
+  }
 
+  public async getBandsToApprove(
+    token: string,
+  ): Promise<ContentList> {
+    if (!token) {
+      throw new InvalidParameterError("Missing input");
+    }
+
+    const userData = this.tokenManager.retrieveDataFromToken(token)
+    if (userData.type !== UserType.ADMIN) {
+      throw new UnauthorizedError("Access denied")
+    }
+
+    const bandList = await this.userDatabase.getBandsToApprove()
+
+    return new ContentList(
+      bandList.map(band => ({
+        id: band.getId(),
+        name: band.getName(),
+      })))
   }
 
   public async approveBand(

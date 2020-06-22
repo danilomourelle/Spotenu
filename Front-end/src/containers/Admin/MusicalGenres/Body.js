@@ -48,7 +48,7 @@ const Form = styled.form`
 function Body() {
   const history = useHistory()
   const dispatch = useDispatch()
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState({name: ''})
   const genreList = useSelector(state => state.admin.genreList)
 
   useEffect(() => {
@@ -68,9 +68,9 @@ function Body() {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(createNewMusicGenre(form))
+    setForm({name:''})
   }
-  console.log(form.name)
-  const array = ['um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro',]
+console.log(form)
   return (
     <Wrapper>
       <h4>Lista de gêneros já cadastrados</h4>
@@ -78,7 +78,7 @@ function Body() {
         {genreList.map((genre) => (<p key={genre.id}>{genre.name}</p>))}
       </GenreList>
       <Form onSubmit={handleSubmit}>
-        <Input type='text' placeholder='Novo Gênero Musical' name='name' onChange={handleInputChange} />
+        <Input type='text' placeholder='Novo Gênero Musical' value={form.name} name='name' onChange={handleInputChange} />
         <BtnGreen>Adicionar</BtnGreen>
       </Form>
     </Wrapper>

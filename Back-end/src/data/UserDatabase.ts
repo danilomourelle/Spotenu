@@ -66,6 +66,18 @@ export class UserDatabase extends BaseDatabase {
     })
   }
 
+  public async getBandsToApprove(): Promise<User[]> {
+    const result = await this.setConnection()
+      .select("*")
+      .from(UserDatabase.TABLE_NAME)
+      .where({ type: UserType.BAND })
+      .andWhere({is_active: super.convertBooleanToTinyint(false)});
+
+    return result.map((band: any) => {
+      return this.toModel(band) as User
+    })
+  }
+
   public async activateUser(id: string): Promise<void> {
     await this.setConnection()
       .update({ active: super.convertBooleanToTinyint(true) })
