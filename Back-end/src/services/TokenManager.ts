@@ -1,4 +1,5 @@
 import * as jwt from "jsonwebtoken";
+import { UserType } from "../models/User";
 
 export class TokenManager {
   public generateToken(payload: any): string {
@@ -7,7 +8,18 @@ export class TokenManager {
     );
   }
 
-  public retrieveDataFromToken(token: string): any {
-    return jwt.verify(token, process.env.JWT_KEY as string);
+  public retrieveDataFromToken(token: string): TokenContent {
+    const data = jwt.verify(token, process.env.JWT_KEY as string) as any;
+    return {
+      isActive: data.isActive,
+      type: data.type,
+      id: data.id
+    }
   }
+}
+
+interface TokenContent {
+  isActive: boolean,
+  type: UserType,
+  id: string
 }

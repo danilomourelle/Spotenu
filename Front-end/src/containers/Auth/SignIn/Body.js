@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { routes } from '../../Router/router.js'
-import { BtnWhite, BtnGreen } from '../../components/Buttons'
-import { Input, Select } from '../../components/Input'
+import { routes } from '../../../Router/router.js'
+import { BtnWhite, BtnGreen } from '../../../components/Buttons'
+import { Input, Select } from '../../../components/Input'
 import { useDispatch } from 'react-redux'
-import { signIn } from '../../actions/authenticator.js'
+import { signIn } from '../../../actions/authenticator.js'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -56,10 +56,11 @@ function Body() {
       <h3>Preencha os campos abaixo</h3>
       <Form onSubmit={handleSubmit}>
         <Input name='name' type='text' placeholder='Nome' onChange={handleInputChange} />
-        <Input name='nick' type='text' placeholder='Nickname' onChange={handleInputChange} />
+        <Input name='nickname' type='text' placeholder='Nickname' onChange={handleInputChange} />
         <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
         <Input name='password' type='password' placeholder='Senha' onChange={handleInputChange} />
-        {form.userType === "BAND" && <Input type='text' name='description' placeholder='Description' onChange={handleInputChange} />}
+        {form.userType === "BAND" && 
+        <Input type='text' name='description' placeholder='Description' onChange={handleInputChange} />}
         <Select name='userType' onChange={handleInputChange}>
           <option value='CUSTOMER'>Ouvinte</option>
           <option value='BAND'>Banda / Cantor</option>

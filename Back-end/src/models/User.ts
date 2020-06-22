@@ -54,7 +54,7 @@ export const stringToUserType = (input: string): UserType => {
     case "CUSTOMER":
       return UserType.CUSTOMER;
     default:
-      throw new InvalidParameterError("Invalid user role");
+      throw new InvalidParameterError("Invalid user type");
   }
 };
 

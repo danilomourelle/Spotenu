@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { routes } from '../../Router/router.js'
-import { BtnWhite, BtnGreen } from '../../components/Buttons'
-import { Input } from '../../components/Input'
+import { routes } from '../../../Router/router.js'
+import { BtnWhite, BtnGreen } from '../../../components/Buttons'
+import { Input } from '../../../components/Input'
 import { useDispatch } from 'react-redux'
-import { login } from '../../actions/authenticator.js'
+import { login } from '../../../actions/authenticator.js'
 
 const Wrapper = styled.main`
   width: 100%;

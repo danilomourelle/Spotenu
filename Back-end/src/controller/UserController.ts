@@ -5,7 +5,6 @@ import { UserDatabase } from "../data/UserDatabase";
 import { HashManager } from "../services/HashManager";
 import { IdManager } from "../services/IdManager";
 import { BaseDatabase } from "../data/BaseDatabase";
-import { Create } from "../messages/Create";
 
 export class UserController {
   private static UserBusiness = new UserBusiness(
@@ -15,76 +14,31 @@ export class UserController {
     new IdManager
   )
 
-  async signupBand(req: Request, res: Response) {
+  async signIn(req: Request, res: Response) {
     try {
       const {
         name,
         nickname,
         email,
         password,
-        description
-      } = req.body;
-
-     const result = await UserController.UserBusiness.signupBand(
-        name,
-        nickname,
-        email,
-        password,
-        description
-      );
-
-      res.sendStatus(result.msgCode);
-    } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
-      await BaseDatabase.desconnectDB()
-    }
-  }
-
-  async signupCustomer(req: Request, res: Response) {
-    try {
-      const {
-        name,
-        nickname,
-        email,
-        password,
-      } = req.body;
-
-      const result = await UserController.UserBusiness.signupCustomer(
-        name,
-        nickname,
-        email,
-        password,
-      );
-
-      res.status(result.msgCode).send({ token: result.token });
-    } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
-      await BaseDatabase.desconnectDB()
-    }
-  }
-
-  async signupAdmin(req: Request, res: Response) {
-    try {
-      const {
-        name,
-        nickname,
-        email,
-        password,
+        description,
+        userType
       } = req.body;
 
       const token = req.headers.authorization as string
 
-      const result = await UserController.UserBusiness.signupAdmin(
+      const result = await UserController.UserBusiness.signIn(
         name,
         nickname,
         email,
         password,
+        userType,
+        description,
         token
       );
 
-      res.status(result.msgCode).send({ token: result.token });
+      res.status(result.statusCode || 201).send(result.message)
+
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {
@@ -92,7 +46,8 @@ export class UserController {
     }
   }
 
-  async login(req: Request, res: Response) {
+
+ /*  async login(req: Request, res: Response) {
     try {
       const {
         user,
@@ -110,7 +65,7 @@ export class UserController {
     } finally {
       await BaseDatabase.desconnectDB()
     }
-  }
+  } */
 
   async getAllBands(req: Request, res: Response) {
     try {
@@ -118,7 +73,7 @@ export class UserController {
 
       const result = await UserController.UserBusiness.getAllBands(token);
 
-      res.status(200).send({bands: result.message});
+      res.status(200).send({ bands: result.message });
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {

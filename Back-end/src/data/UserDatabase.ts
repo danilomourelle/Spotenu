@@ -30,7 +30,7 @@ export class UserDatabase extends BaseDatabase {
         email: user.getEmail(),
         password: user.getPassword(),
         type: user.getType(),
-        active: super.convertBooleanToTinyint(user.getIsActive()),
+        is_active: super.convertBooleanToTinyint(user.getIsActive()),
         description: user.getDescription() || null
       })
       .into(UserDatabase.TABLE_NAME);

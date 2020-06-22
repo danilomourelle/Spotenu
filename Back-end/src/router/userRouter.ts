@@ -5,10 +5,8 @@ export const userRouter = express.Router();
 
 const user = new UserController();
 
-userRouter.post("/signup", user.signupBand);
-userRouter.post("/signup", user.signupCustomer);
-userRouter.post("/signup", user.signupAdmin)
-userRouter.post("/login", user.login)
+userRouter.post("/signIn", user.signIn);
+// userRouter.post("/login", user.login)
 
 userRouter.get("/band", user.getAllBands)
 
