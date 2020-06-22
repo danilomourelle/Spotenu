@@ -1,8 +1,8 @@
-import { BaseDatabase } from "../data copy/BaseDatabase";
+import { BaseDatabase } from "./BaseDatabase";
 import { AlbumGenre } from "../models/AlbumGenre";
 
 export class AlbumGenreDatabase extends BaseDatabase{
-  public static TABLE_NAME: string = 'Spotenu_AlbunsGenre'
+  public static TABLE_NAME: string = 'AlbunsGenreRelation'
   
   public async createAlbumGenre(albumGenre: AlbumGenre): Promise<void> {
     await this.setConnection()

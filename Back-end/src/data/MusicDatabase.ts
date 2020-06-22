@@ -1,12 +1,12 @@
-import { BaseDatabase } from "../data copy/BaseDatabase";
+import { BaseDatabase } from "./BaseDatabase";
 import { Music } from "../models/Music";
 import { AlbumDatabase} from './AlbumDatabase'
 import { UserDatabase } from "./UserDatabase";
 import { AlbumGenreDatabase } from "./AlbumGenreDatabase";
-import { MusicGenreDatabase } from "./MusicGenreDatabase";
+import { GenreDatabase } from "./GenreDatabase";
 
 export class MusicDatabase extends BaseDatabase {
-  public static TABLE_NAME: string = 'Spotenu_Music'
+  public static TABLE_NAME: string = 'Music'
 
   private toModel(dbModel?: any): Music | undefined {
     return (
@@ -15,7 +15,8 @@ export class MusicDatabase extends BaseDatabase {
         dbModel.id,
         dbModel.name,
         dbModel.album_id,
-        dbModel.band_id
+        dbModel.band_id,
+        dbModel.source_link
       )
     )
   }

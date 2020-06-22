@@ -1,9 +1,9 @@
-import { BaseDatabase } from "../data copy/BaseDatabase";
+import { BaseDatabase } from "./BaseDatabase";
 import { Playlist } from "../models/Playlist";
 import { UserPlaylistRelationDatabase } from "./UserPlaylistRelationDatabase";
 
 export class PlaylistDatabase extends BaseDatabase {
-  public static TABLE_NAME: string = 'Spotenu_Playlist'
+  public static TABLE_NAME: string = 'Playlist'
 
   private toModel(dbModel?: any): Playlist | undefined {
     return (
@@ -22,7 +22,7 @@ export class PlaylistDatabase extends BaseDatabase {
       .insert({
         id: playlist.getId(),
         name: playlist.getName(),
-        privacy: super.convertBooleanToTinyint(playlist.getIsPrivate()),
+        is_collaborative: super.convertBooleanToTinyint(playlist.getIsCollaborative()),
         customer_id: playlist.getCustomerId()
       })
       .into(PlaylistDatabase.TABLE_NAME);

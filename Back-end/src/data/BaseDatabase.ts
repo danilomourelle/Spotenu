@@ -4,7 +4,7 @@ import Knex from 'knex'
 export abstract class BaseDatabase {
   private static CONNECTION_KNEX: Knex | null = null
 
-  protected getConnection() {
+  protected setConnection() {
     if (BaseDatabase.CONNECTION_KNEX === null) {
       BaseDatabase.CONNECTION_KNEX = knex({
         client: "mysql",

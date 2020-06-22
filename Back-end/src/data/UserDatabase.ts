@@ -1,8 +1,8 @@
-import { BaseDatabase } from "../data copy/BaseDatabase";
+import { BaseDatabase } from "./BaseDatabase";
 import { User, stringToUserType, UserType } from "../models/User";
 
 export class UserDatabase extends BaseDatabase {
-  public static TABLE_NAME: string = "Spotenu_Users";
+  public static TABLE_NAME: string = "User";
 
 
   private toModel(dbModel?: any): User | undefined {

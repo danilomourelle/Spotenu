@@ -1,8 +1,8 @@
-import { BaseDatabase } from "../data copy/BaseDatabase";
+import { BaseDatabase } from "./BaseDatabase";
 import { MusicPlaylistRelation } from "../models/MusicPlaylisRelation";
 
 export class MusicPlaylistRelationDatabase extends BaseDatabase {
-  public static TABLE_NAME: string = 'Spotenu_MusicPlaylistRelation'
+  public static TABLE_NAME: string = 'MusicPlaylistRelation'
 
   private toModel(dbModel?: any): MusicPlaylistRelation | undefined {
     return (
