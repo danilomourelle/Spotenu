@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { BtnGreen } from '../../../components/Buttons'
 import { Input } from '../../../components/Input'
 import { useDispatch } from 'react-redux'
-import { signIn } from '../../../actions/authenticator.js'
+import { createNewMusic } from '../../../actions/band'
 import { useHistory } from 'react-router-dom'
 
 const Wrapper = styled.main`
@@ -52,14 +52,14 @@ function Body() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(signIn(form))
+    dispatch(createNewMusic(form))
   }
 
   console.log(form)
   return (
     <Wrapper>
       <h4>Preencha os campos abaixo</h4>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Input name='name' type='text' placeholder='Nome' onChange={handleInputChange} />
         <Input name='nick' type='text' placeholder='ID do usuário' onChange={handleInputChange} />
         <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
