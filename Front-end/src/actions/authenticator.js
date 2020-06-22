@@ -63,9 +63,9 @@ export const login = (form) => async (dispatch) => {
 }
 
 //*****SÍNCRONAS*****//
-export const setUserType = (userType) => (
+export const setUserType = (user) => (
   {
-    type: 'SET_USER_TYPE',
-    payload: { userType }
+    type: 'SET_USER',
+    payload: { user }
   }
 )
