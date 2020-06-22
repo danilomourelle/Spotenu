@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { push } from "connected-react-router";
-import { routes } from '../containers/Router/index';
+import { routes } from '../Router/router';
 
 export const baseURL = 'link da base da API'
 
@@ -16,7 +16,7 @@ export const functionName1 = (infoFromComponent) => async (dispatch) => {
     dispatch(functionName2(info))
 
     dispatch(push(routes.page1))
-    
+
   }
   catch (error) {
     console.error(error)

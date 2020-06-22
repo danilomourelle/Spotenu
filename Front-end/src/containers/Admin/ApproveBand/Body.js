@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { BtnGreen, BtnWhite } from '../../../components/Buttons'
 import { Select } from '../../../components/Input'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { routes } from '../../../Router/router'
+import { fetchBandsToApprove, approveBand } from '../../../actions/admin.js'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -33,18 +37,49 @@ const BtnWrapper = styled.div`
 `
 
 function Body() {
-  const array = ['um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro', 'um', 'dois', 'tres', 'quatro',]
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+  const bandsListToApprove = useSelector(state => state.admin.bandsListToApprove)
+
+  const [bandIdToApprove, setBandIdToApprove] = useState()
+
+  useEffect(() => {
+    /* if(window.localStorage.getItem('token')){
+      history.push(routes.home)
+    } */
+    dispatch(fetchBandsToApprove())
+  }, [history])
+
+  const handleInputChange = e => {
+    setBandIdToApprove(e.target.value)
+  }
+
+  const handleApproveBand = () => {
+    dispatch(approveBand(bandIdToApprove))
+  }
+  const handleApproveAllBands =() => {
+    const allBandsId = bandsListToApprove.map(band => (
+      band.id
+    ))
+    dispatch(approveBand(allBandsId))
+  }
+  
   return (
     <Wrapper>
       <h4>Lista de bandas aguardando liberação</h4>
-      
-        <Select>
-          {array.map(elemtent => (<option>{elemtent}</option>))}
-        </Select>
-      
+
+      <Select onChange={handleInputChange} disabled={bandsListToApprove.length === 0} value={bandIdToApprove}>
+        {bandsListToApprove.length > 0 ?
+          bandsListToApprove.map(band => (
+            <option value={band.id} key={band.id}>{band.name}</option>
+          )) :
+          <option value={'sei lá'}>Nenhuma banda para Aprovar</option>}
+      </Select>
+
       <BtnWrapper>
-        <BtnGreen>Aprovar Banda</BtnGreen>
-        <BtnWhite>Aprovar todos</BtnWhite>
+        <BtnGreen onClick={handleApproveBand}>Aprovar Banda</BtnGreen>
+        <BtnWhite onClick={handleApproveAllBands}>Aprovar todos</BtnWhite>
       </BtnWrapper>
 
     </Wrapper>

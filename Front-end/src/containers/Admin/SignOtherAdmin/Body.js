@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { BtnGreen } from '../../../components/Buttons'
 import { Input } from '../../../components/Input'
+import { useDispatch } from 'react-redux'
+import { signIn } from '../../../actions/authenticator.js'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -29,11 +31,9 @@ const Form = styled.form`
 `
 
 function Body() {
-  const [form, setForm] = useState({ userType: "CUSTOMER" })
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-
-  }, [])
+  const [form, setForm] = useState({ userType: "ADMIN" })
 
   const handleInputChange = (e) => {
     setForm({
@@ -41,6 +41,12 @@ function Body() {
       [e.target.name]: e.target.value
     })
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(signIn(form))
+  }
+
   console.log(form)
   return (
     <Wrapper>

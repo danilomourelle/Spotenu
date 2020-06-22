@@ -1,7 +1,7 @@
 const initialState = {
   state1: [],
   state2: undefined,
-  state3: ''
+  state3: 'testeeeeeeeeeeeeeeeeeeeeeeee'
 }
 
 const reducer1 = (state = initialState, action) => {
@@ -20,9 +20,7 @@ const reducer1 = (state = initialState, action) => {
         ...state, state3: action.payload.info3
       }
     default:
-      return {
-        ...state
-      }
+      return state
   }
 }
 

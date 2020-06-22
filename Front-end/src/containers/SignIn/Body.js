@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { routes } from '../../Router/router.js'
 import { BtnWhite, BtnGreen } from '../../components/Buttons'
 import { Input, Select } from '../../components/Input'
+import { useDispatch } from 'react-redux'
+import { signIn } from '../../actions/authenticator.js'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -33,6 +35,8 @@ const BottonWrapper = styled.div`
 `
 
 function Body() {
+  const dispatch = useDispatch()
+
   const [form, setForm] = useState({ userType: "CUSTOMER" })
 
   const handleInputChange = (e) => {
@@ -41,13 +45,18 @@ function Body() {
       [e.target.name]: e.target.value
     })
   }
-  console.log(form)
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(signIn(form))
+  }
+
   return (
     <Wrapper>
       <h3>Preencha os campos abaixo</h3>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Input name='name' type='text' placeholder='Nome' onChange={handleInputChange} />
-        <Input name='nick' type='text' placeholder='ID do usuário' onChange={handleInputChange} />
+        <Input name='nick' type='text' placeholder='Nickname' onChange={handleInputChange} />
         <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
         <Input name='password' type='password' placeholder='Senha' onChange={handleInputChange} />
         {form.userType === "BAND" && <Input type='text' name='description' placeholder='Description' onChange={handleInputChange} />}
