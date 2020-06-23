@@ -47,7 +47,7 @@ export class UserController {
   }
 
 
- async login(req: Request, res: Response) {
+  async login(req: Request, res: Response) {
     try {
       const {
         user,
@@ -87,7 +87,7 @@ export class UserController {
 
       const result = await UserController.UserBusiness.getBandsToApprove(token);
 
-      res.status(200).send({ bands: result.message });
+      res.status(result.statusCode).send({ bands: result.message });
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {
@@ -99,10 +99,26 @@ export class UserController {
     try {
       const token = req.headers.authorization as string;
       const id = req.params.id
-
+    
       const result = await UserController.UserBusiness.approveBand(token, id);
+      await BaseDatabase.desconnectDB()
+      res.sendStatus(result.statusCode);
+    } catch (err) {
+      res.status(err.errorCode || 400).send({ message: err.message });
+    } finally {
+      await BaseDatabase.desconnectDB()
+    }
+  }
 
-      res.sendStatus(result.msgCode);
+  async approveAllBands(req: Request, res: Response) {
+    try {
+      const token = req.headers.authorization as string;
+      const idList = req.body.idList as string[]
+      console.log('2', idList)
+
+      const result = await UserController.UserBusiness.approveAllBands(token, idList);
+      await BaseDatabase.desconnectDB()
+      res.sendStatus(result.statusCode);
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {
@@ -111,18 +127,18 @@ export class UserController {
   }
 
   async approveCustomer(req: Request, res: Response) {
-    try {
-      const token = req.headers.authorization as string;
-      const id = req.params.id
-
-      const result = await UserController.UserBusiness.approveCustomer(token, id);
-
-      res.sendStatus(result.msgCode);
-    } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
-      await BaseDatabase.desconnectDB()
-    }
+    /*  try {
+       const token = req.headers.authorization as string;
+       // const id: string[] = [].push(req.params.id as string)
+ 
+       const result = await UserController.UserBusiness.approveCustomer(token, id);
+ 
+       res.sendStatus(result.msgCode);
+     } catch (err) {
+       res.status(err.errorCode || 400).send({ message: err.message });
+     } finally {
+       await BaseDatabase.desconnectDB()
+     } */
   }
 
   async updateUser(req: Request, res: Response) {
@@ -132,7 +148,7 @@ export class UserController {
 
       const result = await UserController.UserBusiness.updateUser(token, name);
 
-      res.sendStatus(result.msgCode);
+      res.sendStatus(result.statusCode);
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {

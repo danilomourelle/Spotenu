@@ -51,11 +51,11 @@ export class UserBusiness {
       throw new InvalidParameterError("Invalid password");
     }
 
-    let result = await this.userDatabase.getUserEmailorNick(email)
+    let result = await this.userDatabase.getUserByEmailorNick(email)
     if (result) {
       throw new InvalidParameterError("Email já cadastrado");
     }
-    result = await this.userDatabase.getUserEmailorNick(nickname)
+    result = await this.userDatabase.getUserByEmailorNick(nickname)
     if (result) {
       throw new InvalidParameterError("Nickname já cadastrado");
     }
@@ -101,7 +101,7 @@ export class UserBusiness {
       throw new InvalidParameterError("Missing input");
     }
 
-    const userFound = await this.userDatabase.getUserEmailorNick(user)
+    const userFound = await this.userDatabase.getUserByEmailorNick(user)
 
     if (!userFound) {
       throw new NotFoundError("User Not Found")
@@ -177,7 +177,7 @@ export class UserBusiness {
     token: string,
     id: string
   ): Promise<GenericResult> {
-    if (!token) {
+    if (!token || !id) {
       throw new InvalidParameterError("Missing input");
     }
 
@@ -186,7 +186,7 @@ export class UserBusiness {
       throw new UnauthorizedError("Access denied")
     }
 
-    const userFound = await this.userDatabase.getUserId(id)
+    const userFound = await this.userDatabase.getUserById(id)
     if (!userFound) {
       throw new NotFoundError("User Not Found")
     }
@@ -197,16 +197,16 @@ export class UserBusiness {
       throw new GenericError("User already approved")
     }
 
-    await this.userDatabase.activateUser(id)
+    await this.userDatabase.activate(id)
 
     return new GenericResult()
   }
 
-  public async approveCustomer(
+  public async approveAllBands(
     token: string,
-    id: string
+    idList: string[],
   ): Promise<GenericResult> {
-    if (!token) {
+    if (!token || (idList.length === 0)) {
       throw new InvalidParameterError("Missing input");
     }
 
@@ -215,21 +215,39 @@ export class UserBusiness {
       throw new UnauthorizedError("Access denied")
     }
 
-    const userFound = await this.userDatabase.getUserId(id)
-    if (!userFound) {
-      throw new NotFoundError("User Not Found")
-    }
-    if (userFound.getType() !== UserType.CUSTOMER) {
-      throw new GenericError("User not a customer")
-    }
-    if (userFound.getIsActive()) {
-      throw new GenericError("User already approved")
-    }
-
-    await this.userDatabase.activateUser(id)
+    await this.userDatabase.activateAll(idList)
 
     return new GenericResult()
   }
+
+  /*  public async approveCustomer(
+     token: string,
+     id: string[]
+   ): Promise<GenericResult> {
+     if (!token) {
+       throw new InvalidParameterError("Missing input");
+     }
+ 
+     const userData = this.tokenManager.retrieveDataFromToken(token)
+     if (userData.type !== UserType.ADMIN) {
+       throw new UnauthorizedError("Access denied")
+     }
+ 
+     const userFound = await this.userDatabase.getUserById(id[0])
+     if (!userFound) {
+       throw new NotFoundError("User Not Found")
+     }
+     if (userFound.getType() !== UserType.CUSTOMER) {
+       throw new GenericError("User not a customer")
+     }
+     if (userFound.getIsActive()) {
+       throw new GenericError("User already approved")
+     }
+ 
+     await this.userDatabase.activate(id)
+ 
+     return new GenericResult()
+   } */
 
   public async updateUser(
     token: string,
@@ -241,7 +259,7 @@ export class UserBusiness {
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
 
-    const userFound = await this.userDatabase.getUserId(userData.id)
+    const userFound = await this.userDatabase.getUserById(userData.id)
     if (!userFound) {
       throw new NotFoundError("User Not Found")
     }

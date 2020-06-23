@@ -36,7 +36,7 @@ export class UserDatabase extends BaseDatabase {
       .into(UserDatabase.TABLE_NAME);
   }
 
-  public async getUserEmailorNick(user: string): Promise<User | undefined> {
+  public async getUserByEmailorNick(user: string): Promise<User | undefined> {
     const result = await this.setConnection()
       .select("*")
       .from(UserDatabase.TABLE_NAME)
@@ -46,11 +46,11 @@ export class UserDatabase extends BaseDatabase {
     return this.toModel(result[0]);
   }
 
-  public async getUserId(id: string): Promise<User | undefined> {
+  public async getUserById(id: string): Promise<User | undefined> {
     const result = await this.setConnection()
       .select("*")
       .from(UserDatabase.TABLE_NAME)
-      .where({ id });
+      .where({ id })
 
     return this.toModel(result[0]);
   }
@@ -71,18 +71,25 @@ export class UserDatabase extends BaseDatabase {
       .select("*")
       .from(UserDatabase.TABLE_NAME)
       .where({ type: UserType.BAND })
-      .andWhere({is_active: super.convertBooleanToTinyint(false)});
+      .andWhere({ is_active: super.convertBooleanToTinyint(false) });
 
     return result.map((band: any) => {
       return this.toModel(band) as User
     })
   }
 
-  public async activateUser(id: string): Promise<void> {
+  public async activate(id:string): Promise<void> {
     await this.setConnection()
-      .update({ active: super.convertBooleanToTinyint(true) })
+      .update({ is_active: super.convertBooleanToTinyint(true) })
       .from(UserDatabase.TABLE_NAME)
-      .where({ id });
+      .where({ id }) 
+  }
+
+  public async activateAll(idList:string[]): Promise<void> {
+    await this.setConnection()
+      .update({ is_active: super.convertBooleanToTinyint(true) })
+      .from(UserDatabase.TABLE_NAME)
+      .whereIn('id', idList) 
   }
 
   public async update(id: string, name: string): Promise<void> {
