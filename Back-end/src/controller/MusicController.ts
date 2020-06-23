@@ -22,7 +22,7 @@ export class MusicController {
 
       const result = await MusicController.MusicBusiness.create(name, albumId, token);
 
-      res.sendStatus(result.msgCode)
+      res.sendStatus(result.statusCode)
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {

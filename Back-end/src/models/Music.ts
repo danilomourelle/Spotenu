@@ -4,7 +4,7 @@ export class Music{
     private name: string,
     private albumId: string,
     private bandId: string,
-    private sourceLink: string
+    private sourceLink?: string
   ){}
 
   public getId(): string {
@@ -23,7 +23,7 @@ export class Music{
     return this.bandId
   }
 
-  public getSourceLink(): string {
+  public getSourceLink(): string | undefined {
     return this.sourceLink
   }
 }

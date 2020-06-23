@@ -20,16 +20,13 @@ export const createNewAlbum = (form) => async (dispatch) => {
 export const createNewMusic = (form) => async (dispatch) => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.get(`${baseURL}/endpoint`, {
+    await axios.post(`${baseURL}/music/create`, form, {
       headers: {
         authorization: token,
         "Content-Type": 'application/json'
       }
     });
-
-    const myMusicsList = response.data.bands //TODO: Ajustar res.data
-
-    dispatch(setMusicsList(myMusicsList))
+     //TODO: Ajustar res.data
     console.log('create new music')
   }
   catch (error) {
@@ -50,7 +47,6 @@ export const fetchMyAlbunsList = () => async (dispatch) => {
     const myAlbunsList = response.data.albuns //TODO: Ajustar res.data
 
     dispatch(setMyAlbunsList(myAlbunsList))
-    console.log('fetch albuns list')
   }
   catch (error) {
     console.error(error)

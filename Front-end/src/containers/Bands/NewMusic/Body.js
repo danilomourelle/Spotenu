@@ -36,7 +36,7 @@ function Body() {
   const dispatch = useDispatch()
   const history = useHistory()
   const myAlbunsList = useSelector(state => state.band.myAlbunsList)
-  const [form, setForm] = useState({ name: '', playlistId: '' })
+  const [form, setForm] = useState({ name: '', albumId: '' })
 
   useEffect(() => {
     if (!window.localStorage.getItem('token')) {
@@ -49,7 +49,7 @@ function Body() {
     if (myAlbunsList.length > 0) {
       setForm({
         ...form,
-        playlistId: myAlbunsList[0].id
+        albumId: myAlbunsList[0].id
       })
     }
     else {
@@ -72,7 +72,7 @@ function Body() {
     dispatch(createNewMusic(form))
     setForm({
       name: '',
-      playlistId: myAlbunsList[0].id
+      albumId: myAlbunsList[0].id
     })
   }
 
@@ -82,7 +82,7 @@ function Body() {
       <h4>Preencha os campos abaixo</h4>
       <Form onSubmit={handleSubmit}>
         <Input name='name' type='text' value={form.name} placeholder='Nome da música' onChange={handleInputChange} />
-        <Select name='playlistId' value={form.playlistId} onChange={handleInputChange} disabled={myAlbunsList.length === 0}>
+        <Select name='albumId' value={form.playlistId} onChange={handleInputChange} disabled={myAlbunsList.length === 0}>
           {myAlbunsList.length > 0 ?
             myAlbunsList.map(album => (
               <option value={album.id} key={album.id}>{album.name}</option>

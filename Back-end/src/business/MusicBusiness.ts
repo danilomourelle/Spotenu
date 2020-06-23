@@ -10,7 +10,7 @@ import { NotFoundError } from "../errors/NotFoundError";
 import { Music } from "../models/Music";
 import { ContentList } from "../messages/ContentList";
 import { GenericResult } from "../messages/GenericResult";
-import { Create } from "../messages/Create";
+import { Creation } from "../messages/Creation";
 
 
 export class MusicBusiness {
@@ -21,7 +21,7 @@ export class MusicBusiness {
     private idManager: IdManager
   ) { }
 
-  public async create(name: string, albumId: string, token: string):Promise<Create> {
+  public async create(name: string, albumId: string, token: string):Promise<Creation> {
     if (!name || !token || !albumId) {
       throw new InvalidParameterError("Missing input");
     }
@@ -31,17 +31,17 @@ export class MusicBusiness {
       throw new UnauthorizedError("Access denied")
     }
 
-    const album = await this.albumDatabase.getAlbumById(albumId)
+    const album = await this.albumDatabase.getAlbumByIdOrName(albumId)
     if (!album) {
-      throw new NotFoundError("Album não encontrado")
+      throw new NotFoundError("Album not found")
     }
     if (userData.id !== album.getBandId()) {
-      throw new UnauthorizedError("Este album não pertence a essa banda")
+      throw new UnauthorizedError("This album doesn't belong to Band loged")
     }
 
-    const music = await this.musicDatabase.getMusicInAlbumByName(name, albumId)
+    const music = await this.musicDatabase.getMusicIntoAlbumByName(name, albumId)
     if (music) {
-      throw new GenericError("Este album já contém essa música")
+      throw new GenericError("This music already exists in this album")
     }
 
     const musicId = this.idManager.generateId()
@@ -50,7 +50,7 @@ export class MusicBusiness {
       new Music(musicId, name, albumId, userData.id)
     );
 
-    return new Create()
+    return new Creation("Music created")
   }
 
   /* public async getAll(page: string, token: string):Promise<ContentList> {
