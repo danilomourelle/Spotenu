@@ -7,6 +7,6 @@ const album = new AlbumController()
 
 albumRouter.post('/create', album.create)
 
-albumRouter.get('/my-albuns', album.create)
+albumRouter.get('/my-albuns', album.getAlbunsByBandId)
 
 albumRouter.put('/:id', album.create)

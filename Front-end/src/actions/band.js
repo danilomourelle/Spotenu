@@ -13,11 +13,6 @@ export const createNewAlbum = (form) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     }); 
-
-    const myMusicsList = response.data.bands //TODO: Ajustar res.data
-
-    dispatch(setMusicsList(myMusicsList))
-    console.log('create new album')
   }
   catch (error) {
     console.error(error)
@@ -44,19 +39,19 @@ export const createNewMusic = (form) => async (dispatch) => {
   }
 }
 
-export const fetchMyAlbunsList = (bandId) => async (dispatch) => {
+export const fetchMyAlbunsList = () => async (dispatch) => {
   try {
-    /* const token = localStorage.getItem('token')
-    const response = await axios.get(`${baseURL}/endpoint`, {
+    const token = localStorage.getItem('token')
+    const response = await axios.get(`${baseURL}/album/my-albuns`, {
       headers: {
         authorization: token,
         "Content-Type": 'application/json'
       }
-    }); */
+    });
 
-    /* const myAlbunsList = response.data.bands //TODO: Ajustar res.data
+    const myAlbunsList = response.data.albuns //TODO: Ajustar res.data
 
-    dispatch(setMyAlbunsList(setMyAlbunsList)) */
+    dispatch(setMyAlbunsList(myAlbunsList))
     console.log('fetch albuns list')
   }
   catch (error) {

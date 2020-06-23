@@ -3,7 +3,7 @@ import express from "express";
 import cors from 'cors'
 import { userRouter } from './router/userRouter';
 import { genreRouter } from './router/genreRouter';
-import { albumRouter } from './router/AlbumRouter';
+import { albumRouter } from './router/albumRouter';
 /* import { musicRouter } from './router/musicRouter';
 import { playlistRouter } from './router/playlistRouter'; */
 

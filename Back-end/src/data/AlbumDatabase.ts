@@ -34,4 +34,15 @@ export class AlbumDatabase extends BaseDatabase {
 
     return this.toModel(result[0]);
   }
+
+  public async getAlbunsByBandId(bandId: string): Promise<Album[]> {
+    const result = await this.setConnection()
+      .select('name', 'id')
+      .from(AlbumDatabase.TABLE_NAME)
+      .where({ band_id: bandId })
+
+      return result.map((album: any) => {
+        return this.toModel(album) as Album
+      })
+  }
 }

@@ -10,6 +10,7 @@ import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { AlbumGenre } from "../models/AlbumGenre";
 import { Creation } from "../messages/Creation";
 import { GenericError } from "../errors/GenericError";
+import { ContentList } from "../messages/ContentList";
 
 export class AlbumBusiness {
   constructor(
@@ -51,5 +52,20 @@ export class AlbumBusiness {
       }
     }
     return new Creation("Album Created")
+  }
+
+  public async getAlbunsByBandId(token: string): Promise<ContentList> {
+    if (!token) {
+      throw new InvalidParameterError("No user logeg in");
+    }
+
+    const userData = this.tokenManager.retrieveDataFromToken(token)
+    if (userData.type !== UserType.BAND) {
+      throw new UnauthorizedError("Access denied")
+    }
+
+    const result = await this.albumDatabase.getAlbunsByBandId(userData.id)
+   
+    return new ContentList(result)
   }
 }

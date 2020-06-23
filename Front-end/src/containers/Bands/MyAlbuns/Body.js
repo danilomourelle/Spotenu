@@ -5,6 +5,7 @@ import { Input } from '../../../components/Input'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMyAlbunsList } from '../../../actions/band'
+import { routes } from '../../../Router/router'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -33,8 +34,9 @@ const GenreList = styled.div`
     padding: 5px 10px;
     font-size:20px;
     &:hover{
-      background-color:#ddd
+      background-color:#ddd;
     }
+  }
 `
 const Form = styled.form`
   width: 100%;
@@ -53,9 +55,9 @@ function Body() {
   const myAlbunsList = useSelector(state => state.band.myAlbunsList)
 
   useEffect(() => {
-    /* if(window.localStorage.getItem('token')){
+    if (!window.localStorage.getItem('token')) {
       history.push(routes.home)
-    } */
+    }
     dispatch(fetchMyAlbunsList())
   }, [history])
 
@@ -66,10 +68,10 @@ function Body() {
     })
   }
 
-  
+
   return (
 
-    //TODO: Refazer static
+    //TODO: Refazer static com lista como componente para poder se auto editar/excluir....
 
     <Wrapper>
       <h4>Lista de gêneros já cadastrados</h4>
