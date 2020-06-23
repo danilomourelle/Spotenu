@@ -31,8 +31,11 @@ const GenreList = styled.div`
   border-radius:5px;
   p{
     text-align:end;
+    padding: 5px 10px;
     font-size:20px;
-    line-height:1.2em;
+    &:hover{
+      background-color:#ddd
+    }
   }
 `
 const Form = styled.form`

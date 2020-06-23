@@ -23,7 +23,7 @@ export class GenreDatabase extends BaseDatabase {
       .into(GenreDatabase.TABLE_NAME);
   }
 
-  public async getGenreByName(name: string): Promise<Genre | undefined> {
+ public async getGenreByName(name: string): Promise<Genre | undefined> {
     const result = await this.setConnection()
       .select("*")
       .from(GenreDatabase.TABLE_NAME)
@@ -32,19 +32,11 @@ export class GenreDatabase extends BaseDatabase {
       return this.toModel(result[0])
   }
 
-  public async getGenreById(id: string): Promise<Genre | undefined> {
-    const result = await this.setConnection()
-      .select("*")
-      .from(GenreDatabase.TABLE_NAME)
-      .where({ id })
-
-      return this.toModel(result[0])
-  }
-
   public async getAllGenre(): Promise<Genre[]> {
     const result = await this.setConnection()
       .select("*")
       .from(GenreDatabase.TABLE_NAME)
+      .orderBy('name')
       
       return result.map((genre: any) => {
         return this.toModel(genre) as Genre

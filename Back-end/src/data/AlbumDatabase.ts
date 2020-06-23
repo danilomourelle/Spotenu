@@ -3,7 +3,7 @@ import { Album } from "../models/Album";
 
 export class AlbumDatabase extends BaseDatabase {
   public static TABLE_NAME: string = "Album"
-  
+
   private toModel(dbModel?: any): Album | undefined {
     return (
       dbModel &&
@@ -25,13 +25,13 @@ export class AlbumDatabase extends BaseDatabase {
       .into(AlbumDatabase.TABLE_NAME);
   }
 
-  public async getAlbumById(id: string): Promise<Album | undefined> {
+  public async getAlbumByIdOrName(albumInfo: string): Promise<Album | undefined> {
     const result = await this.setConnection()
       .select("*")
       .from(AlbumDatabase.TABLE_NAME)
-      .where({ id })
+      .where({ id: albumInfo })
+      .orWhere({name: albumInfo})
 
     return this.toModel(result[0]);
   }
-
 }
