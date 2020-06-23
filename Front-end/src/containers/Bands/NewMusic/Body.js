@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { BtnGreen } from '../../../components/Buttons'
-import { Input } from '../../../components/Input'
-import { useDispatch } from 'react-redux'
-import { createNewMusic } from '../../../actions/band'
+import { Input, Select } from '../../../components/Input'
+import { useDispatch, useSelector } from 'react-redux'
+import { createNewMusic, fetchMyAlbunsList } from '../../../actions/band'
 import { useHistory } from 'react-router-dom'
+import { routes } from '../../../Router/router'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -34,14 +35,30 @@ const Form = styled.form`
 function Body() {
   const dispatch = useDispatch()
   const history = useHistory()
-
-  const [form, setForm] = useState({ userType: "ADMIN" })
+  const myAlbunsList = useSelector(state => state.band.myAlbunsList)
+  const [form, setForm] = useState({ name: '', playlistId: '' })
 
   useEffect(() => {
-    /* if(window.localStorage.getItem('token')){
+    if (!window.localStorage.getItem('token')) {
       history.push(routes.home)
-    } */
+    }
+    dispatch(fetchMyAlbunsList())
   }, [history])
+
+  useEffect(() => {
+    if (myAlbunsList.length > 0) {
+      setForm({
+        ...form,
+        playlistId: myAlbunsList[0].id
+      })
+    }
+    else {
+      setForm({
+        ...form,
+        playlistId: ''
+      })
+    }
+  }, [myAlbunsList])
 
   const handleInputChange = (e) => {
     setForm({
@@ -53,6 +70,10 @@ function Body() {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(createNewMusic(form))
+    setForm({
+      name: '',
+      playlistId: myAlbunsList[0].id
+    })
   }
 
   console.log(form)
@@ -60,10 +81,14 @@ function Body() {
     <Wrapper>
       <h4>Preencha os campos abaixo</h4>
       <Form onSubmit={handleSubmit}>
-        <Input name='name' type='text' placeholder='Nome' onChange={handleInputChange} />
-        <Input name='nick' type='text' placeholder='ID do usuário' onChange={handleInputChange} />
-        <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
-        <Input name='password' type='password' placeholder='Senha' onChange={handleInputChange} />
+        <Input name='name' type='text' value={form.name} placeholder='Nome da música' onChange={handleInputChange} />
+        <Select name='playlistId' value={form.playlistId} onChange={handleInputChange} disabled={myAlbunsList.length === 0}>
+          {myAlbunsList.length > 0 ?
+            myAlbunsList.map(album => (
+              <option value={album.id} key={album.id}>{album.name}</option>
+            )) :
+            <option>Necessário ter um album criado</option>}
+        </Select>
         <BtnGreen>Enviar</BtnGreen>
       </Form>
     </Wrapper>

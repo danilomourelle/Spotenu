@@ -59,7 +59,7 @@ function Body() {
       history.push(routes.home)
     }
     dispatch(fetchAllMusicGenre())
-  }, [history])
+  }, [history, dispatch])
 
   const handleInputChange = (e) => {
     setForm({

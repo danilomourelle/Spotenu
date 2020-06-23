@@ -49,7 +49,7 @@ function Body() {
       history.push(routes.home)
     }
     dispatch(fetchBandsToApprove())
-  }, [history])
+  }, [history, dispatch])
 
   useEffect(() => {
     if(bandsListToApprove.length >0){

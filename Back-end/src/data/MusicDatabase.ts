@@ -32,7 +32,7 @@ export class MusicDatabase extends BaseDatabase {
       .into(MusicDatabase.TABLE_NAME)
   }
 
-  public async getMusicInAlbumByName(name: string, albumId: string): Promise<Music | undefined> {
+  /* public async getMusicInAlbumByName(name: string, albumId: string): Promise<Music | undefined> {
     const result = await this.setConnection()
       .select("*")
       .from(MusicDatabase.TABLE_NAME)
@@ -79,5 +79,5 @@ export class MusicDatabase extends BaseDatabase {
       WHERE music.id = '${id}'`)
 
     return result[0]
-  }
+  } */
 }

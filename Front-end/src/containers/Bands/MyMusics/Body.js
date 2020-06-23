@@ -5,6 +5,7 @@ import { Input } from '../../../components/Input'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMyMusicsList } from '../../../actions/band'
+import { routes } from '../../../Router/router'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -51,9 +52,9 @@ function Body() {
   const myMusicsList = useSelector(state => state.band.myMusicsList)
 
   useEffect(() => {
-    /* if(window.localStorage.getItem('token')){
+    if(!window.localStorage.getItem('token')){
       history.push(routes.home)
-    } */
+    } 
     dispatch(fetchMyMusicsList())
   }, [history])
 

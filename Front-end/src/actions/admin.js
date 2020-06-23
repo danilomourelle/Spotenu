@@ -1,8 +1,5 @@
 import axios from 'axios';
-import { push } from "connected-react-router";
-import { routes } from '../Router/router';
 import { baseURL } from './authenticator'
-import NewAlbum from '../containers/Bands/NewAlbum';
 
 //*****ASSÍNCRONAS*****//
 export const fetchBandsToApprove = () => async (dispatch) => {
