@@ -22,7 +22,7 @@ function Header() {
   return (
     <Wrapper>
       <p>PROJETO SPOTENU - DANILO MOURELLE - TURMA SAGAN</p>
-      <Link to={routes.login}><BtnLogin>Entrar</BtnLogin></Link>
+      <Link to={routes.login}><BtnLogin size='small'>Entrar</BtnLogin></Link>
     </Wrapper>
   )
 }

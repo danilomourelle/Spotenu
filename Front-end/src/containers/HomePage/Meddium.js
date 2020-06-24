@@ -48,7 +48,7 @@ function Meddium() {
     <Wrapper>
       <Titulo>É música que você quer?</Titulo>
       <SubTitle> Conheça os melhores lançamentos</SubTitle>
-      <Link to={routes.allBands}><BtnWhite> VEJA NOSSAS BANDAS </BtnWhite></Link>
+      <Link to={routes.allBands}><BtnWhite size='large'> VEJA NOSSAS BANDAS </BtnWhite></Link>
       <ImageGrid>
         <img src='https://picsum.photos/300/300' alt='Imagem1'></img>
         <img src='https://picsum.photos/301/301' alt='Imagem1'></img>

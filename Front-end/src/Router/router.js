@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "../containers/HomePage";
 import Login from "../containers/Auth/Login";
 import SignIn from "../containers/Auth/SignIn";
+import Premium from "../containers/Auth/Premium";
 import AllBands from "../containers/Bands/AllBands";
 import SignOtherAdmin from "../containers/Admin/SignOtherAdmin";
 import HomeAdmin from "../containers/Admin/Home";
@@ -21,6 +22,7 @@ export const routes = {
   home: "/",
   login: "/login",
   signIn: "/signin",
+  premiun: "/premiun",
   //bands
   allBands: "/band/all",
   bandHome: "/band",
@@ -43,6 +45,7 @@ function Router(props) {
         <Route exact path={routes.home} component={Home} />
         <Route exact path={routes.login} component={Login} />
         <Route exact path={routes.signIn} component={SignIn} />
+        <Route exact path={routes.premiun} component={Premium} />
         <Route exact path={routes.bandHome} component={HomeBand} />
         <Route exact path={routes.allBands} component={AllBands} />
         <Route exact path={routes.createAlbum} component={NewAlbum} />

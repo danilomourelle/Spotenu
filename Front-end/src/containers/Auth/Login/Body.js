@@ -6,18 +6,9 @@ import { BtnWhite, BtnGreen } from '../../../components/Buttons'
 import { Input } from '../../../components/Input'
 import { useDispatch } from 'react-redux'
 import { login } from '../../../actions/authenticator.js'
+import { BaseInputBody } from '../../../components/Body.js'
 
-const Wrapper = styled.main`
-  width: 100%;
-  max-width:800px;
-  margin: 0 auto;
-  min-height: calc(100vh - 80px);
-  padding:80px 200px;
-  padding:80px 0;
-  display: grid;
-  grid-gap: 15px;
-  align-content:flex-start;
-  justify-items: center;
+const Wrapper = styled(BaseInputBody)`
 `
 const Form = styled.form`
   width: 100%;

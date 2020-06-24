@@ -3,11 +3,11 @@ import Header from '../../../components/Header'
 import Body from  './Body'
 
 
-function SignIn() {
+function Premium() {
   return <>
     <Header text='CADASTRO' />
     <Body />
   </>
 }
 
-export default SignIn
+export default Premium

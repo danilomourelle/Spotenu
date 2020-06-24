@@ -40,12 +40,13 @@ const BtnWrapper = styled.div`
   padding: 0 15%;
 `
 function Upper() {
+  
   return (
     <Wrapper>
       <Titulo>Curta 3 meses de Premium grátis</Titulo>
       <SubTitle>Música sem parar, zero propagando e até offline</SubTitle>
       <BtnWrapper>
-        <Link to={routes.signIn}><BtnGreen onClick={console.log('foi')}>SEJA PREMIUM</BtnGreen></Link>
+        <Link to={routes.premiun}><BtnGreen>SEJA PREMIUM</BtnGreen></Link>
         <Link to={routes.signIn}><BtnWhite>CONTA FREE</BtnWhite></Link>
       </BtnWrapper>
     </Wrapper>
