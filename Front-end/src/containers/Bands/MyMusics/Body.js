@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { BtnGreen } from '../../../components/Buttons'
-import { Input } from '../../../components/Input'
+import { Select } from '../../../components/Input'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchMyMusicsList } from '../../../actions/band'
+import { fetchMyMusicsList, fetchMyAlbunsList } from '../../../actions/band'
 import { routes } from '../../../Router/router'
 
 const Wrapper = styled.main`
@@ -48,24 +48,45 @@ const Form = styled.form`
 function Body() {
   const history = useHistory()
   const dispatch = useDispatch()
-  const [form, setForm] = useState({})
+  const [albumId, setAlbumId] = useState('all')
   const myMusicsList = useSelector(state => state.band.myMusicsList)
+  const myAlbunsList = useSelector(state => state.band.myAlbunsList)
 
   useEffect(() => {
-    if(!window.localStorage.getItem('token')){
+    if (!window.localStorage.getItem('token')) {
       history.push(routes.home)
-    } 
-    dispatch(fetchMyMusicsList())
-  }, [history])
+    }
+    dispatch(fetchMyAlbunsList())
+  }, [history, dispatch])
+  
+  useEffect(() => {
+    dispatch(fetchMyMusicsList(albumId))
+  }, [albumId, dispatch])
+
+  useEffect(() => {
+    if (myAlbunsList.length > 0) {
+      setAlbumId(myAlbunsList[0].id)
+    }
+    else {
+      setAlbumId('')
+    }
+  }, [myAlbunsList])
 
   const handleInputChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    })
+    setAlbumId(e.target.value)
   }
 
-  
+  const insertAllAlbunsOption = (filterOptions) => {
+    if (filterOptions[0].id !== "all") {
+      return filterOptions.unshift({
+        id: 'all',
+        name: 'Todos os Albuns'
+      })
+    }
+    return filterOptions
+  }
+
+  console.log(albumId, insertAllAlbunsOption(myAlbunsList))
   return (
 
     //TODO: Refazer static
@@ -76,8 +97,14 @@ function Body() {
         {myMusicsList.map((music) => (<p key={music.id}>{music.name}</p>))}
       </GenreList>
       <Form>
-        <Input type='text' placeholder='Novo Gênero Musical' name='name' onChange={handleInputChange} />
-        <BtnGreen>Adicionar</BtnGreen>
+        <Select name='albumId' value={albumId} onChange={handleInputChange} disabled={myAlbunsList.length === 0}>
+          {myAlbunsList.length > 0 ?
+            insertAllAlbunsOption(myAlbunsList).map(album => (
+              <option value={album.id} key={album.id}>{album.name}</option>
+            )) :
+            <option>Necessário ter um album criado</option>}
+        </Select>
+        <BtnGreen>Filtrar</BtnGreen>
       </Form>
     </Wrapper>
   )

@@ -21,7 +21,7 @@ export class MusicBusiness {
     private idManager: IdManager
   ) { }
 
-  public async create(name: string, albumId: string, token: string):Promise<Creation> {
+  public async create(name: string, albumId: string, token: string): Promise<Creation> {
     if (!name || !token || !albumId) {
       throw new InvalidParameterError("Missing input");
     }
@@ -53,17 +53,19 @@ export class MusicBusiness {
     return new Creation("Music created")
   }
 
-  /* public async getAll(page: string, token: string):Promise<ContentList> {
-    if (!page || !token) {
+  public async getMusicByAlbum(albumId: string, token: string): Promise<ContentList> {
+    if (!albumId || !token) {
       throw new InvalidParameterError("Missing input");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
-    if (userData.type !== UserType.CUSTOMER) {
+    if (userData.type !== UserType.BAND) {
       throw new UnauthorizedError("Access denied")
     }
-
-    const musicList = await this.musicDatabase.getAll(Number(page))
+    if (albumId === 'all') {
+      albumId = '%'
+    }
+    const musicList = await this.musicDatabase.getMusicByAlbum(albumId)
 
     return new ContentList(musicList.map(music => ({
       id: music.getId(),
@@ -71,7 +73,7 @@ export class MusicBusiness {
     })))
   }
 
-  public async getDetails(id: string, token: string):Promise<GenericResult> {
+  /* public async getDetails(id: string, token: string):Promise<GenericResult> {
     if (!id || !token) {
       throw new InvalidParameterError("Missing input");
     }

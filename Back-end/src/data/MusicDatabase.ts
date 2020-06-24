@@ -44,6 +44,18 @@ export class MusicDatabase extends BaseDatabase {
     return this.toModel(result[0])
   }
 
+  public async getMusicByAlbum(albumId: string): Promise<Music[]> {
+    const result = await this.setConnection()
+      .select("*")
+      .from(MusicDatabase.TABLE_NAME)
+      .where('album_id', 'like', albumId)
+      .orderBy('name')
+
+    return result.map((music: any) => {
+      return this.toModel(music) as Music
+    })
+  }
+
   /* public async getMusicById(id: string): Promise<Music | undefined> {
     const result = await this.setConnection()
       .select("*")

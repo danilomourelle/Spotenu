@@ -43,20 +43,20 @@ function Body() {
       history.push(routes.home)
     }
     dispatch(fetchMyAlbunsList())
-  }, [history])
+  }, [history, dispatch])
 
   useEffect(() => {
     if (myAlbunsList.length > 0) {
-      setForm({
-        ...form,
+      setForm((currentForm) => ({
+        ...currentForm,
         albumId: myAlbunsList[0].id
-      })
+      }))
     }
     else {
-      setForm({
-        ...form,
-        playlistId: ''
-      })
+      setForm((currentForm) => ({
+        ...currentForm,
+        albumId: ''
+      }))
     }
   }, [myAlbunsList])
 

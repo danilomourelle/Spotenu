@@ -30,14 +30,14 @@ export class MusicController {
     }
   }
 
-  /* async getAll(req: Request, res: Response) {
+  async getMusicByAlbum(req: Request, res: Response) {
     try {
-      const page  = req.params.page;
+      const albumId = req.params.albumId
       const token = req.headers.authorization as string
+      console.log(albumId, token)
+      const result = await MusicController.MusicBusiness.getMusicByAlbum(albumId, token);
 
-      const result = await MusicController.MusicBusiness.getAll(page, token);
-
-      res.status(result.msgCode).send({musics: result.message})
+      res.status(result.statusCode).send({musics: result.message})
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {
@@ -45,7 +45,7 @@ export class MusicController {
     }
   }
 
-  async getDetails(req: Request, res: Response) {
+ /*  async getDetails(req: Request, res: Response) {
     try {
       const id  = req.params.musicId;
       const token = req.headers.authorization as string
