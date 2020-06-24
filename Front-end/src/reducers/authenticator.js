@@ -1,5 +1,7 @@
 const initialState = {
-  user: undefined,
+  user: {
+    name: 'Danilo Mourelle'
+  },
 }
 
 const authenticator = (state = initialState, action) => {

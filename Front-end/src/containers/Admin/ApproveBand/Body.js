@@ -6,24 +6,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 import { fetchBandsToApprove, approveBand, approveAllBands } from '../../../actions/admin.js'
+import { BaseBody } from '../../../components/Body'
 
-const Wrapper = styled.main`
-  width: 100%;
+const Wrapper = styled(BaseBody)`
   max-width:800px;
   margin: 0 auto;
-  min-height: calc(100vh - 80px);
-  padding:80px 200px;
-  display: flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content: start;
-  h4 {
-    margin:48px 0;
-    font-size:1.2rem
-  }
+  display: grid;
+  grid-gap: 15px;
+  align-content:flex-start;
+  justify-items: center;
   select {
     margin-bottom:40px;
     text-align: right;
+    max-width:400px;
   }
 `
 const BtnWrapper = styled.div`
@@ -77,7 +72,7 @@ function Body() {
   console.log(bandIdToApprove, bandsListToApprove)
   return (
     <Wrapper>
-      <h4>Lista de bandas aguardando liberação</h4>
+      <h3>Lista de bandas aguardando liberação</h3>
 
       <Select onChange={handleInputChange} disabled={bandsListToApprove.length === 0} value={bandIdToApprove}>
         {bandsListToApprove.length > 0 ?
