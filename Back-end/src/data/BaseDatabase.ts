@@ -4,8 +4,7 @@ import Knex from 'knex'
 export abstract class BaseDatabase {
   private static CONNECTION_KNEX: Knex | null = null
 
-  protected getConnection() {
-    console.log('passou aqui tb', BaseDatabase.CONNECTION_KNEX)
+  protected setConnection() {
     if (BaseDatabase.CONNECTION_KNEX === null) {
       BaseDatabase.CONNECTION_KNEX = knex({
         client: "mysql",
@@ -22,12 +21,10 @@ export abstract class BaseDatabase {
   }
 
   public static async desconnectDB() {
-    console.log("passou por aqui", BaseDatabase.CONNECTION_KNEX)
     if (BaseDatabase.CONNECTION_KNEX !== null) {
       await BaseDatabase.CONNECTION_KNEX.destroy()
       BaseDatabase.CONNECTION_KNEX = null
     }
-    console.log("passou novamente", BaseDatabase.CONNECTION_KNEX)
   }
 
   protected convertTinyintToBoolean(value: number): boolean {

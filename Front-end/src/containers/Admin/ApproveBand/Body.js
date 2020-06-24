@@ -5,7 +5,7 @@ import { Select } from '../../../components/Input'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
-import { fetchBandsToApprove, approveBand } from '../../../actions/admin.js'
+import { fetchBandsToApprove, approveBand, approveAllBands } from '../../../actions/admin.js'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -42,29 +42,39 @@ function Body() {
 
   const bandsListToApprove = useSelector(state => state.admin.bandsListToApprove)
 
-  const [bandIdToApprove, setBandIdToApprove] = useState()
+  const [bandIdToApprove, setBandIdToApprove] = useState(undefined)
 
   useEffect(() => {
-    /* if(window.localStorage.getItem('token')){
+    if (!window.localStorage.getItem('token')) {
       history.push(routes.home)
-    } */
+    }
     dispatch(fetchBandsToApprove())
-  }, [history])
+  }, [history, dispatch])
+
+  useEffect(() => {
+    if(bandsListToApprove.length >0){
+      setBandIdToApprove(bandsListToApprove[0].id)
+    } 
+    else{
+      setBandIdToApprove(undefined)
+    }
+  }, [bandsListToApprove])
 
   const handleInputChange = e => {
     setBandIdToApprove(e.target.value)
   }
 
-  const handleApproveBand = () => {
+  const handleApproveBand = (id) => {
     dispatch(approveBand(bandIdToApprove))
   }
-  const handleApproveAllBands =() => {
+
+  const handleApproveAllBands = () => {
     const allBandsId = bandsListToApprove.map(band => (
       band.id
     ))
-    dispatch(approveBand(allBandsId))
+    dispatch(approveAllBands(allBandsId))
   }
-  
+  console.log(bandIdToApprove, bandsListToApprove)
   return (
     <Wrapper>
       <h4>Lista de bandas aguardando liberação</h4>

@@ -1,14 +1,14 @@
-/* import axios from 'axios';
-import { push } from "connected-react-router";
+import axios from 'axios';
+import { push, replace } from "connected-react-router";
 import { routes } from '../Router/router';
- */
-export const baseURL = 'link da base da API' //TODO: Ajustar endereço
+
+export const baseURL = 'http://localhost:3003' //TODO: Ajustar endereço
 
 //*****ASSÍNCRONAS*****//
 export const signIn = (form) => async (dispatch) => {
   try {
-    /* const previousToken = localStorage.getItem('token') || 'NO TOKEN'
-    const response = await axios.post(`${baseURL}/endpoint`, form, {
+    const previousToken = localStorage.getItem('token')
+    const response = await axios.post(`${baseURL}/user/signIn`, form, {
       headers: {
         authorization: previousToken,
         "Content-Type": 'application/json'
@@ -16,18 +16,17 @@ export const signIn = (form) => async (dispatch) => {
     });
 
     const token = response.data.token
-    if (token) {
+    if (form.userType === "CUSTOMER") {
       window.localStorage.setItem("token", token)
-      dispatch(push(routes.customerHome))
-      dispatch(setUserType(response.data.userType))
+      dispatch(replace(routes.bandHome))
+      dispatch(setUser(response.data.user))
     }
-    else if (previousToken) {
-      dispatch(push(routes.adminHome))
+    else if (form.userType === "ADMIN") {
+      dispatch(replace(routes.adminHome))
     }
     else {
-      dispatch(push(routes.home))
-    } */
-    console.log('signIn')
+      dispatch(replace(routes.home))
+    }
   }
   catch (error) {
     console.error(error)
@@ -36,36 +35,36 @@ export const signIn = (form) => async (dispatch) => {
 
 export const login = (form) => async (dispatch) => {
   try {
-   /*  const response = await axios.post(`${baseURL}/endpoint`, form);
+    console.log('login', form )
+    const response = await axios.post(`${baseURL}/user/login`, form);
 
     window.localStorage.setItem("token", response.data.token)
 
-    const userRole = response.data.userRole
-    dispatch(setUserType(userRole))
+    const user = response.data.user
+    dispatch(setUser(user))
 
-    switch (userRole) {
+    switch (user.type) {
       case 'ADMIN':
         dispatch(push(routes.adminHome))
         break;
       case 'BAND':
-        dispatch(push(routes.bandHome))
+        user.isActive ? dispatch(push(routes.bandHome)) : dispatch(push(routes.home))
         break;
       default:
         //dispatch(push(routes.customerHome))
         break;
-    } */
-    console.log('login')
-
+    }
   }
+
   catch (error) {
     console.error(error)
   }
 }
 
 //*****SÍNCRONAS*****//
-export const setUserType = (userType) => (
+export const setUser = (user) => (
   {
-    type: 'SET_USER_TYPE',
-    payload: { userType }
+    type: 'SET_USER',
+    payload: { user }
   }
 )

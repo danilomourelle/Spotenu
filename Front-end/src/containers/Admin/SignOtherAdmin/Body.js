@@ -5,6 +5,7 @@ import { Input } from '../../../components/Input'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../../../actions/authenticator.js'
 import { useHistory } from 'react-router-dom'
+import { routes } from '../../../Router/router'
 
 const Wrapper = styled.main`
   width: 100%;
@@ -38,9 +39,9 @@ function Body() {
   const [form, setForm] = useState({ userType: "ADMIN" })
 
   useEffect(() => {
-    /* if(window.localStorage.getItem('token')){
+    if(!window.localStorage.getItem('token')){
       history.push(routes.home)
-    } */
+    } 
   }, [history])
 
   const handleInputChange = (e) => {
@@ -55,13 +56,12 @@ function Body() {
     dispatch(signIn(form))
   }
 
-  console.log(form)
   return (
     <Wrapper>
       <h4>Preencha os campos abaixo</h4>
       <Form onSubmit={handleSubmit}>
         <Input name='name' type='text' placeholder='Nome' onChange={handleInputChange} />
-        <Input name='nick' type='text' placeholder='ID do usuário' onChange={handleInputChange} />
+        <Input name='nickname' type='text' placeholder='ID do usuário' onChange={handleInputChange} />
         <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
         <Input name='password' type='password' placeholder='Senha' onChange={handleInputChange} />
         <BtnGreen>Enviar</BtnGreen>

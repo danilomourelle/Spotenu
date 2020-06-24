@@ -1,62 +1,16 @@
-/* import axios from 'axios';
-import { push } from "connected-react-router";
-import { routes } from '../Router/router'; */
+import axios from 'axios';
+import { baseURL } from './authenticator'
 
 //*****ASSÍNCRONAS*****//
-export const fetchMyAlbunsList = (bandId) => async (dispatch) => {
-  try {
-    /* const token = localStorage.getItem('token')
-    const response = await axios.get(`${baseURL}/endpoint`, {
-      headers: {
-        authorization: token,
-        "Content-Type": 'application/json'
-      }
-    }); */
-
-    /* const myAlbunsList = response.data.bands //TODO: Ajustar res.data
-
-    dispatch(setMyAlbunsList(setMyAlbunsList)) */
-    console.log('fetch albuns list')
-  }
-  catch (error) {
-    console.error(error)
-  }
-}
-
-export const fetchMyMusicsList = (bandId) => async (dispatch) => {
-  try {
-    /* const token = localStorage.getItem('token')
-    const response = await axios.get(`${baseURL}/endpoint`, {
-      headers: {
-        authorization: token,
-        "Content-Type": 'application/json'
-      }
-    }); 
-
-    const myMusicsList = response.data.bands //TODO: Ajustar res.data
-
-    dispatch(setMusicsList(myMusicsList))*/
-    console.log('fetch music list')
-  }
-  catch (error) {
-    console.error(error)
-  }
-}
-
 export const createNewAlbum = (form) => async (dispatch) => {
   try {
-    /* const token = localStorage.getItem('token')
-    const response = await axios.get(`${baseURL}/endpoint`, {
+    const token = localStorage.getItem('token')
+    await axios.post(`${baseURL}/album/create`, form, {
       headers: {
         authorization: token,
         "Content-Type": 'application/json'
       }
-    }); 
-
-    const myMusicsList = response.data.bands //TODO: Ajustar res.data
-
-    dispatch(setMusicsList(myMusicsList))*/
-    console.log('create new album')
+    });
   }
   catch (error) {
     console.error(error)
@@ -65,18 +19,53 @@ export const createNewAlbum = (form) => async (dispatch) => {
 
 export const createNewMusic = (form) => async (dispatch) => {
   try {
-    /* const token = localStorage.getItem('token')
-    const response = await axios.get(`${baseURL}/endpoint`, {
+    const token = localStorage.getItem('token')
+    await axios.post(`${baseURL}/music/create`, form, {
+      headers: {
+        authorization: token,
+        "Content-Type": 'application/json'
+      }
+    });
+     //TODO: Ajustar res.data
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
+
+export const fetchMyAlbunsList = () => async (dispatch) => {
+  try {
+    const token = localStorage.getItem('token')
+    const response = await axios.get(`${baseURL}/album/my-albuns`, {
+      headers: {
+        authorization: token,
+        "Content-Type": 'application/json'
+      }
+    });
+
+    const myAlbunsList = response.data.albuns //TODO: Ajustar res.data
+
+    dispatch(setMyAlbunsList(myAlbunsList))
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
+
+export const fetchMyMusicsList = (albumId) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem('token')
+    const response = await axios.get(`${baseURL}/music/my-musics/${albumId}`, {
       headers: {
         authorization: token,
         "Content-Type": 'application/json'
       }
     }); 
 
-    const myMusicsList = response.data.bands //TODO: Ajustar res.data
+    const myMusicsList = response.data.musics //TODO: Ajustar res.data
 
-    dispatch(setMusicsList(myMusicsList))*/
-    console.log('create new music')
+    dispatch(setMusicsList(myMusicsList))
+    console.log('fetch music list')
   }
   catch (error) {
     console.error(error)
