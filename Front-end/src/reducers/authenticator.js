@@ -1,12 +1,14 @@
 const initialState = {
-  userType: undefined,
+  user: {
+    name: 'Danilo Mourelle'
+  },
 }
 
 const authenticator = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_USER_TYPE":
+    case "SET_USER":
       return {
-        ...state, userType: action.payload.userType
+        ...state, user: action.payload.user
       }
     default:
        return state

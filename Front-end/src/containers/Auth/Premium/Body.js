@@ -60,6 +60,8 @@ function Body(props) {
         <Input name='nickname' type='text' placeholder='Nickname' onChange={handleInputChange} />
         <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
         <Input name='password' type='password' placeholder='Senha' onChange={handleInputChange} />
+        <Input type='text' name='premium' placeholder='Escreva "Premium" sem aspas' onChange={handleInputChange} />
+        {props.premiun && <Input type='text' name='premium' placeholder='Escreva "Premium" sem aspas' onChange={handleInputChange} />}
         {form.userType === "BAND" && 
         <Input type='text' name='description' placeholder='Description' onChange={handleInputChange} />}
         <Select name='userType' onChange={handleInputChange}>

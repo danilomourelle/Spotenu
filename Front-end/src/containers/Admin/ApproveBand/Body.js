@@ -6,24 +6,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 import { fetchBandsToApprove, approveBand, approveAllBands } from '../../../actions/admin.js'
+import { BaseBody } from '../../../components/Body'
 
-const Wrapper = styled.main`
-  width: 100%;
+const Wrapper = styled(BaseBody)`
   max-width:800px;
   margin: 0 auto;
-  min-height: calc(100vh - 80px);
-  padding:80px 200px;
-  display: flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content: start;
-  h4 {
-    margin:48px 0;
-    font-size:1.2rem
-  }
+  display: grid;
+  grid-gap: 15px;
+  align-content:flex-start;
+  justify-items: center;
   select {
     margin-bottom:40px;
     text-align: right;
+    max-width:400px;
   }
 `
 const BtnWrapper = styled.div`
@@ -39,9 +34,7 @@ const BtnWrapper = styled.div`
 function Body() {
   const history = useHistory()
   const dispatch = useDispatch()
-
   const bandsListToApprove = useSelector(state => state.admin.bandsListToApprove)
-
   const [bandIdToApprove, setBandIdToApprove] = useState(undefined)
 
   useEffect(() => {
@@ -52,10 +45,10 @@ function Body() {
   }, [history, dispatch])
 
   useEffect(() => {
-    if(bandsListToApprove.length >0){
+    if (bandsListToApprove.length > 0) {
       setBandIdToApprove(bandsListToApprove[0].id)
-    } 
-    else{
+    }
+    else {
       setBandIdToApprove(undefined)
     }
   }, [bandsListToApprove])
@@ -74,11 +67,10 @@ function Body() {
     ))
     dispatch(approveAllBands(allBandsId))
   }
-  console.log(bandIdToApprove, bandsListToApprove)
+
   return (
     <Wrapper>
-      <h4>Lista de bandas aguardando liberação</h4>
-
+      <h3>Lista de bandas aguardando liberação</h3>
       <Select onChange={handleInputChange} disabled={bandsListToApprove.length === 0} value={bandIdToApprove}>
         {bandsListToApprove.length > 0 ?
           bandsListToApprove.map(band => (
@@ -86,12 +78,10 @@ function Body() {
           )) :
           <option value={'sei lá'}>Nenhuma banda para Aprovar</option>}
       </Select>
-
       <BtnWrapper>
         <BtnGreen onClick={handleApproveBand}>Aprovar Banda</BtnGreen>
         <BtnWhite onClick={handleApproveAllBands}>Aprovar todos</BtnWhite>
       </BtnWrapper>
-
     </Wrapper>
   )
 }

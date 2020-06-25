@@ -5,7 +5,7 @@ import Body from  './Body'
 
 function Login() {
   return <>
-    <Header text='SPOTENU' />
+    <Header text='LOGIN' />
     <Body />
   </>
 }

@@ -1,13 +1,13 @@
 import React from 'react'
 import Header from '../../../components/Header'
-import Body from  './Body'
+import Body from './Body'
 
 
-function SignIn() {
+function Album() {
   return <>
-    <Header text='CADASTRO' />
+    <Header text='SPOTENU - MEUS ALBUNS' />
     <Body />
   </>
 }
 
-export default SignIn
+export default Album

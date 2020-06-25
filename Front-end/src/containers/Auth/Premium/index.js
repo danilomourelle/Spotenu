@@ -3,11 +3,11 @@ import Header from '../../../components/Header'
 import Body from  './Body'
 
 
-function NewAlbum() {
+function Premium() {
   return <>
-    <Header text='SPOTENU - MEUS ALBUNS' />
+    <Header text='CADASTRO' />
     <Body />
   </>
 }
 
-export default NewAlbum
+export default Premium

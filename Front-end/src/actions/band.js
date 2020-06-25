@@ -26,7 +26,7 @@ export const createNewMusic = (form) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     });
-     //TODO: Ajustar res.data
+    //TODO: Ajustar res.data
   }
   catch (error) {
     console.error(error)
@@ -60,7 +60,7 @@ export const fetchMyMusicsList = (albumId) => async (dispatch) => {
         authorization: token,
         "Content-Type": 'application/json'
       }
-    }); 
+    });
 
     const myMusicsList = response.data.musics //TODO: Ajustar res.data
 
