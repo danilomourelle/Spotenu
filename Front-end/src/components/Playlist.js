@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { LittleBtn } from './Buttons'
 
 const Wrapper = styled.div`
-  width: 75%;
+  width: 100%;
   height:150px;
   background-color: #f9f9f9;
   border: 1px solid #5fba7e;

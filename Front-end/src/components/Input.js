@@ -20,3 +20,14 @@ export const Select = styled.select`
 export const Checkbox = styled(Input)`
   width: 25%;
 `
+
+export const LittleSelect = styled.select`
+  height:25px;
+  width: 100%;
+  max-width:200px;
+  font-size:16px;
+  text-align: right;
+  border-radius: 5px;
+  border:1px solid black;
+  justify-self: right;
+`

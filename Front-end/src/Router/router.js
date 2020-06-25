@@ -5,16 +5,14 @@ import Home from "../containers/HomePage";
 import Login from "../containers/Auth/Login";
 import SignIn from "../containers/Auth/SignIn";
 import Premium from "../containers/Auth/Premium";
-import AllBands from "../containers/Bands/AllBands";
-import SignOtherAdmin from "../containers/Admin/SignOtherAdmin";
 import HomeAdmin from "../containers/Admin/Home";
 import ApproveBand from "../containers/Admin/ApproveBand";
+import SignOtherAdmin from "../containers/Admin/SignOtherAdmin";
 import MusicGenre from "../containers/Admin/MusicalGenres";
 import HomeBand from "../containers/Bands/Home";
-import MyAlbuns from '../containers/Bands/MyAlbuns'
-import EditMusic from "../containers/Bands/MyMusics";
-import NewAlbum from "../containers/Bands/NewAlbum";
-import NewMusic from "../containers/Bands/NewMusic";
+import Album from "../containers/Bands/Album";
+import Music from "../containers/Bands/Musics";
+import AllBands from "../containers/Bands/AllBands";
 
 
 export const routes = {
@@ -26,13 +24,11 @@ export const routes = {
   //bands
   allBands: "/band/all",
   bandHome: "/band",
-  createAlbum: '/band/create-album',
   myAlbuns: '/band/my-albuns',
-  createMusic: '/band/create-music',
   myMusics: '/band/my-music',
   //admin
-  adminHome:'/admin',
-  approveBand:'/admin/approve',
+  adminHome: '/admin',
+  approveBand: '/admin/approve',
   createMusicalGenre: '/admin/genre/create',
   createOtherAdmin: '/admin/create'
 
@@ -48,10 +44,8 @@ function Router(props) {
         <Route exact path={routes.premiun} component={Premium} />
         <Route exact path={routes.bandHome} component={HomeBand} />
         <Route exact path={routes.allBands} component={AllBands} />
-        <Route exact path={routes.createAlbum} component={NewAlbum} />
-        <Route exact path={routes.myAlbuns} component={MyAlbuns} />
-        <Route exact path={routes.createMusic} component={NewMusic} />
-        <Route exact path={routes.myMusics} component={EditMusic} />
+        <Route exact path={routes.myAlbuns} component={Album} />
+        <Route exact path={routes.myMusics} component={Music} />
         <Route exact path={routes.adminHome} component={HomeAdmin} />
         <Route exact path={routes.approveBand} component={ApproveBand} />
         <Route exact path={routes.createMusicalGenre} component={MusicGenre} />
