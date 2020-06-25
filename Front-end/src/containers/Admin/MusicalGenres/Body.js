@@ -20,7 +20,7 @@ const GenreList = styled.div`
   width: 100%;
   max-width: 400px;
   height:300px;
-  margin-bottom:48px;
+  margin-bottom:40px;
   overflow-y:scroll;
   border: 1px solid black;
   border-radius:5px;
