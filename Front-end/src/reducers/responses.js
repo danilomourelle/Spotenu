@@ -1,31 +1,38 @@
 const initialState = {
   signIn: {
     isOpen: false,
-    message: ''
+    message: '',
+    type: ''
   },
   login: {
     isOpen: false,
-    message: ''
+    message: '',
+    type: ''
   },
   approve: {
     isOpen: false,
-    message: ''
+    message: '',
+    type: ''
   },
   genre: {
     isOpen: false,
-    message: ''
+    message: '',
+    type: ''
   },
   album: {
     isOpen: false,
-    message: ''
+    message: '',
+    type: ''
   },
   music: {
     isOpen: false,
-    message: ''
+    message: '',
+    type: ''
   },
 }
 
 const responses = (state = initialState, action) => {
+
   switch (action.type) {
     case "SET_RESPONSE_SIGNIN":
       return {

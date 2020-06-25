@@ -24,16 +24,56 @@ const Card = styled.div`
   flex-direction:column;
   justify-content:space-around;
   align-items:center;
+  span{
+    width:50%;
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+  }
 `
 
 function Dialog(props) {
   const { dialog, closeFunction } = props
+
+  const dialogShown = () => {
+    switch (dialog.type) {
+      case 'confirm':
+        return (
+          <Card>
+            <p>{dialog.message}</p>
+            <LittleBtn onClick={closeFunction}>Fechar</LittleBtn>
+          </Card>
+        )
+      case 'info':
+        return (
+          <Card>
+            <p>{dialog.message}</p>
+          </Card>
+        )
+      case 'decision':
+        return (
+          <Card>
+            <p>{dialog.message}</p>
+            <span>
+              <LittleBtn onClick={() => closeFunction(true)}>Ok</LittleBtn>
+              <LittleBtn color='#b70811' onClick={() => closeFunction(false)}>Cancelar</LittleBtn>
+            </span>
+          </Card>
+        )
+      default:
+        return (
+          <Card>
+            <p>{dialog.message}</p>
+            <LittleBtn onClick={closeFunction}>Fechar</LittleBtn>
+          </Card>
+        )
+    }
+  }
   return (
     <Wrapper visible={dialog.isOpen}>
-      <Card>
-        <p>{dialog.message}</p>
-        <LittleBtn onClick={closeFunction}>Fechar</LittleBtn>
-      </Card>
+      {
+        dialogShown()
+      }
     </Wrapper>
   )
 }

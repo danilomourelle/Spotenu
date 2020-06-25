@@ -68,7 +68,7 @@ function Body() {
     dispatch(createNewMusicGenre(form))
     setForm({ name: '' })
   }
-  console.log(form)
+
   return (
     <Wrapper>
       <h3>Lista de gêneros já cadastrados</h3>

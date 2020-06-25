@@ -1,9 +1,9 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Header from '../../../components/Header'
 import Body from './Body'
 import Dialog from '../../../components/Dialog'
 import { setSignInResponse } from '../../../actions/responses'
-import { useDispatch, useSelector } from 'react-redux'
 
 
 
@@ -12,7 +12,7 @@ function SignIn() {
   const dialog = useSelector(state => state.responses.signIn)
 
   const handleCloseDialog = () => {
-    dispatch(setSignInResponse({ isOpen: false, message: '' })) //TODO: Colocar a action que desliga dialog
+    dispatch(setSignInResponse({ isOpen: false, message: '' }))
   }
 
   return <>

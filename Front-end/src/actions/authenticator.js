@@ -17,21 +17,61 @@ export const signIn = (form) => async (dispatch) => {
     });
 
     const token = response.data.token
-    if (response.data.user.type === "CUSTOMER") {
-      window.localStorage.setItem("token", token)
-      dispatch(replace(routes.bandHome))
-      dispatch(setUser(response.data.user))
-    }
-    else if (form.userType === "ADMIN") {
-      dispatch(replace(routes.adminHome))
-    }
-    else {
-      dispatch(replace(routes.home))
+    switch (form.userType) {
+      case 'CUSTOMER':
+        window.localStorage.setItem("token", token)
+        dispatch(replace(routes.bandHome))
+        dispatch(setUser(response.data.user))
+        break;
+      case 'ADMIN':
+        dispatch(setSignInResponse(
+          {
+            isOpen: true,
+            message: "Novo ADMINISTRADOR cadastrado com sucesso",
+            type: "info"
+          }
+        ))
+        setTimeout(() => {
+          dispatch(setSignInResponse(
+            {
+              isOpen: false,
+              message: "",
+              type: "info"
+            }
+          ))
+        }, 2000)
+        break;
+      case 'BAND':
+        dispatch(setSignInResponse(
+          {
+            isOpen: true,
+            message: "Cadastro realizado com sucesso. \n Você será redirecionado para página inicial",
+            type: "info"
+          }
+        ))
+        setTimeout(() => {
+          dispatch(setSignInResponse(
+            {
+              isOpen: false,
+              message: "",
+              type: "info"
+            }
+          ))
+          dispatch(replace(routes.home))
+        }, 5000)
+        break;
+      default:
+        dispatch(replace(routes.home))
+        break;
     }
   }
   catch (error) {
-    console.error(error.response)
-    dispatch(setSignInResponse({ isOpen: true, message: error.response.data.message }))
+    console.error(error)
+    dispatch(setSignInResponse({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 
@@ -50,7 +90,7 @@ export const login = (form) => async (dispatch) => {
         dispatch(push(routes.adminHome))
         break;
       case 'BAND':
-        user.isActive ? dispatch(push(routes.bandHome)) : dispatch(push(routes.home))
+        dispatch(push(routes.bandHome))
         break;
       default:
         //dispatch(push(routes.customerHome))
@@ -59,8 +99,12 @@ export const login = (form) => async (dispatch) => {
   }
 
   catch (error) {
-    console.error(error.response)
-    dispatch(setLoginResponse({ isOpen: true, message: error.response.data.message }))
+    console.error(error)
+    dispatch(setLoginResponse({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 

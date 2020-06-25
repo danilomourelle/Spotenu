@@ -29,7 +29,7 @@ const Form = styled.form`
 function Body() {
   const dispatch = useDispatch()
 
-  const [form, setForm] = useState()
+  const [form, setForm] = useState({ user: '', password: '' })
 
   const handleInputChange = (e) => {
     setForm({
@@ -41,13 +41,14 @@ function Body() {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(login(form))
+    setForm({ user: '', password: '' })
   }
   return (
     <Wrapper>
       <h3>Para continuar faça o login em sua conta</h3>
       <Form onSubmit={handleSubmit}>
-        <Input type='text' placeholder='E-mai ou Nick' name='user' onChange={handleInputChange} />
-        <Input type='password' placeholder='Senha' name='password' onChange={handleInputChange} />
+        <Input name='user' value={form.user} type='text' placeholder='E-mai ou Nick' onChange={handleInputChange} />
+        <Input name='password' value={form.password} type='password' placeholder='Senha' onChange={handleInputChange} />
         <BtnGreen>Entrar</BtnGreen>
       </Form>
       <br />

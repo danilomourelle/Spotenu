@@ -99,7 +99,7 @@ export class UserController {
     try {
       const token = req.headers.authorization as string;
       const id = req.params.id
-    
+
       const result = await UserController.UserBusiness.approveBand(token, id);
       await BaseDatabase.desconnectDB()
       res.sendStatus(result.statusCode);
@@ -114,7 +114,6 @@ export class UserController {
     try {
       const token = req.headers.authorization as string;
       const idList = req.body.idList as string[]
-      console.log('2', idList)
 
       const result = await UserController.UserBusiness.approveAllBands(token, idList);
       await BaseDatabase.desconnectDB()

@@ -108,7 +108,7 @@ export class UserBusiness {
       throw new NotFoundError("Usuário não encontrado")
     }
     if (userFound.getType() === UserType.BAND && !userFound.getIsActive()) {
-      throw new UnauthorizedError("Usuários cadastrados como BANDA precisam ser aprovados para prosseguir")
+      throw new UnauthorizedError("Seu cadastro ainda não foi aprovado")
     }
 
     const isPasswordValid = await this.hashManager.compareHash(password, userFound.getPassword())
@@ -158,7 +158,7 @@ export class UserBusiness {
     token: string,
   ): Promise<ContentList> {
     if (!token) {
-      throw new InvalidParameterError("Preencha todos os campos");
+      throw new InvalidParameterError("Necessário relogar no sistema");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)

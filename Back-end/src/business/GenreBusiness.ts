@@ -18,17 +18,17 @@ export class GenreBusiness {
 
   public async create(name: string, token: string): Promise<Creation> {
     if (!name || !token) {
-      throw new InvalidParameterError("Missing input");
+      throw new InvalidParameterError("Preencha todos os campos");
     }
-  
+
     const userData = this.tokenManager.retrieveDataFromToken(token)
     if (userData.type !== UserType.ADMIN) {
-      throw new UnauthorizedError("Access denied")
+      throw new UnauthorizedError("Acesso negado")
     }
 
     const result = await this.genreDatabse.getGenreByName(name)
     if (result) {
-      throw new GenericError("This genre already exists")
+      throw new GenericError("Este gênero já existe")
     }
 
     const id = this.idManager.generateId()
@@ -51,7 +51,7 @@ export class GenreBusiness {
     }
 
     const genresList = await this.genreDatabse.getAllGenre()
-    
+
     return new ContentList(
       genresList.map(genre => ({
         name: genre.getName(),
