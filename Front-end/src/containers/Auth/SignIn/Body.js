@@ -35,6 +35,7 @@ const BottonWrapper = styled.div`
   justify-items: center;
 `
 
+
 function Body(props) {
   const dispatch = useDispatch()
 
@@ -46,7 +47,7 @@ function Body(props) {
       [e.target.name]: e.target.value
     })
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(signIn(form))
@@ -60,8 +61,8 @@ function Body(props) {
         <Input name='nickname' type='text' placeholder='Nickname' onChange={handleInputChange} />
         <Input name='email' type='email' placeholder='E-mai' onChange={handleInputChange} />
         <Input name='password' type='password' placeholder='Senha' onChange={handleInputChange} />
-        {form.userType === "BAND" && 
-        <Input type='text' name='description' placeholder='Description' onChange={handleInputChange} />}
+        {form.userType === "BAND" &&
+          <Input type='text' name='description' placeholder='Description' onChange={handleInputChange} />}
         <Select name='userType' onChange={handleInputChange}>
           <option value='CUSTOMER'>Ouvinte</option>
           <option value='BAND'>Banda / Cantor</option>
@@ -74,6 +75,7 @@ function Body(props) {
         <p>Já tem uma conta?</p>
         <Link to={routes.login}><BtnWhite>Faça login</BtnWhite></Link>
       </BottonWrapper>
+
     </Wrapper>
   )
 }

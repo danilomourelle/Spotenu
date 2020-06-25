@@ -30,25 +30,25 @@ export class UserBusiness {
     token?: string
   ): Promise<UserAuth | Creation> {
     if (!name || !nickname || !email || !password || !userType) {
-      throw new InvalidParameterError("Missing input");
+      throw new InvalidParameterError("Preencha todos os campos");
     }
 
     const newUserType = stringToUserType(userType)
 
     if (newUserType === UserType.BAND && !description) {
-      throw new InvalidParameterError("Users of type BAND need a description");
+      throw new InvalidParameterError("Usuários tipo BANDA devem preencher uma descrição");
     }
     if (newUserType === UserType.ADMIN && token) {
       const userData = this.tokenManager.retrieveDataFromToken(token)
       if (userData.type !== UserType.ADMIN) {
-        throw new InvalidParameterError("Users of type ADMIN need to be created by another previous logged ADMIN user");
+        throw new InvalidParameterError("Usuários do tipo ADMINISTRADOR precisam ser craidos a partir de outro ADMINISTRADOR previamente logado");
       }
     }
     if (email.indexOf("@") === -1) {
-      throw new InvalidParameterError("Invalid email");
+      throw new InvalidParameterError("Email inválido");
     }
     if (password.length < 6) {
-      throw new InvalidParameterError("Invalid password");
+      throw new InvalidParameterError("Senha Inválida, necessário pelo menos 6 dígitos");
     }
 
     let result = await this.userDatabase.getUserByEmailorNick(email)
@@ -84,13 +84,14 @@ export class UserBusiness {
         }),
         {
           id,
+          name,
           isActive: false,
           type: newUserType
         },
         201
       )
     }
-    return new Creation("User created")
+    return new Creation("Usuário criado com sucesso")
   }
 
   public async login(
@@ -98,22 +99,22 @@ export class UserBusiness {
     password: string,
   ): Promise<UserAuth> {
     if (!user || !password) {
-      throw new InvalidParameterError("Missing input");
+      throw new InvalidParameterError("Preencha todos os campos");
     }
 
     const userFound = await this.userDatabase.getUserByEmailorNick(user)
 
     if (!userFound) {
-      throw new NotFoundError("User Not Found")
+      throw new NotFoundError("Usuário não encontrado")
     }
     if (userFound.getType() === UserType.BAND && !userFound.getIsActive()) {
-      throw new UnauthorizedError("A BAND user needs to be approves first")
+      throw new UnauthorizedError("Usuários cadastrados como BANDA precisam ser aprovados para prosseguir")
     }
 
     const isPasswordValid = await this.hashManager.compareHash(password, userFound.getPassword())
 
     if (!isPasswordValid) {
-      throw new InvalidParameterError("Invalid Password")
+      throw new InvalidParameterError("Senha Inválida")
     }
 
     return new UserAuth(
@@ -124,6 +125,7 @@ export class UserBusiness {
       }),
       {
         id: userFound.getId(),
+        name: userFound.getName(),
         isActive: userFound.getIsActive(),
         type: userFound.getType()
       }, 202)
@@ -133,12 +135,12 @@ export class UserBusiness {
     token: string,
   ): Promise<ContentList> {
     if (!token) {
-      throw new InvalidParameterError("Missing input");
+      throw new InvalidParameterError("Preencha todos os campos");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
     if (userData.type !== UserType.ADMIN) {
-      throw new UnauthorizedError("Access denied")
+      throw new UnauthorizedError("Acesso Negado")
     }
 
     const bandList = await this.userDatabase.getAllBands()
@@ -156,12 +158,12 @@ export class UserBusiness {
     token: string,
   ): Promise<ContentList> {
     if (!token) {
-      throw new InvalidParameterError("Missing input");
+      throw new InvalidParameterError("Preencha todos os campos");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
     if (userData.type !== UserType.ADMIN) {
-      throw new UnauthorizedError("Access denied")
+      throw new UnauthorizedError("Acesso Negado")
     }
 
     const bandList = await this.userDatabase.getBandsToApprove()
@@ -178,23 +180,23 @@ export class UserBusiness {
     id: string
   ): Promise<GenericResult> {
     if (!token || !id) {
-      throw new InvalidParameterError("Missing input");
+      throw new InvalidParameterError("Preencha todos os campos");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
     if (userData.type !== UserType.ADMIN) {
-      throw new UnauthorizedError("Access denied")
+      throw new UnauthorizedError("Acesso Negado")
     }
 
     const userFound = await this.userDatabase.getUserById(id)
     if (!userFound) {
-      throw new NotFoundError("User Not Found")
+      throw new NotFoundError("Usuário não encontrado")
     }
     if (userFound.getType() !== UserType.BAND) {
-      throw new GenericError("User not a band")
+      throw new GenericError("Usuário não foi cadastrado como BANDA")
     }
     if (userFound.getIsActive()) {
-      throw new GenericError("User already approved")
+      throw new GenericError("Este usuário já se encontra aprovado")
     }
 
     await this.userDatabase.activate(id)
@@ -207,12 +209,12 @@ export class UserBusiness {
     idList: string[],
   ): Promise<GenericResult> {
     if (!token || (idList.length === 0)) {
-      throw new InvalidParameterError("Missing input");
+      throw new InvalidParameterError("Preencha todos os campos");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
     if (userData.type !== UserType.ADMIN) {
-      throw new UnauthorizedError("Access denied")
+      throw new UnauthorizedError("Acesso Negado")
     }
 
     await this.userDatabase.activateAll(idList)
@@ -254,14 +256,14 @@ export class UserBusiness {
     name: string
   ): Promise<GenericResult> {
     if (!token || !name) {
-      throw new InvalidParameterError("Missing input");
+      throw new InvalidParameterError("Preencha todos os campos");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
 
     const userFound = await this.userDatabase.getUserById(userData.id)
     if (!userFound) {
-      throw new NotFoundError("User Not Found")
+      throw new NotFoundError("Usuário não encontrado")
     }
 
     await this.userDatabase.update(userFound.getId(), name)

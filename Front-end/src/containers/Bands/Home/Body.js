@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 import Card from '../../../components/Card'
 import { BaseBody } from '../../../components/Body'

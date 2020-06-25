@@ -59,16 +59,6 @@ const Form = styled.form`
   align-content:flex-start;
   justify-items: center;
 `
-const CkeckWrapper = styled.div`
-  width: 100%;
-  max-width:400px;
-  max-height: 70vh;
-  overflow-y: auto;
-  margin: 24px 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: space-between;
-`
 
 function Body() {
   const history = useHistory()

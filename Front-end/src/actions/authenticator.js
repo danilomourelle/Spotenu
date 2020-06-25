@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { push, replace } from "connected-react-router";
 import { routes } from '../Router/router';
+import { setSignInResponse, setLoginResponse } from './responses';
 
 export const baseURL = 'http://localhost:3003' //TODO: Ajustar endereço
 
@@ -16,7 +17,7 @@ export const signIn = (form) => async (dispatch) => {
     });
 
     const token = response.data.token
-    if (form.userType === "CUSTOMER") {
+    if (response.data.user.type === "CUSTOMER") {
       window.localStorage.setItem("token", token)
       dispatch(replace(routes.bandHome))
       dispatch(setUser(response.data.user))
@@ -29,13 +30,14 @@ export const signIn = (form) => async (dispatch) => {
     }
   }
   catch (error) {
-    console.error(error)
+    console.error(error.response)
+    dispatch(setSignInResponse({ isOpen: true, message: error.response.data.message }))
   }
 }
 
 export const login = (form) => async (dispatch) => {
   try {
-    console.log('login', form )
+    console.log('login', form)
     const response = await axios.post(`${baseURL}/user/login`, form);
 
     window.localStorage.setItem("token", response.data.token)
@@ -57,7 +59,8 @@ export const login = (form) => async (dispatch) => {
   }
 
   catch (error) {
-    console.error(error)
+    console.error(error.response)
+    dispatch(setLoginResponse({ isOpen: true, message: error.response.data.message }))
   }
 }
 
