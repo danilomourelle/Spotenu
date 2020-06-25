@@ -16,3 +16,7 @@ export const Select = styled.select`
   border:1px solid black;
   padding: 0 10px;
 `
+
+export const Checkbox = styled(Input)`
+  width: 25%;
+`

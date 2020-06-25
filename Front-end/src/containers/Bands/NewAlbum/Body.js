@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { routes } from '../../../Router/router'
+import Playlist from '../../../components/Playlist'
 import { BaseBody } from '../../../components/Body'
 import { BtnGreen } from '../../../components/Buttons'
-import { Input } from '../../../components/Input'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Input, Checkbox } from '../../../components/Input'
 import { createNewAlbum } from '../../../actions/band'
-import { routes } from '../../../Router/router'
 import { fetchAllMusicGenre } from '../../../actions/admin'
-import Playlist from '../../../components/Playlist'
 
 const Wrapper = styled(BaseBody)`
   margin: 0 auto;
@@ -24,8 +24,9 @@ const BaseSideWrapper = styled.div`
 `
 const SideWrapperLeft = styled(BaseSideWrapper)`
   display: flex;
+  padding: 150px 0;
   flex-flow: column nowrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items:center;
   border-right: 1px solid #d9dadc;
 `
@@ -37,7 +38,6 @@ const SideWrapperRight = styled(BaseSideWrapper)`
   justify-items: center;
   overflow-y: auto;
 `
-
 const Form = styled.form`
   width: 100%;
   max-width:400px;
@@ -46,6 +46,23 @@ const Form = styled.form`
   grid-gap: 15px;
   align-content:flex-start;
   justify-items: center;
+`
+const CkeckWrapper = styled.div`
+  width: 100%;
+  max-width:400px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-between;
+`
+const CheckOptions = styled.span`
+  width: 100px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  label{
+    margin-left:12px;
+    width: 75%;
+  }
 `
 
 function Body() {
@@ -97,15 +114,17 @@ function Body() {
     <Wrapper>
       <SideWrapperLeft>
         <h3>Preencha os campos abaixo</h3>
-        <Form onSubmit={handleSubmit}>
+        <CkeckWrapper>
           {
             genreList.map(genre => (
-              <div key={genre.id}>
-                <Input type='checkbox' id={genre.id} name={genre.id} onChange={handleCkeckChange} />
+              <CheckOptions key={genre.id}>
+                <Checkbox type='checkbox' id={genre.id} name={genre.id} onChange={handleCkeckChange} />
                 <label htmlFor={genre.id}>{genre.name}</label>
-              </div>
+              </CheckOptions>
             ))
           }
+        </CkeckWrapper>
+        <Form onSubmit={handleSubmit}>
           <Input name='name' type='text' placeholder='Nome do Album' value={form.name} onChange={handleInputChange} />
           <BtnGreen>Enviar</BtnGreen>
         </Form>

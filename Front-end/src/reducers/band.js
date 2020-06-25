@@ -1,15 +1,9 @@
 const initialState = {
   myAlbunsList: [
-    {name:'Buscando...', id: '001'},
-    
+    { name: 'Buscando...', id: '001' }
   ],
   myMusicsList: [
-    {name:'Music1...', id: '001'},
-    {name:'Music2...', id: '002'},
-    {name:'Music3...', id: '003'},
-    {name:'Music4...', id: '004'},
-    {name:'Music5...', id: '005'},
-    {name:'Music6...', id: '006'},
+    { name: 'Music1...', id: '001' }
   ]
 }
 
