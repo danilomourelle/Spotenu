@@ -13,14 +13,20 @@ import { fetchAllMusicGenre } from '../../../actions/admin'
 const Wrapper = styled(BaseBody)`
   margin: 0 auto;
   display: flex;
-  flex-flow: row nowrap;
-  align-items:stretch;
+  flex-flow: row wrap;
   justify-content: start;
   padding: 20px 0;
+ @media(max-width: 1500px){
+    justify-content: center;
+  } 
 `
 const BaseSideWrapper = styled.div`
   height: 100%;
   width: 50%;
+  @media(max-width: 1500px){
+    width:100%;
+    max-width:800px;
+  }
 `
 const SideWrapperLeft = styled(BaseSideWrapper)`
   display: flex;
@@ -29,6 +35,10 @@ const SideWrapperLeft = styled(BaseSideWrapper)`
   justify-content: space-evenly;
   align-items:center;
   border-right: 1px solid #d9dadc;
+  @media(max-width: 1500px){
+    padding: 50px 0;
+    border: none;
+  }
 `
 const SideWrapperRight = styled(BaseSideWrapper)`
   border: 48px solid #fff;
@@ -50,6 +60,9 @@ const Form = styled.form`
 const CkeckWrapper = styled.div`
   width: 100%;
   max-width:400px;
+  max-height: 70vh;
+  overflow-y: auto;
+  margin: 24px 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
