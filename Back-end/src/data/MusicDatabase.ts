@@ -33,6 +33,13 @@ export class MusicDatabase extends BaseDatabase {
       .into(MusicDatabase.TABLE_NAME)
   }
 
+  public async delete(id: string): Promise<void> {
+    await this.setConnection()
+      .delete()
+      .from(MusicDatabase.TABLE_NAME)
+      .where({ id })
+  }
+
   public async getMusicIntoAlbumByName(name: string, albumId: string): Promise<Music | undefined> {
     const result = await this.setConnection()
       .select("*")

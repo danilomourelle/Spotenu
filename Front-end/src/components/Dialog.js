@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { LittleBtn } from './Buttons'
+import { setDialog } from '../actions/dialog'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Wrapper = styled.div`
   width:100%;
@@ -33,7 +35,19 @@ const Card = styled.div`
 `
 
 function Dialog(props) {
-  const { dialog, closeFunction } = props
+  const dialog = useSelector(state => state.dialog)
+  const dispatch = useDispatch()
+
+  const handleClose = (response) => {
+    dispatch(setDialog(
+      {
+        isOpen: false,
+        message: '',
+        type: '',
+        response: response
+      }
+    ))
+  }
 
   const dialogShown = () => {
     switch (dialog.type) {
@@ -41,7 +55,7 @@ function Dialog(props) {
         return (
           <Card>
             <p>{dialog.message}</p>
-            <LittleBtn onClick={closeFunction}>Fechar</LittleBtn>
+            <LittleBtn onClick={handleClose}>Fechar</LittleBtn>
           </Card>
         )
       case 'info':
@@ -55,8 +69,8 @@ function Dialog(props) {
           <Card>
             <p>{dialog.message}</p>
             <span>
-              <LittleBtn onClick={() => closeFunction(true)}>Ok</LittleBtn>
-              <LittleBtn color='#b70811' onClick={() => closeFunction(false)}>Cancelar</LittleBtn>
+              <LittleBtn onClick={() => handleClose(true)}>Ok</LittleBtn>
+              <LittleBtn color='#b70811' onClick={() => handleClose(false)}>Cancelar</LittleBtn>
             </span>
           </Card>
         )
@@ -64,7 +78,7 @@ function Dialog(props) {
         return (
           <Card>
             <p>{dialog.message}</p>
-            <LittleBtn onClick={closeFunction}>Fechar</LittleBtn>
+            <LittleBtn onClick={handleClose}>Fechar</LittleBtn>
           </Card>
         )
     }

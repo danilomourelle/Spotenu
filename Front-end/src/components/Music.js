@@ -15,12 +15,12 @@ const Wrapper = styled.div`
   grid-auto-flow:column;
   grid-template-columns: 1fr 3fr;
 `
-const PlaylistPhoto = styled.img`
+const AlbumPhoto = styled.img`
   width:100%;
   height:100%;
   object-fit:cover;
 `
-const PlaylistInfos = styled.section`
+const MusicInfos = styled.section`
   display: grid;
   grid-auto-flow:row;
   grid-template-rows: 2fr 3fr;
@@ -45,20 +45,21 @@ function Music(props) {
     dispatch(setDialog({
       isOpen: true,
       message: `Você deseja apagar a música ${music.name}`,
-      type: 'decision'
+      type: 'decision',
+      response: false
     }))
   }
   return (
     <Wrapper>
-      <PlaylistPhoto src={music.image} alt='Imagem do Album' />
-      <PlaylistInfos>
+      <AlbumPhoto src={music.image} alt='Imagem do Album' />
+      <MusicInfos>
         <h2>{music.name}</h2>
         <BtnWrapper>
           <LittleBtn>Editar</LittleBtn>
           <LittleBtn>Detalhes</LittleBtn>
           <LittleBtn onClick={handleDeleteMusic} color="#b70811">Apagar</LittleBtn>
         </BtnWrapper>
-      </PlaylistInfos>
+      </MusicInfos>
     </Wrapper>
   )
 }

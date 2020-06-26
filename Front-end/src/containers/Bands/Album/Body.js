@@ -9,6 +9,7 @@ import { Input, Checkbox } from '../../../components/Input'
 import { createNewAlbum, fetchMyAlbunsList, deleteAlbum, setAlbumIdToDelete } from '../../../actions/band'
 import { fetchAllMusicGenre } from '../../../actions/admin'
 import Album from '../../../components/Album'
+import { setDialog } from '../../../actions/dialog'
 
 const Wrapper = styled(BaseBody)`
   margin: 0 auto;
@@ -87,6 +88,7 @@ function Body(props) {
   const genreList = useSelector(state => state.admin.genreList)
   const albunsList = useSelector(state => state.band.myAlbunsList)
   const albumIdToDelete = useSelector(state => state.band.albumIdToDelete)
+  const dialogResponse = useSelector(state => state.dialog.response)
   const [form, setForm] = useState({ name: '', genreIdList: [], image: '' })
 
   useEffect(() => {
@@ -98,11 +100,17 @@ function Body(props) {
   }, [history, dispatch])
 
   useEffect(() => {
-    if (props.response === true && albumIdToDelete) {
+    if (dialogResponse === true && albumIdToDelete) {
       dispatch(deleteAlbum(albumIdToDelete))
       dispatch(setAlbumIdToDelete(undefined))
+      dispatch(setDialog({
+        isOpen: false,
+        message: '',
+        type: '',
+        response: false
+      }))
     }
-  }, [props.response, dispatch, albumIdToDelete])
+  }, [dialogResponse, dispatch, albumIdToDelete])
 
 
   const handleInputChange = (e) => {

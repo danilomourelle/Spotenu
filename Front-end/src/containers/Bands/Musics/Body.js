@@ -5,9 +5,10 @@ import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 import { BtnGreen } from '../../../components/Buttons'
 import { Select, LittleSelect, Input } from '../../../components/Input'
-import { fetchMyMusicsList, fetchMyAlbunsList } from '../../../actions/band'
+import { fetchMyMusicsList, fetchMyAlbunsList, createNewMusic, deleteMusic, setMusicIdToDelete } from '../../../actions/band'
 import Music from '../../../components/Music'
 import { BaseBody } from '../../../components/Body'
+import { setDialog } from '../../../actions/dialog'
 
 const Wrapper = styled(BaseBody)`
   margin: 0 auto;
@@ -60,7 +61,7 @@ const Form = styled.form`
   justify-items: center;
 `
 
-function Body() {
+function Body(props) {
   const history = useHistory()
   const dispatch = useDispatch()
   const [albumIdToFilter, setAlbumIdToFilter] = useState('all')
@@ -68,6 +69,8 @@ function Body() {
   const [form, setForm] = useState({ name: '', albumIdToAddMusic: '' })
   const myMusicsList = useSelector(state => state.band.myMusicsList)
   const myAlbunsList = useSelector(state => state.band.myAlbunsList)
+  const musicIdToDelete = useSelector(state => state.band.musicIdToDelete)
+  const dialogResponse = useSelector(state => state.dialog.response)
 
   useEffect(() => {
     if (!window.localStorage.getItem('token')) {
@@ -104,6 +107,21 @@ function Body() {
     }
   }, [albumListToFilter])
 
+  //Deletando a música depois de receber a consifrmação
+  useEffect(() => {
+    if (dialogResponse === true && musicIdToDelete) {
+      console.log('aqui')
+      dispatch(deleteMusic(musicIdToDelete))
+      dispatch(setMusicIdToDelete(undefined))
+      dispatch(setDialog({
+        isOpen: false,
+        message: '',
+        type: '',
+        response: false
+      }))
+    }
+  }, [dialogResponse, dispatch, musicIdToDelete])
+
   const insertAllAlbunsOption = (albunsList) => {
     let filterOptions = [...albunsList]
     if (filterOptions[0].id !== "all") {
@@ -128,11 +146,11 @@ function Body() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch()
-    setForm({ name: '', genreIdList: [] })
+    dispatch(createNewMusic(form))
+    setForm({ name: '', albumIdToAddMusic: myAlbunsList[0].id })
   }
 
-
+  console.log(dialogResponse)
   return (
     <Wrapper>
       <SideWrapperLeft>

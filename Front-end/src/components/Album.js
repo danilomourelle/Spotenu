@@ -15,12 +15,12 @@ const Wrapper = styled.div`
   grid-auto-flow:column;
   grid-template-columns: 1fr 3fr;
 `
-const PlaylistPhoto = styled.img`
+const AlbumPhoto = styled.img`
   width:100%;
   height:100%;
   object-fit:cover;
 `
-const PlaylistInfos = styled.section`
+const AlbumInfos = styled.section`
   display: grid;
   grid-auto-flow:row;
   grid-template-rows: 2fr 3fr;
@@ -50,15 +50,15 @@ function Album(props) {
   }
   return (
     <Wrapper>
-      <PlaylistPhoto src={album.image} alt='Imagem do Album' />
-      <PlaylistInfos>
+      <AlbumPhoto src={album.image} alt='Imagem do Album' />
+      <AlbumInfos>
         <h2>{album.name}</h2>
         <BtnWrapper>
           <LittleBtn>Editar</LittleBtn>
           <LittleBtn>Detalhes</LittleBtn>
           <LittleBtn onClick={handleDeleteAlbum} color="#b70811">Apagar</LittleBtn>
         </BtnWrapper>
-      </PlaylistInfos>
+      </AlbumInfos>
     </Wrapper>
   )
 }

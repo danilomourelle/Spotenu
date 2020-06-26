@@ -37,6 +37,7 @@ function Body(props) {
   const dispatch = useDispatch()
   const bandsListToApprove = useSelector(state => state.admin.bandsListToApprove)
   const [bandIdToApprove, setBandIdToApprove] = useState(undefined)
+  const dialogResponse = useSelector(state => state.dialog.response)
 
   useEffect(() => {
     if (!window.localStorage.getItem('token')) {
@@ -55,11 +56,17 @@ function Body(props) {
   }, [bandsListToApprove])
 
   useEffect(() => {
-    if (props.response === true && bandsListToApprove.length > 0) {
+    if (dialogResponse === true && bandsListToApprove.length > 0) {
       const allBandsId = bandsListToApprove.map(band => (
         band.id
       ))
       dispatch(approveAllBands(allBandsId))
+      dispatch(setDialog({
+        isOpen: false,
+        message: '',
+        type: '',
+        response: false
+      }))
     }
   }, [props.response, dispatch, bandsListToApprove])
 
@@ -75,7 +82,8 @@ function Body(props) {
     dispatch(setDialog({
       isOpen: true,
       message: "Você deseja aprovar todas as bandas?",
-      type: 'decision'
+      type: 'decision',
+      response: false
     }))
   }
 

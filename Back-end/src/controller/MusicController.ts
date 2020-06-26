@@ -17,10 +17,10 @@ export class MusicController {
 
   async create(req: Request, res: Response) {
     try {
-      const { name, albumId } = req.body;
+      const { name, albumIdToAddMusic } = req.body;
       const token = req.headers.authorization as string
 
-      const result = await MusicController.MusicBusiness.create(name, albumId, token);
+      const result = await MusicController.MusicBusiness.create(name, albumIdToAddMusic, token);
 
       await BaseDatabase.desconnectDB()
       res.sendStatus(result.statusCode)
@@ -36,6 +36,21 @@ export class MusicController {
       const token = req.headers.authorization as string
 
       const result = await MusicController.MusicBusiness.getMusicByAlbum(albumId, token);
+
+      await BaseDatabase.desconnectDB()
+      res.status(result.statusCode).send({ musics: result.message })
+    } catch (err) {
+      await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
+    }
+  }
+
+  async delete(req: Request, res: Response) {
+    try {
+      const id = req.params.id
+      const token = req.headers.authorization as string
+
+      const result = await MusicController.MusicBusiness.delete(id, token);
 
       await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ musics: result.message })

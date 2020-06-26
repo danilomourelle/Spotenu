@@ -1,7 +1,8 @@
 const initialState = {
   isOpen: false,
   message: '',
-  type: ''
+  type: '',
+  response: false
 }
 
 
