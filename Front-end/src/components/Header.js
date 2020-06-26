@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { routes } from '../Router/router'
 import { Link } from 'react-router-dom'
+import { routes } from '../Router/router'
 
 const Wrapper = styled.div`
   width: 100%;

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { LittleBtn } from './Buttons'
 import { useDispatch } from 'react-redux'
+import { LittleBtn } from './Buttons'
 import { setMusicIdToDelete } from '../actions/band'
 import { setDialog } from '../actions/dialog'
 

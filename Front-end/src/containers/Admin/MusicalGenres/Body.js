@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { BtnGreen } from '../../../components/Buttons'
-import { Input } from '../../../components/Input'
-import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllMusicGenre, createNewMusicGenre } from '../../../actions/admin'
-import { routes } from '../../../Router/router'
+import { useHistory } from 'react-router-dom'
 import { BaseBody } from '../../../components/Body'
+import { Input } from '../../../components/Input'
+import { BtnGreen } from '../../../components/Buttons'
+import { routes } from '../../../Router/router'
+import { fetchAllMusicGenre, createNewMusicGenre } from '../../../actions/admin'
 
 const Wrapper = styled(BaseBody)`
   max-width:800px;

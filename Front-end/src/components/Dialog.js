@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
 import { LittleBtn } from './Buttons'
 import { setDialog } from '../actions/dialog'
-import { useDispatch, useSelector } from 'react-redux'
 
 const Wrapper = styled.div`
   width:100%;

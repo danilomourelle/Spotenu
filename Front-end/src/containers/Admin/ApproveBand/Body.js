@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { BtnGreen, BtnWhite } from '../../../components/Buttons'
-import { Select } from '../../../components/Input'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { BtnGreen, BtnWhite } from '../../../components/Buttons'
+import { Select } from '../../../components/Input'
+import { BaseBody } from '../../../components/Body'
 import { routes } from '../../../Router/router'
 import { fetchBandsToApprove, approveBand, approveAllBands } from '../../../actions/admin.js'
-import { BaseBody } from '../../../components/Body'
 import { setDialog } from '../../../actions/dialog'
 
 const Wrapper = styled(BaseBody)`
@@ -32,7 +32,7 @@ const BtnWrapper = styled.div`
   justify-items: center;
 `
 
-function Body(props) {
+function Body() {
   const history = useHistory()
   const dispatch = useDispatch()
   const bandsListToApprove = useSelector(state => state.admin.bandsListToApprove)
