@@ -8,9 +8,9 @@ import dialog from './dialog'
 export const generateReducers = history =>
   combineReducers({
     router: connectRouter(history),
-    authenticator: authenticator,
-    admin: admin,
-    band: band,
+    authenticator,
+    admin,
+    band,
     dialog
     //outros reducers
   });

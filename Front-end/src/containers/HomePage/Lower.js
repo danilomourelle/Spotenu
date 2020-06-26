@@ -11,7 +11,7 @@ function Lower() {
 
   return (
     <Wrapper>
-      Oi
+
     </Wrapper>
   )
 }

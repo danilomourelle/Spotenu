@@ -1,8 +1,8 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { Album } from "../models/Album";
 import { AlbumGenreDatabase } from "./AlbumGenreDatabase";
 import { GenreDatabase } from "./GenreDatabase";
 import { MusicDatabase } from "./MusicDatabase";
+import { Album } from "../models/Album";
 
 export class AlbumDatabase extends BaseDatabase {
   public static TABLE_NAME: string = "Album"

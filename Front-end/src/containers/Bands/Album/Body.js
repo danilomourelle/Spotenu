@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { routes } from '../../../Router/router'
 import { BaseBody } from '../../../components/Body'
-import { BtnGreen } from '../../../components/Buttons'
 import { Input, Checkbox } from '../../../components/Input'
+import { BtnGreen } from '../../../components/Buttons'
+import Album from '../../../components/Album'
+import { routes } from '../../../Router/router'
 import { createNewAlbum, fetchMyAlbunsList, deleteAlbum, setAlbumIdToDelete } from '../../../actions/band'
 import { fetchAllMusicGenre } from '../../../actions/admin'
-import Album from '../../../components/Album'
 import { setDialog } from '../../../actions/dialog'
 
 const Wrapper = styled(BaseBody)`
@@ -82,7 +82,7 @@ const CheckOptions = styled.span`
   }
 `
 
-function Body(props) {
+function Body() {
   const dispatch = useDispatch()
   const history = useHistory()
   const genreList = useSelector(state => state.admin.genreList)

@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Upper from './Upper'
 import Header from './Header'
 import Meddium from './Meddium'

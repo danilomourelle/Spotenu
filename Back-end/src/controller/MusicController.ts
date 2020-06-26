@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
-import { MusicBusiness } from '../business/MusicBusiness'
+import { BaseDatabase } from '../data/BaseDatabase'
 import { MusicDatabase } from '../data/MusicDatabase'
 import { AlbumDatabase } from '../data/AlbumDatabase'
 import { TokenManager } from '../services/TokenManager'
 import { IdManager } from '../services/IdManager'
-import { BaseDatabase } from '../data/BaseDatabase'
+import { MusicBusiness } from '../business/MusicBusiness'
 
 
 export class MusicController {
@@ -60,18 +60,4 @@ export class MusicController {
     }
   }
 
-  /*  async getDetails(req: Request, res: Response) {
-     try {
-       const id  = req.params.musicId;
-       const token = req.headers.authorization as string
- 
-       const result = await MusicController.MusicBusiness.getDetails(id, token);
- 
-       res.status(result.msgCode).send(result.message)
-     } catch (err) {
-       res.status(err.errorCode || 400).send({ message: err.message });
-     } finally {
-       await BaseDatabase.desconnectDB()
-     }
-   } */
 }

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { routes } from '../../../Router/router.js'
-import { BtnWhite, BtnGreen } from '../../../components/Buttons'
-import { Input } from '../../../components/Input'
 import { useDispatch } from 'react-redux'
-import { login } from '../../../actions/authenticator.js'
+import { Link } from 'react-router-dom'
 import { BaseBody } from '../../../components/Body.js'
+import { Input } from '../../../components/Input'
+import { BtnWhite, BtnGreen } from '../../../components/Buttons'
+import { routes } from '../../../Router/router.js'
+import { login } from '../../../actions/authenticator.js'
 
 const Wrapper = styled(BaseBody)`
   max-width:800px;

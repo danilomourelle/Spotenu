@@ -8,7 +8,6 @@ const music = new MusicController();
 
 musicRouter.post("/create", music.create);
 
-musicRouter.delete('/:id', music.delete)
+musicRouter.get("/my-musics/:albumId", music.getMusicByAlbum)
 
-/* musicRouter.get("/details/:musicId", music.getDetails)*/
-musicRouter.get("/my-musics/:albumId", music.getMusicByAlbum) 
+musicRouter.delete('/:id', music.delete)

@@ -2,15 +2,15 @@ import { MusicDatabase } from "../data/MusicDatabase";
 import { AlbumDatabase } from "../data/AlbumDatabase";
 import { TokenManager } from "../services/TokenManager";
 import { IdManager } from "../services/IdManager";
-import { InvalidParameterError } from "../errors/InvalidParameterError";
-import { GenericError } from "../errors/GenericError";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { UserType } from "../models/User";
-import { NotFoundError } from "../errors/NotFoundError";
 import { Music } from "../models/Music";
 import { ContentList } from "../messages/ContentList";
 import { GenericResult } from "../messages/GenericResult";
 import { Creation } from "../messages/Creation";
+import { InvalidParameterError } from "../errors/InvalidParameterError";
+import { GenericError } from "../errors/GenericError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { NotFoundError } from "../errors/NotFoundError";
 
 
 export class MusicBusiness {

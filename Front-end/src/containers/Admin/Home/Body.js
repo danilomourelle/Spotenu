@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import { routes } from '../../../Router/router'
 import { BaseBody } from '../../../components/Body'
 import Card from '../../../components/Card'
+import { routes } from '../../../Router/router'
 
 const Wrapper = styled(BaseBody)`
   display: flex;
