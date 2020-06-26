@@ -5,13 +5,13 @@ import { TokenManager } from "../services/TokenManager";
 import { IdManager } from "../services/IdManager";
 import { Album } from "../models/Album";
 import { UserType } from "../models/User";
-import { InvalidParameterError } from "../errors/InvalidParameterError";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { AlbumGenre } from "../models/AlbumGenre";
 import { Creation } from "../messages/Creation";
-import { GenericError } from "../errors/GenericError";
 import { ContentList } from "../messages/ContentList";
 import { GenericResult } from "../messages/GenericResult";
+import { InvalidParameterError } from "../errors/InvalidParameterError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { GenericError } from "../errors/GenericError";
 
 export class AlbumBusiness {
   constructor(

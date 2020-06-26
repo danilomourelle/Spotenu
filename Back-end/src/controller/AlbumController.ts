@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { AlbumBusiness } from "../business/AlbumBusiness";
+import { BaseDatabase } from "../data/BaseDatabase";
 import { AlbumDatabase } from "../data/AlbumDatabase";
 import { AlbumGenreDatabase } from "../data/AlbumGenreDatabase";
 import { GenreDatabase } from "../data/GenreDatabase";
 import { TokenManager } from "../services/TokenManager";
 import { IdManager } from "../services/IdManager";
-import { BaseDatabase } from "../data/BaseDatabase";
+import { AlbumBusiness } from "../business/AlbumBusiness";
 
 export class AlbumController {
   private static AlbumBusiness = new AlbumBusiness(

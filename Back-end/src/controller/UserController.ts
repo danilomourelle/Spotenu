@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { UserBusiness } from "../business/UserBusiness";
-import { TokenManager } from "../services/TokenManager";
+import { BaseDatabase } from "../data/BaseDatabase";
 import { UserDatabase } from "../data/UserDatabase";
+import { TokenManager } from "../services/TokenManager";
 import { HashManager } from "../services/HashManager";
 import { IdManager } from "../services/IdManager";
-import { BaseDatabase } from "../data/BaseDatabase";
+import { UserBusiness } from "../business/UserBusiness";
 
 export class UserController {
   private static UserBusiness = new UserBusiness(
@@ -123,21 +123,6 @@ export class UserController {
       await BaseDatabase.desconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
-  }
-
-  async approveCustomer(req: Request, res: Response) {
-    /*  try {
-       const token = req.headers.authorization as string;
-       // const id: string[] = [].push(req.params.id as string)
- 
-       const result = await UserController.UserBusiness.approveCustomer(token, id);
- 
-       res.sendStatus(result.msgCode);
-     } catch (err) {
-       res.status(err.errorCode || 400).send({ message: err.message });
-     } finally {
-       await BaseDatabase.desconnectDB()
-     } */
   }
 
   async updateUser(req: Request, res: Response) {

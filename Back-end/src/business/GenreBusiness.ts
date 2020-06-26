@@ -3,11 +3,11 @@ import { TokenManager } from "../services/TokenManager";
 import { IdManager } from "../services/IdManager";
 import { Genre } from "../models/Genre";
 import { UserType } from "../models/User";
+import { Creation } from "../messages/Creation";
+import { ContentList } from "../messages/ContentList";
 import { InvalidParameterError } from "../errors/InvalidParameterError";
 import { GenericError } from "../errors/GenericError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
-import { Creation } from "../messages/Creation";
-import { ContentList } from "../messages/ContentList";
 
 export class GenreBusiness {
   constructor(

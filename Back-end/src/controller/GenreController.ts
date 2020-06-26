@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { GenreBusiness } from "../business/GenreBusiness";
+import { BaseDatabase } from "../data/BaseDatabase";
 import { GenreDatabase } from "../data/GenreDatabase";
 import { TokenManager } from "../services/TokenManager";
 import { IdManager } from "../services/IdManager";
-import { BaseDatabase } from "../data/BaseDatabase";
+import { GenreBusiness } from "../business/GenreBusiness";
 
 export class GenreController {
   private static GenreBusiness = new GenreBusiness(

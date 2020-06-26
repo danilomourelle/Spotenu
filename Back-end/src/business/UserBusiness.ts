@@ -1,16 +1,16 @@
-import { User, UserType, stringToUserType } from "../models/User";
 import { UserDatabase } from "../data/UserDatabase";
 import { HashManager } from "../services/HashManager";
 import { TokenManager } from "../services/TokenManager";
 import { IdManager } from "../services/IdManager";
-import { InvalidParameterError } from "../errors/InvalidParameterError";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
-import { NotFoundError } from "../errors/NotFoundError";
-import { GenericError } from "../errors/GenericError";
+import { User, UserType, stringToUserType } from "../models/User";
 import { UserAuth } from "../messages/UserAuth";
 import { Creation } from "../messages/Creation";
 import { ContentList } from "../messages/ContentList";
 import { GenericResult } from "../messages/GenericResult";
+import { InvalidParameterError } from "../errors/InvalidParameterError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { NotFoundError } from "../errors/NotFoundError";
+import { GenericError } from "../errors/GenericError";
 
 export class UserBusiness {
   constructor(
