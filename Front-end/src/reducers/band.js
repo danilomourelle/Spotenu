@@ -5,7 +5,8 @@ const initialState = {
   myMusicsList: [
     { name: 'Music1...', id: '001' }
   ],
-  albumIdToDelete: ''
+  albumIdToDelete: undefined,
+  musicIdToDelete: undefined
 }
 
 const band = (state = initialState, action) => {
@@ -20,7 +21,11 @@ const band = (state = initialState, action) => {
       }
     case "SET_ALBUM_ID_TO_DELETE":
       return {
-        ...state, albumIdToDelete: action.payload.albumIdToDelete
+        ...state, albumIdToDelete: action.payload.id
+      }
+    case "SET_MUSIC_ID_TO_DELETE":
+      return {
+        ...state, musicIdToDelete: action.payload.id
       }
     default:
       return state

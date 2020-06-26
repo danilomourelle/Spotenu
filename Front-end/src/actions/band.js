@@ -203,9 +203,16 @@ export const setMusicsList = (myMusicsList) => (
   }
 )
 
-export const setAlbumIdToDelete = (albumIdToDelete) => (
+export const setAlbumIdToDelete = (id) => (
   {
     type: 'SET_ALBUM_ID_TO_DELETE',
-    payload: { albumIdToDelete }
+    payload: { id }
+  }
+)
+
+export const setMusicIdToDelete = (id) => (
+  {
+    type: 'SET_ALBUM_ID_TO_DELETE',
+    payload: { id }
   }
 )

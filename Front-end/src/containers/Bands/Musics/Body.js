@@ -6,7 +6,7 @@ import { routes } from '../../../Router/router'
 import { BtnGreen } from '../../../components/Buttons'
 import { Select, LittleSelect, Input } from '../../../components/Input'
 import { fetchMyMusicsList, fetchMyAlbunsList } from '../../../actions/band'
-import Playlist from '../../../components/Album'
+import Music from '../../../components/Music'
 import { BaseBody } from '../../../components/Body'
 
 const Wrapper = styled(BaseBody)`
@@ -115,7 +115,6 @@ function Body() {
     setForm({ name: '', genreIdList: [] })
   }
 
-  console.log(form, albumIdToFilter)
   return (
     <Wrapper>
       <SideWrapperLeft>
@@ -144,8 +143,12 @@ function Body() {
             )) :
             <option>Nenhuma música encontrada</option>}
         </LittleSelect>
-        <Playlist />
-        <Playlist />
+        {
+          myMusicsList.length > 0 &&
+          myMusicsList.map(music => (
+            <Music key={music.id} music={music} />
+          ))
+        }
       </SideWrapperRight>
     </Wrapper>
   )

@@ -4,6 +4,7 @@ import Body from './Body'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAlbumResponse } from '../../../actions/responses'
 import Dialog from '../../../components/Dialog'
+import { setAlbumIdToDelete } from '../../../actions/band'
 
 
 function Album() {
@@ -13,6 +14,7 @@ function Album() {
 
   const handleCloseDialog = (response) => {
     dispatch(setAlbumResponse({ isOpen: false, message: '' }))
+    response || dispatch(setAlbumIdToDelete(undefined))
     setResponse(response)
   }
   return <>

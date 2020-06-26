@@ -69,7 +69,9 @@ export class MusicBusiness {
 
     return new ContentList(musicList.map(music => ({
       id: music.getId(),
-      name: music.getName()
+      name: music.getName(),
+      albumId: music.getAlbumId(),
+      image: music.getAlbumImage()
     })))
   }
 
