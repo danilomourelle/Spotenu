@@ -22,11 +22,11 @@ export class MusicController {
 
       const result = await MusicController.MusicBusiness.create(name, albumId, token);
 
+      await BaseDatabase.desconnectDB()
       res.sendStatus(result.statusCode)
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -37,11 +37,11 @@ export class MusicController {
 
       const result = await MusicController.MusicBusiness.getMusicByAlbum(albumId, token);
 
+      await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ musics: result.message })
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 

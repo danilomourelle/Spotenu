@@ -87,10 +87,10 @@ function Body() {
       //Cria lista de filtradgem adicionado opção de todos os albuns
       setAlbumListToFilter(insertAllAlbunsOption(myAlbunsList))
       //Atualiza o albumIdToAddMusic para o primeiro album da lista
-      setForm({
-        ...form,
+      setForm((currentForm) => ({
+        ...currentForm,
         albumIdToAddMusic: myAlbunsList[0].id
-      })
+      }))
     }
     else {
       setAlbumIdToFilter('')

@@ -18,15 +18,12 @@ export class GenreController {
       const token = req.headers.authorization as string
 
       const result = await GenreController.GenreBusiness.create(name, token);
-      
-      await BaseDatabase.desconnectDB()
 
+      await BaseDatabase.desconnectDB()
       res.sendStatus(result.statusCode);
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    }
-    finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -35,13 +32,12 @@ export class GenreController {
       const token = req.headers.authorization as string
 
       const result = await GenreController.GenreBusiness.getAllGenre(token);
-      
-      res.status(result.statusCode).send({genres: result.message});
-    } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    }
-    finally {
+
       await BaseDatabase.desconnectDB()
+      res.status(result.statusCode).send({ genres: result.message });
+    } catch (err) {
+      await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 }

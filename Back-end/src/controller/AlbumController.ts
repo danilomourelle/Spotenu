@@ -36,6 +36,7 @@ export class AlbumController {
       const token = req.headers.authorization as string
 
       const result = await AlbumController.AlbumBusiness.delete(id, token);
+
       await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ message: result.message });
     } catch (err) {
@@ -49,13 +50,11 @@ export class AlbumController {
       const token = req.headers.authorization as string
 
       const result = await AlbumController.AlbumBusiness.getAlbunsByBandId(token);
-
+      await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ albuns: result.message });
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    }
-    finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -63,14 +62,14 @@ export class AlbumController {
     try {
       const token = req.headers.authorization as string
       const id = req.params.id
+
       const result = await AlbumController.AlbumBusiness.getAlbumDetails(id, token);
 
+      await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ details: result.message });
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    }
-    finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 }
