@@ -1,6 +1,7 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { Music } from "../models/Music";
-import { AlbumDatabase} from './AlbumDatabase'
+import { MusicCard } from "../models/MusicCard";
+import { AlbumDatabase } from './AlbumDatabase'
 import { UserDatabase } from "./UserDatabase";
 import { AlbumGenreDatabase } from "./AlbumGenreDatabase";
 import { GenreDatabase } from "./GenreDatabase";
@@ -32,6 +33,13 @@ export class MusicDatabase extends BaseDatabase {
       .into(MusicDatabase.TABLE_NAME)
   }
 
+  public async delete(id: string): Promise<void> {
+    await this.setConnection()
+      .delete()
+      .from(MusicDatabase.TABLE_NAME)
+      .where({ id })
+  }
+
   public async getMusicIntoAlbumByName(name: string, albumId: string): Promise<Music | undefined> {
     const result = await this.setConnection()
       .select("*")
@@ -44,15 +52,25 @@ export class MusicDatabase extends BaseDatabase {
     return this.toModel(result[0])
   }
 
-  public async getMusicByAlbum(albumId: string): Promise<Music[]> {
+  public async getMusicByAlbum(albumId: string): Promise<MusicCard[]> {
     const result = await this.setConnection()
-      .select("*")
-      .from(MusicDatabase.TABLE_NAME)
-      .where('album_id', 'like', albumId)
-      .orderBy('name')
+      .raw(`
+        SELECT m.name, m.id, m.album_id, a.image FROM ${MusicDatabase.TABLE_NAME} m
+        JOIN ${AlbumDatabase.TABLE_NAME} a ON m.album_id = a.id
+        where a.id LIKE '${albumId}'
+        ORDER BY m.name;
+      `)
 
-    return result.map((music: any) => {
-      return this.toModel(music) as Music
+    return result[0].map((music: any) => {
+      return (
+        music &&
+        new MusicCard(
+          music.id,
+          music.name,
+          music.album_id,
+          music.image
+        )
+      )
     })
   }
 

@@ -17,16 +17,16 @@ export class MusicController {
 
   async create(req: Request, res: Response) {
     try {
-      const { name, albumId } = req.body;
+      const { name, albumIdToAddMusic } = req.body;
       const token = req.headers.authorization as string
 
-      const result = await MusicController.MusicBusiness.create(name, albumId, token);
+      const result = await MusicController.MusicBusiness.create(name, albumIdToAddMusic, token);
 
+      await BaseDatabase.desconnectDB()
       res.sendStatus(result.statusCode)
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -34,29 +34,44 @@ export class MusicController {
     try {
       const albumId = req.params.albumId
       const token = req.headers.authorization as string
-      console.log(albumId, token)
+
       const result = await MusicController.MusicBusiness.getMusicByAlbum(albumId, token);
 
-      res.status(result.statusCode).send({musics: result.message})
-    } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(result.statusCode).send({ musics: result.message })
+    } catch (err) {
+      await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
- /*  async getDetails(req: Request, res: Response) {
+  async delete(req: Request, res: Response) {
     try {
-      const id  = req.params.musicId;
+      const id = req.params.id
       const token = req.headers.authorization as string
 
-      const result = await MusicController.MusicBusiness.getDetails(id, token);
+      const result = await MusicController.MusicBusiness.delete(id, token);
 
-      res.status(result.msgCode).send(result.message)
-    } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(result.statusCode).send({ musics: result.message })
+    } catch (err) {
+      await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
-  } */
+  }
+
+  /*  async getDetails(req: Request, res: Response) {
+     try {
+       const id  = req.params.musicId;
+       const token = req.headers.authorization as string
+ 
+       const result = await MusicController.MusicBusiness.getDetails(id, token);
+ 
+       res.status(result.msgCode).send(result.message)
+     } catch (err) {
+       res.status(err.errorCode || 400).send({ message: err.message });
+     } finally {
+       await BaseDatabase.desconnectDB()
+     }
+   } */
 }

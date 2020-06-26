@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 import { fetchBandsToApprove, approveBand, approveAllBands } from '../../../actions/admin.js'
 import { BaseBody } from '../../../components/Body'
+import { setDialog } from '../../../actions/dialog'
 
 const Wrapper = styled(BaseBody)`
   max-width:800px;
@@ -31,11 +32,12 @@ const BtnWrapper = styled.div`
   justify-items: center;
 `
 
-function Body() {
+function Body(props) {
   const history = useHistory()
   const dispatch = useDispatch()
   const bandsListToApprove = useSelector(state => state.admin.bandsListToApprove)
   const [bandIdToApprove, setBandIdToApprove] = useState(undefined)
+  const dialogResponse = useSelector(state => state.dialog.response)
 
   useEffect(() => {
     if (!window.localStorage.getItem('token')) {
@@ -53,6 +55,21 @@ function Body() {
     }
   }, [bandsListToApprove])
 
+  useEffect(() => {
+    if (dialogResponse === true && bandsListToApprove.length > 0) {
+      const allBandsId = bandsListToApprove.map(band => (
+        band.id
+      ))
+      dispatch(approveAllBands(allBandsId))
+      dispatch(setDialog({
+        isOpen: false,
+        message: '',
+        type: '',
+        response: false
+      }))
+    }
+  }, [dialogResponse, dispatch, bandsListToApprove])
+
   const handleInputChange = e => {
     setBandIdToApprove(e.target.value)
   }
@@ -62,10 +79,12 @@ function Body() {
   }
 
   const handleApproveAllBands = () => {
-    const allBandsId = bandsListToApprove.map(band => (
-      band.id
-    ))
-    dispatch(approveAllBands(allBandsId))
+    dispatch(setDialog({
+      isOpen: true,
+      message: "Você deseja aprovar todas as bandas?",
+      type: 'decision',
+      response: false
+    }))
   }
 
   return (

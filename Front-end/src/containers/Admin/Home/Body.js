@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 import { BaseBody } from '../../../components/Body'
 import Card from '../../../components/Card'
@@ -44,8 +44,8 @@ function Body() {
   return (
     <Wrapper>
       {
-        cards.map(card => (
-          <Card card={card} />
+        cards.map((card, index) => (
+          <Card key={index} card={card} />
         ))
       }
     </Wrapper>

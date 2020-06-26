@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { push, replace } from "connected-react-router";
 import { routes } from '../Router/router';
+import { setDialog } from './dialog';
 
 export const baseURL = 'http://localhost:3003' //TODO: Ajustar endereço
 
@@ -16,26 +17,66 @@ export const signIn = (form) => async (dispatch) => {
     });
 
     const token = response.data.token
-    if (form.userType === "CUSTOMER") {
-      window.localStorage.setItem("token", token)
-      dispatch(replace(routes.bandHome))
-      dispatch(setUser(response.data.user))
-    }
-    else if (form.userType === "ADMIN") {
-      dispatch(replace(routes.adminHome))
-    }
-    else {
-      dispatch(replace(routes.home))
+    switch (form.userType) {
+      case 'CUSTOMER':
+        window.localStorage.setItem("token", token)
+        dispatch(replace(routes.bandHome))
+        dispatch(setUser(response.data.user))
+        break;
+      case 'ADMIN':
+        dispatch(setDialog(
+          {
+            isOpen: true,
+            message: "Novo ADMINISTRADOR cadastrado com sucesso",
+            type: "info"
+          }
+        ))
+        setTimeout(() => {
+          dispatch(setDialog(
+            {
+              isOpen: false,
+              message: "",
+              type: "info"
+            }
+          ))
+        }, 2000)
+        break;
+      case 'BAND':
+        dispatch(setDialog(
+          {
+            isOpen: true,
+            message: "Cadastro realizado com sucesso. \n Você será redirecionado para página inicial",
+            type: "info"
+          }
+        ))
+        setTimeout(() => {
+          dispatch(setDialog(
+            {
+              isOpen: false,
+              message: "",
+              type: "info"
+            }
+          ))
+          dispatch(replace(routes.home))
+        }, 5000)
+        break;
+      default:
+        dispatch(replace(routes.home))
+        break;
     }
   }
   catch (error) {
     console.error(error)
+    dispatch(setDialog({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 
 export const login = (form) => async (dispatch) => {
   try {
-    console.log('login', form )
     const response = await axios.post(`${baseURL}/user/login`, form);
 
     window.localStorage.setItem("token", response.data.token)
@@ -48,7 +89,7 @@ export const login = (form) => async (dispatch) => {
         dispatch(push(routes.adminHome))
         break;
       case 'BAND':
-        user.isActive ? dispatch(push(routes.bandHome)) : dispatch(push(routes.home))
+        dispatch(push(routes.bandHome))
         break;
       default:
         //dispatch(push(routes.customerHome))
@@ -58,6 +99,11 @@ export const login = (form) => async (dispatch) => {
 
   catch (error) {
     console.error(error)
+    dispatch(setDialog({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 

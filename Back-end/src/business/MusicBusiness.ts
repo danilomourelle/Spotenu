@@ -69,8 +69,25 @@ export class MusicBusiness {
 
     return new ContentList(musicList.map(music => ({
       id: music.getId(),
-      name: music.getName()
+      name: music.getName(),
+      albumId: music.getAlbumId(),
+      image: music.getAlbumImage()
     })))
+  }
+
+  public async delete(id: string, token: string): Promise<GenericResult> {
+    if (!id || !token) {
+      throw new InvalidParameterError("Missing input");
+    }
+
+    const userData = this.tokenManager.retrieveDataFromToken(token)
+    if (userData.type !== UserType.BAND) {
+      throw new UnauthorizedError("Acesso negado")
+    }
+
+    await this.musicDatabase.delete(id)
+
+    return new GenericResult("Música deletada")
   }
 
   /* public async getDetails(id: string, token: string):Promise<GenericResult> {

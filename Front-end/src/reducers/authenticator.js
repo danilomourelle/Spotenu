@@ -1,6 +1,6 @@
 const initialState = {
   user: {
-    name: 'Danilo Mourelle'
+    name: ''
   },
 }
 
@@ -11,7 +11,7 @@ const authenticator = (state = initialState, action) => {
         ...state, user: action.payload.user
       }
     default:
-       return state
+      return state
   }
 }
 

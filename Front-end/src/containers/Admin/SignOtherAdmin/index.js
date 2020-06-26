@@ -1,7 +1,9 @@
 import React from 'react'
 import Header from '../../../components/Header'
-import Body from  './Body'
+import Body from './Body'
 import { useSelector } from 'react-redux'
+import Dialog from '../../../components/Dialog'
+
 
 
 function SignOtherAdmin() {
@@ -10,6 +12,7 @@ function SignOtherAdmin() {
   return <>
     <Header text={`ADMIN: ${user.name}`} />
     <Body />
+    <Dialog />
   </>
 }
 

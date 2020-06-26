@@ -37,12 +37,12 @@ export class UserController {
         token
       );
 
+      await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send(result.message)
 
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -59,11 +59,11 @@ export class UserController {
         password
       );
 
+      await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send(result.message);
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -73,11 +73,11 @@ export class UserController {
 
       const result = await UserController.UserBusiness.getAllBands(token);
 
+      await BaseDatabase.desconnectDB()
       res.status(200).send({ bands: result.message });
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -87,11 +87,11 @@ export class UserController {
 
       const result = await UserController.UserBusiness.getBandsToApprove(token);
 
+      await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ bands: result.message });
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -99,14 +99,14 @@ export class UserController {
     try {
       const token = req.headers.authorization as string;
       const id = req.params.id
-    
+
       const result = await UserController.UserBusiness.approveBand(token, id);
+
       await BaseDatabase.desconnectDB()
       res.sendStatus(result.statusCode);
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -114,15 +114,14 @@ export class UserController {
     try {
       const token = req.headers.authorization as string;
       const idList = req.body.idList as string[]
-      console.log('2', idList)
 
       const result = await UserController.UserBusiness.approveAllBands(token, idList);
+
       await BaseDatabase.desconnectDB()
       res.sendStatus(result.statusCode);
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -148,11 +147,11 @@ export class UserController {
 
       const result = await UserController.UserBusiness.updateUser(token, name);
 
+      await BaseDatabase.desconnectDB()
       res.sendStatus(result.statusCode);
     } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
       await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 }

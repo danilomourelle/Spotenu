@@ -5,9 +5,10 @@ import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 import { BtnGreen } from '../../../components/Buttons'
 import { Select, LittleSelect, Input } from '../../../components/Input'
-import { fetchMyMusicsList, fetchMyAlbunsList } from '../../../actions/band'
-import Playlist from '../../../components/Playlist'
+import { fetchMyMusicsList, fetchMyAlbunsList, createNewMusic, deleteMusic, setMusicIdToDelete } from '../../../actions/band'
+import Music from '../../../components/Music'
 import { BaseBody } from '../../../components/Body'
+import { setDialog } from '../../../actions/dialog'
 
 const Wrapper = styled(BaseBody)`
   margin: 0 auto;
@@ -41,9 +42,9 @@ const SideWrapperLeft = styled(BaseSideWrapper)`
 `
 const SideWrapperRight = styled(BaseSideWrapper)`
   border-top:    50px solid #fff;
-  border-right:  120px solid #fff;
   border-bottom: 50px solid #fff;
-  border-left:   120px solid #fff;
+  padding-right:  120px;
+  padding-left:   120px;
   display: grid;
   grid-gap: 25px;
   align-content:flex-start;
@@ -59,24 +60,17 @@ const Form = styled.form`
   align-content:flex-start;
   justify-items: center;
 `
-const CkeckWrapper = styled.div`
-  width: 100%;
-  max-width:400px;
-  max-height: 70vh;
-  overflow-y: auto;
-  margin: 24px 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: space-between;
-`
 
-function Body() {
+function Body(props) {
   const history = useHistory()
   const dispatch = useDispatch()
   const [albumIdToFilter, setAlbumIdToFilter] = useState('all')
+  const [albumListToFilter, setAlbumListToFilter] = useState([])
   const [form, setForm] = useState({ name: '', albumIdToAddMusic: '' })
   const myMusicsList = useSelector(state => state.band.myMusicsList)
   const myAlbunsList = useSelector(state => state.band.myAlbunsList)
+  const musicIdToDelete = useSelector(state => state.band.musicIdToDelete)
+  const dialogResponse = useSelector(state => state.dialog.response)
 
   useEffect(() => {
     if (!window.localStorage.getItem('token')) {
@@ -85,18 +79,58 @@ function Body() {
     dispatch(fetchMyAlbunsList())
   }, [history, dispatch])
 
+  //Refazendo busca quando o Id do Album que filtra muda
   useEffect(() => {
     dispatch(fetchMyMusicsList(albumIdToFilter))
   }, [albumIdToFilter, dispatch])
 
+  //Refazendo lógica ao trazer lista de albuns
   useEffect(() => {
     if (myAlbunsList.length > 0) {
-      setAlbumIdToFilter(myAlbunsList[0].id)
+      //Cria lista de filtradgem adicionado opção de todos os albuns
+      setAlbumListToFilter(insertAllAlbunsOption(myAlbunsList))
+      //Atualiza o albumIdToAddMusic para o primeiro album da lista
+      setForm((currentForm) => ({
+        ...currentForm,
+        albumIdToAddMusic: myAlbunsList[0].id
+      }))
     }
     else {
       setAlbumIdToFilter('')
     }
   }, [myAlbunsList])
+
+  //Recolocando primeiro item da lista de filtragem no id para filtrar
+  useEffect(() => {
+    if (albumListToFilter.length > 0) {
+      setAlbumIdToFilter(albumListToFilter[0].id)
+    }
+  }, [albumListToFilter])
+
+  //Deletando a música depois de receber a consifrmação
+  useEffect(() => {
+    if (dialogResponse === true && musicIdToDelete) {
+      dispatch(deleteMusic(musicIdToDelete))
+      dispatch(setMusicIdToDelete(undefined))
+      dispatch(setDialog({
+        isOpen: false,
+        message: '',
+        type: '',
+        response: false
+      }))
+    }
+  }, [dialogResponse, dispatch, musicIdToDelete])
+
+  const insertAllAlbunsOption = (albunsList) => {
+    let filterOptions = [...albunsList]
+    if (filterOptions[0].id !== "all") {
+      filterOptions.unshift({
+        id: 'all',
+        name: 'Todos os Albuns'
+      })
+    }
+    return filterOptions
+  }
 
   const handleFilterSelectChange = (e) => {
     setAlbumIdToFilter(e.target.value)
@@ -109,23 +143,12 @@ function Body() {
     })
   }
 
-  const insertAllAlbunsOption = (filterOptions) => {
-    if (filterOptions[0].id !== "all") {
-      filterOptions.unshift({
-        id: 'all',
-        name: 'Todos os Albuns'
-      })
-    }
-    return filterOptions
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch()
-    setForm({ name: '', genreIdList: [] })
+    dispatch(createNewMusic(form))
+    setForm({ name: '', albumIdToAddMusic: myAlbunsList[0].id })
   }
 
-  console.log(form, albumIdToFilter)
   return (
     <Wrapper>
       <SideWrapperLeft>
@@ -149,13 +172,17 @@ function Body() {
         <h1>Musicas</h1>
         <LittleSelect name='albumIdToFilter' value={albumIdToFilter} onChange={handleFilterSelectChange} disabled={myAlbunsList.length === 0}>
           {myAlbunsList.length > 0 ?
-            insertAllAlbunsOption(myAlbunsList).map(album => (
+            albumListToFilter.map(album => (
               <option value={album.id} key={album.id}>{album.name}</option>
             )) :
             <option>Nenhuma música encontrada</option>}
         </LittleSelect>
-        <Playlist />
-        <Playlist />
+        {
+          myMusicsList.length > 0 &&
+          myMusicsList.map(music => (
+            <Music key={music.id} music={music} />
+          ))
+        }
       </SideWrapperRight>
     </Wrapper>
   )

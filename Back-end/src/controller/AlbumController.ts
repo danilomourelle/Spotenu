@@ -18,17 +18,30 @@ export class AlbumController {
 
   async create(req: Request, res: Response) {
     try {
-      const { name, genreIdList } = req.body;
+      const { name, genreIdList, image } = req.body;
       const token = req.headers.authorization as string
 
-      const result = await AlbumController.AlbumBusiness.create(name, genreIdList, token);
-
+      const result = await AlbumController.AlbumBusiness.create(name, genreIdList, image, token);
+      await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ message: result.message });
     } catch (err) {
+      await BaseDatabase.desconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
-    finally {
+  }
+
+  async deleteAlbum(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+      const token = req.headers.authorization as string
+
+      const result = await AlbumController.AlbumBusiness.delete(id, token);
+
       await BaseDatabase.desconnectDB()
+      res.status(result.statusCode).send({ message: result.message });
+    } catch (err) {
+      await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 
@@ -37,13 +50,26 @@ export class AlbumController {
       const token = req.headers.authorization as string
 
       const result = await AlbumController.AlbumBusiness.getAlbunsByBandId(token);
-
+      await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ albuns: result.message });
     } catch (err) {
+      await BaseDatabase.desconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
-    finally {
+  }
+
+  async getAlbumDetails(req: Request, res: Response) {
+    try {
+      const token = req.headers.authorization as string
+      const id = req.params.id
+
+      const result = await AlbumController.AlbumBusiness.getAlbumDetails(id, token);
+
       await BaseDatabase.desconnectDB()
+      res.status(result.statusCode).send({ details: result.message });
+    } catch (err) {
+      await BaseDatabase.desconnectDB()
+      res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
 }

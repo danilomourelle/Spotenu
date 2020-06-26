@@ -3,7 +3,8 @@ export class Album {
     private id: string,
     private name: string,
     private bandId: string,
-  ){}
+    private image: string
+  ) { }
 
   public getId(): string {
     return this.id;
@@ -15,5 +16,8 @@ export class Album {
 
   public getBandId(): string {
     return this.bandId
+  }
+  public getImage(): string {
+    return this.image
   }
 }

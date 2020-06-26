@@ -1,5 +1,8 @@
 import axios from 'axios';
+import { replace } from "connected-react-router";
 import { baseURL } from './authenticator'
+import { routes } from '../Router/router';
+import { setDialog } from './dialog';
 
 //*****ASSÍNCRONAS*****//
 export const fetchBandsToApprove = () => async (dispatch) => {
@@ -12,49 +15,88 @@ export const fetchBandsToApprove = () => async (dispatch) => {
       }
     });
 
-    const bandsListToApprove = response.data.bands //TODO: Ajustar res.data
+    const bandsListToApprove = response.data.bands
 
     dispatch(setBandListToApprove(bandsListToApprove))
   }
   catch (error) {
     console.error(error)
+    dispatch(setDialog(
+      {
+        isOpen: true,
+        message: "Aconteceu algo errado. \n Você será redirecionado para página inicial",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setDialog(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+      dispatch(replace(routes.home))
+    }, 3000)
   }
 }
 
 export const approveBand = (id) => async (dispatch) => {
   try {
-    console.log('aprove band', id)
     const token = localStorage.getItem('token')
-    console.log(token)
+
     await axios.put(`${baseURL}/user/band/${id}`, null, {
       headers: {
         authorization: token,
         "Content-Type": 'application/jsons'
       }
     })
-
+    dispatch(setDialog(
+      {
+        isOpen: true,
+        message: "Banda Aprovada",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setDialog(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+    }, 2000)
     dispatch(fetchBandsToApprove())
   }
   catch (error) {
     console.error(error)
+    dispatch(setDialog({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 
 export const approveAllBands = (idList) => async (dispatch) => {
   try {
     const token = localStorage.getItem('token')
-    await axios.put(`${baseURL}/user/band`, {idList}, {
+    await axios.put(`${baseURL}/user/band`, { idList }, {
       headers: {
         authorization: token,
         "Content-Type": 'application/json'
       }
     })
-
-    console.log('aprove band')
     dispatch(fetchBandsToApprove())
   }
   catch (error) {
     console.error(error)
+    dispatch(setDialog({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 
@@ -68,12 +110,29 @@ export const fetchAllMusicGenre = () => async (dispatch) => {
       }
     });
 
-    const genreList = response.data.genres //TODO: Ajustar res.data
-
+    const genreList = response.data.genres
     dispatch(setGenreList(genreList))
   }
   catch (error) {
     console.error(error)
+
+    dispatch(setDialog(
+      {
+        isOpen: true,
+        message: "Aconteceu algo errado. \n Você será redirecionado para página inicial",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setDialog(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+      dispatch(replace(routes.home))
+    }, 3000)
   }
 }
 
@@ -86,11 +145,31 @@ export const createNewMusicGenre = (name) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     });
-
     dispatch(fetchAllMusicGenre())
+    dispatch(setDialog(
+      {
+        isOpen: true,
+        message: "Genero Musical cadastrado com sucesso",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setDialog(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+    }, 2000)
   }
   catch (error) {
     console.error(error)
+    dispatch(setDialog({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 
