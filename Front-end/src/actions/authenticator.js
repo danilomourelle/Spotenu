@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { push, replace } from "connected-react-router";
 import { routes } from '../Router/router';
-import { setSignInResponse, setLoginResponse } from './responses';
+import { setDialog } from './dialog';
 
 export const baseURL = 'http://localhost:3003' //TODO: Ajustar endereço
 
@@ -24,7 +24,7 @@ export const signIn = (form) => async (dispatch) => {
         dispatch(setUser(response.data.user))
         break;
       case 'ADMIN':
-        dispatch(setSignInResponse(
+        dispatch(setDialog(
           {
             isOpen: true,
             message: "Novo ADMINISTRADOR cadastrado com sucesso",
@@ -32,7 +32,7 @@ export const signIn = (form) => async (dispatch) => {
           }
         ))
         setTimeout(() => {
-          dispatch(setSignInResponse(
+          dispatch(setDialog(
             {
               isOpen: false,
               message: "",
@@ -42,7 +42,7 @@ export const signIn = (form) => async (dispatch) => {
         }, 2000)
         break;
       case 'BAND':
-        dispatch(setSignInResponse(
+        dispatch(setDialog(
           {
             isOpen: true,
             message: "Cadastro realizado com sucesso. \n Você será redirecionado para página inicial",
@@ -50,7 +50,7 @@ export const signIn = (form) => async (dispatch) => {
           }
         ))
         setTimeout(() => {
-          dispatch(setSignInResponse(
+          dispatch(setDialog(
             {
               isOpen: false,
               message: "",
@@ -67,7 +67,7 @@ export const signIn = (form) => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
-    dispatch(setSignInResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: error.response.data.message,
       type: 'confirm'
@@ -77,7 +77,6 @@ export const signIn = (form) => async (dispatch) => {
 
 export const login = (form) => async (dispatch) => {
   try {
-    console.log('login', form)
     const response = await axios.post(`${baseURL}/user/login`, form);
 
     window.localStorage.setItem("token", response.data.token)
@@ -100,7 +99,7 @@ export const login = (form) => async (dispatch) => {
 
   catch (error) {
     console.error(error)
-    dispatch(setLoginResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: error.response.data.message,
       type: 'confirm'

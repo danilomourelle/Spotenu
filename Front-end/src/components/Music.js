@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { LittleBtn } from './Buttons'
 import { useDispatch } from 'react-redux'
-import { setAlbumIdToDelete, setMusicIdToDelete } from '../actions/band'
-import { setAlbumResponse, setMusicResponse } from '../actions/responses'
+import { setMusicIdToDelete } from '../actions/band'
+import { setDialog } from '../actions/dialog'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -42,7 +42,7 @@ function Music(props) {
 
   const handleDeleteMusic = () => {
     dispatch(setMusicIdToDelete(music.id))
-    dispatch(setMusicResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: `Você deseja apagar a música ${music.name}`,
       type: 'decision'

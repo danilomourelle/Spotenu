@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import Header from '../../../components/Header'
 import Body from './Body'
 import Dialog from '../../../components/Dialog'
-import { setSignInResponse } from '../../../actions/responses'
+import { setDialog } from '../../../actions/dialog'
 
 
 
 function SignIn() {
   const dispatch = useDispatch()
-  const dialog = useSelector(state => state.responses.signIn)
+  const dialog = useSelector(state => state.dialog)
 
   const handleCloseDialog = () => {
-    dispatch(setSignInResponse({ isOpen: false, message: '' }))
+    dispatch(setDialog({ isOpen: false, message: '' }))
   }
 
   return <>

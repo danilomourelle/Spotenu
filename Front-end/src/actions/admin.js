@@ -2,7 +2,7 @@ import axios from 'axios';
 import { replace } from "connected-react-router";
 import { baseURL } from './authenticator'
 import { routes } from '../Router/router';
-import { setApproveResponse, setGenreResponse } from './responses';
+import { setDialog } from './dialog';
 
 //*****ASSÍNCRONAS*****//
 export const fetchBandsToApprove = () => async (dispatch) => {
@@ -21,7 +21,7 @@ export const fetchBandsToApprove = () => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
-    dispatch(setApproveResponse(
+    dispatch(setDialog(
       {
         isOpen: true,
         message: "Aconteceu algo errado. \n Você será redirecionado para página inicial",
@@ -29,7 +29,7 @@ export const fetchBandsToApprove = () => async (dispatch) => {
       }
     ))
     setTimeout(() => {
-      dispatch(setApproveResponse(
+      dispatch(setDialog(
         {
           isOpen: false,
           message: "",
@@ -51,7 +51,7 @@ export const approveBand = (id) => async (dispatch) => {
         "Content-Type": 'application/jsons'
       }
     })
-    dispatch(setApproveResponse(
+    dispatch(setDialog(
       {
         isOpen: true,
         message: "Banda Aprovada",
@@ -59,7 +59,7 @@ export const approveBand = (id) => async (dispatch) => {
       }
     ))
     setTimeout(() => {
-      dispatch(setApproveResponse(
+      dispatch(setDialog(
         {
           isOpen: false,
           message: "",
@@ -71,7 +71,7 @@ export const approveBand = (id) => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
-    dispatch(setApproveResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: error.response.data.message,
       type: 'confirm'
@@ -92,7 +92,7 @@ export const approveAllBands = (idList) => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
-    dispatch(setApproveResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: error.response.data.message,
       type: 'confirm'
@@ -116,7 +116,7 @@ export const fetchAllMusicGenre = () => async (dispatch) => {
   catch (error) {
     console.error(error)
 
-    dispatch(setGenreResponse(
+    dispatch(setDialog(
       {
         isOpen: true,
         message: "Aconteceu algo errado. \n Você será redirecionado para página inicial",
@@ -124,7 +124,7 @@ export const fetchAllMusicGenre = () => async (dispatch) => {
       }
     ))
     setTimeout(() => {
-      dispatch(setGenreResponse(
+      dispatch(setDialog(
         {
           isOpen: false,
           message: "",
@@ -146,7 +146,7 @@ export const createNewMusicGenre = (name) => async (dispatch) => {
       }
     });
     dispatch(fetchAllMusicGenre())
-    dispatch(setGenreResponse(
+    dispatch(setDialog(
       {
         isOpen: true,
         message: "Genero Musical cadastrado com sucesso",
@@ -154,7 +154,7 @@ export const createNewMusicGenre = (name) => async (dispatch) => {
       }
     ))
     setTimeout(() => {
-      dispatch(setGenreResponse(
+      dispatch(setDialog(
         {
           isOpen: false,
           message: "",
@@ -165,7 +165,7 @@ export const createNewMusicGenre = (name) => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
-    dispatch(setGenreResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: error.response.data.message,
       type: 'confirm'

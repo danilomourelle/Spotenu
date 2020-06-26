@@ -98,9 +98,7 @@ function Body(props) {
   }, [history, dispatch])
 
   useEffect(() => {
-    console.log('passou')
     if (props.response === true && albumIdToDelete) {
-      console.log('aqui')
       dispatch(deleteAlbum(albumIdToDelete))
       dispatch(setAlbumIdToDelete(undefined))
     }
@@ -137,7 +135,7 @@ function Body(props) {
     //!A stackOverflow, como eu te amo!!!!!
     document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false)
   }
-  console.log(props.response)
+
   return (
     <Wrapper>
       <SideWrapperLeft>

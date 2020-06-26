@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { routes } from '../../../Router/router'
 import { fetchBandsToApprove, approveBand, approveAllBands } from '../../../actions/admin.js'
 import { BaseBody } from '../../../components/Body'
-import { setApproveResponse } from '../../../actions/responses'
+import { setDialog } from '../../../actions/dialog'
 
 const Wrapper = styled(BaseBody)`
   max-width:800px;
@@ -72,7 +72,7 @@ function Body(props) {
   }
 
   const handleApproveAllBands = () => {
-    dispatch(setApproveResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: "Você deseja aprovar todas as bandas?",
       type: 'decision'

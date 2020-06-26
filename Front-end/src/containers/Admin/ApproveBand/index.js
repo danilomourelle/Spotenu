@@ -3,17 +3,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import Header from '../../../components/Header'
 import Body from './Body'
 import Dialog from '../../../components/Dialog'
-import { setApproveResponse } from '../../../actions/responses'
+import { setDialog } from '../../../actions/dialog'
 
 
 function ApproveBand() {
   const dispatch = useDispatch()
-  const dialog = useSelector(state => state.responses.approve)
+  const dialog = useSelector(state => state.dialog)
   const user = useSelector(state => state.authenticator.user)
   const [response, setResponse] = useState()
 
   const handleCloseDialog = (response) => {
-    dispatch(setApproveResponse({ isOpen: false, message: '' }))
+    dispatch(setDialog({ isOpen: false, message: '' }))
     setResponse(response)
   }
 

@@ -3,17 +3,17 @@ import Header from '../../../components/Header'
 import Body from './Body'
 import { useDispatch, useSelector } from 'react-redux'
 import Dialog from '../../../components/Dialog'
-import { setMusicResponse } from '../../../actions/responses'
+import { setDialog } from '../../../actions/dialog'
 import { setMusicIdToDelete } from '../../../actions/band'
 
 
 function Music() {
   const dispatch = useDispatch()
-  const dialog = useSelector(state => state.responses.music)
+  const dialog = useSelector(state => state.dialog)
   const [response, setResponse] = useState()
 
   const handleCloseDialog = (response) => {
-    dispatch(setMusicResponse({ isOpen: false, message: '' }))
+    dispatch(setDialog({ isOpen: false, message: '' }))
     response || dispatch(setMusicIdToDelete(undefined))
     setResponse(response)
   }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { baseURL } from './authenticator'
-import { setAlbumResponse } from './responses';
+import { setDialog } from './dialog';
 import { replace } from 'connected-react-router';
 import { routes } from '../Router/router';
 
@@ -15,7 +15,7 @@ export const createNewAlbum = (form) => async (dispatch) => {
       }
     });
     dispatch(fetchMyAlbunsList())
-    dispatch(setAlbumResponse(
+    dispatch(setDialog(
       {
         isOpen: true,
         message: "Abum criado com sucesso",
@@ -23,7 +23,7 @@ export const createNewAlbum = (form) => async (dispatch) => {
       }
     ))
     setTimeout(() => {
-      dispatch(setAlbumResponse(
+      dispatch(setDialog(
         {
           isOpen: false,
           message: "",
@@ -34,7 +34,7 @@ export const createNewAlbum = (form) => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
-    dispatch(setAlbumResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: error.response.data.message,
       type: 'confirm'
@@ -51,10 +51,31 @@ export const createNewMusic = (form) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     });
-    //TODO: Ajustar res.data
+    dispatch(fetchMyAlbunsList())
+    dispatch(setDialog(
+      {
+        isOpen: true,
+        message: "Musica criada com sucesso",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setDialog(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+    }, 2000)
   }
   catch (error) {
     console.error(error)
+    dispatch(setDialog({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 
@@ -75,7 +96,7 @@ export const fetchMyAlbunsList = () => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
-    dispatch(setAlbumResponse(
+    dispatch(setDialog(
       {
         isOpen: true,
         message: "Aconteceu algo errado. \n Você será redirecionado para página inicial",
@@ -83,7 +104,7 @@ export const fetchMyAlbunsList = () => async (dispatch) => {
       }
     ))
     setTimeout(() => {
-      dispatch(setAlbumResponse(
+      dispatch(setDialog(
         {
           isOpen: false,
           message: "",
@@ -127,11 +148,10 @@ export const fetchMyMusicsList = (albumId) => async (dispatch) => {
     const myMusicsList = response.data.musics //TODO: Ajustar res.data
 
     dispatch(setMusicsList(myMusicsList))
-    console.log('fetch music list')
   }
   catch (error) {
     console.error(error)
-    dispatch(setAlbumResponse(
+    dispatch(setDialog(
       {
         isOpen: true,
         message: "Aconteceu algo errado. \n Você será redirecionado para página inicial",
@@ -139,7 +159,7 @@ export const fetchMyMusicsList = (albumId) => async (dispatch) => {
       }
     ))
     setTimeout(() => {
-      dispatch(setAlbumResponse(
+      dispatch(setDialog(
         {
           isOpen: false,
           message: "",
@@ -161,7 +181,7 @@ export const deleteAlbum = (id) => async (dispatch) => {
       }
     });
     dispatch(fetchMyAlbunsList())
-    dispatch(setAlbumResponse(
+    dispatch(setDialog(
       {
         isOpen: true,
         message: "Abum deletado",
@@ -169,7 +189,7 @@ export const deleteAlbum = (id) => async (dispatch) => {
       }
     ))
     setTimeout(() => {
-      dispatch(setAlbumResponse(
+      dispatch(setDialog(
         {
           isOpen: false,
           message: "",
@@ -180,7 +200,7 @@ export const deleteAlbum = (id) => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
-    dispatch(setAlbumResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: error.response.data.message,
       type: 'confirm'

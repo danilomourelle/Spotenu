@@ -64,6 +64,7 @@ function Body() {
   const history = useHistory()
   const dispatch = useDispatch()
   const [albumIdToFilter, setAlbumIdToFilter] = useState('all')
+  const [albumListToFilter, setAlbumListToFilter] = useState([])
   const [form, setForm] = useState({ name: '', albumIdToAddMusic: '' })
   const myMusicsList = useSelector(state => state.band.myMusicsList)
   const myAlbunsList = useSelector(state => state.band.myAlbunsList)
@@ -75,18 +76,44 @@ function Body() {
     dispatch(fetchMyAlbunsList())
   }, [history, dispatch])
 
+  //Refazendo busca quando o Id do Album que filtra muda
   useEffect(() => {
     dispatch(fetchMyMusicsList(albumIdToFilter))
   }, [albumIdToFilter, dispatch])
 
+  //Refazendo lógica ao trazer lista de albuns
   useEffect(() => {
     if (myAlbunsList.length > 0) {
-      setAlbumIdToFilter(myAlbunsList[0].id)
+      //Cria lista de filtradgem adicionado opção de todos os albuns
+      setAlbumListToFilter(insertAllAlbunsOption(myAlbunsList))
+      //Atualiza o albumIdToAddMusic para o primeiro album da lista
+      setForm({
+        ...form,
+        albumIdToAddMusic: myAlbunsList[0].id
+      })
     }
     else {
       setAlbumIdToFilter('')
     }
   }, [myAlbunsList])
+
+  //Recolocando primeiro item da lista de filtragem no id para filtrar
+  useEffect(() => {
+    if (albumListToFilter.length > 0) {
+      setAlbumIdToFilter(albumListToFilter[0].id)
+    }
+  }, [albumListToFilter])
+
+  const insertAllAlbunsOption = (albunsList) => {
+    let filterOptions = [...albunsList]
+    if (filterOptions[0].id !== "all") {
+      filterOptions.unshift({
+        id: 'all',
+        name: 'Todos os Albuns'
+      })
+    }
+    return filterOptions
+  }
 
   const handleFilterSelectChange = (e) => {
     setAlbumIdToFilter(e.target.value)
@@ -99,21 +126,12 @@ function Body() {
     })
   }
 
-  const insertAllAlbunsOption = (filterOptions) => {
-    if (filterOptions[0].id !== "all") {
-      filterOptions.unshift({
-        id: 'all',
-        name: 'Todos os Albuns'
-      })
-    }
-    return filterOptions
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch()
     setForm({ name: '', genreIdList: [] })
   }
+
 
   return (
     <Wrapper>
@@ -138,7 +156,7 @@ function Body() {
         <h1>Musicas</h1>
         <LittleSelect name='albumIdToFilter' value={albumIdToFilter} onChange={handleFilterSelectChange} disabled={myAlbunsList.length === 0}>
           {myAlbunsList.length > 0 ?
-            insertAllAlbunsOption(myAlbunsList).map(album => (
+            albumListToFilter.map(album => (
               <option value={album.id} key={album.id}>{album.name}</option>
             )) :
             <option>Nenhuma música encontrada</option>}

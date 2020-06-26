@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { LittleBtn } from './Buttons'
 import { useDispatch } from 'react-redux'
 import { setAlbumIdToDelete } from '../actions/band'
-import { setAlbumResponse } from '../actions/responses'
+import { setDialog } from '../actions/dialog'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -42,7 +42,7 @@ function Album(props) {
 
   const handleDeleteAlbum = () => {
     dispatch(setAlbumIdToDelete(album.id))
-    dispatch(setAlbumResponse({
+    dispatch(setDialog({
       isOpen: true,
       message: `Você deseja apagar o album ${album.name}`,
       type: 'decision'

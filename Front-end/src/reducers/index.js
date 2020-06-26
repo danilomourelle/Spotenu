@@ -3,7 +3,7 @@ import { connectRouter } from "connected-react-router";
 import authenticator from './authenticator'
 import admin from './admin'
 import band from "./band";
-import responses from './responses'
+import dialog from './dialog'
 
 export const generateReducers = history =>
   combineReducers({
@@ -11,6 +11,6 @@ export const generateReducers = history =>
     authenticator: authenticator,
     admin: admin,
     band: band,
-    responses
+    dialog
     //outros reducers
   });
