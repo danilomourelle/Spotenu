@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../../../components/Header'
 import Body from './Body'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Dialog from '../../../components/Dialog'
 
 

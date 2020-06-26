@@ -110,7 +110,6 @@ function Body(props) {
   //Deletando a música depois de receber a consifrmação
   useEffect(() => {
     if (dialogResponse === true && musicIdToDelete) {
-      console.log('aqui')
       dispatch(deleteMusic(musicIdToDelete))
       dispatch(setMusicIdToDelete(undefined))
       dispatch(setDialog({
@@ -150,7 +149,6 @@ function Body(props) {
     setForm({ name: '', albumIdToAddMusic: myAlbunsList[0].id })
   }
 
-  console.log(dialogResponse)
   return (
     <Wrapper>
       <SideWrapperLeft>

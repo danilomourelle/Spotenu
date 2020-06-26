@@ -68,7 +68,7 @@ function Body(props) {
         response: false
       }))
     }
-  }, [props.response, dispatch, bandsListToApprove])
+  }, [dialogResponse, dispatch, bandsListToApprove])
 
   const handleInputChange = e => {
     setBandIdToApprove(e.target.value)

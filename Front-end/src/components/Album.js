@@ -45,7 +45,8 @@ function Album(props) {
     dispatch(setDialog({
       isOpen: true,
       message: `Você deseja apagar o album ${album.name}`,
-      type: 'decision'
+      type: 'decision',
+      response: false
     }))
   }
   return (
