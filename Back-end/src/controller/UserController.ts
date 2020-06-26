@@ -25,7 +25,7 @@ export class UserController {
         userType
       } = req.body;
 
-      const token = req.headers.authorization as string
+      const token = req.headers.authorization || req.headers.Authorization as string
 
       const result = await UserController.UserBusiness.signIn(
         name,
@@ -69,7 +69,7 @@ export class UserController {
 
   async getAllBands(req: Request, res: Response) {
     try {
-      const token = req.headers.authorization as string;
+      const token = req.headers.authorization || req.headers.Authorization as string;
 
       const result = await UserController.UserBusiness.getAllBands(token);
 
@@ -83,7 +83,7 @@ export class UserController {
 
   async getBandsToApprove(req: Request, res: Response) {
     try {
-      const token = req.headers.authorization as string;
+      const token = req.headers.authorization || req.headers.Authorization as string;
 
       const result = await UserController.UserBusiness.getBandsToApprove(token);
 
@@ -97,7 +97,7 @@ export class UserController {
 
   async approveBand(req: Request, res: Response) {
     try {
-      const token = req.headers.authorization as string;
+      const token = req.headers.authorization || req.headers.Authorization as string;
       const id = req.params.id
 
       const result = await UserController.UserBusiness.approveBand(token, id);
@@ -112,7 +112,7 @@ export class UserController {
 
   async approveAllBands(req: Request, res: Response) {
     try {
-      const token = req.headers.authorization as string;
+      const token = req.headers.authorization || req.headers.Authorization as string;
       const idList = req.body.idList as string[]
 
       const result = await UserController.UserBusiness.approveAllBands(token, idList);
@@ -127,7 +127,7 @@ export class UserController {
 
   async updateUser(req: Request, res: Response) {
     try {
-      const token = req.headers.authorization as string;
+      const token = req.headers.authorization || req.headers.Authorization as string;
       const name = req.body.name
 
       const result = await UserController.UserBusiness.updateUser(token, name);
