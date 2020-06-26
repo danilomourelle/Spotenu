@@ -3,7 +3,7 @@ import { push, replace } from "connected-react-router";
 import { routes } from '../Router/router';
 import { setDialog } from './dialog';
 
-export const baseURL = 'http://localhost:3003' //TODO: Ajustar endereço
+export const baseURL = 'https://s6mro5i2dk.execute-api.us-east-1.amazonaws.com/spotenuv1' //TODO: Ajustar endereço
 
 //*****ASSÍNCRONAS*****//
 export const signIn = (form) => async (dispatch) => {

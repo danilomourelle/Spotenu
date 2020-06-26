@@ -19,7 +19,7 @@ export class AlbumController {
   async create(req: Request, res: Response) {
     try {
       const { name, genreIdList, image } = req.body;
-      const token = req.headers.authorization as string
+      const token = req.headers.authorization || req.headers.Authorization as string
 
       const result = await AlbumController.AlbumBusiness.create(name, genreIdList, image, token);
       await BaseDatabase.desconnectDB()
@@ -33,7 +33,7 @@ export class AlbumController {
   async deleteAlbum(req: Request, res: Response) {
     try {
       const id = req.params.id;
-      const token = req.headers.authorization as string
+      const token = req.headers.authorization || req.headers.Authorization as string
 
       const result = await AlbumController.AlbumBusiness.delete(id, token);
 
@@ -47,7 +47,7 @@ export class AlbumController {
 
   async getAlbunsByBandId(req: Request, res: Response) {
     try {
-      const token = req.headers.authorization as string
+      const token = req.headers.authorization || req.headers.Authorization as string
 
       const result = await AlbumController.AlbumBusiness.getAlbunsByBandId(token);
       await BaseDatabase.desconnectDB()
@@ -60,7 +60,7 @@ export class AlbumController {
 
   async getAlbumDetails(req: Request, res: Response) {
     try {
-      const token = req.headers.authorization as string
+      const token = req.headers.authorization || req.headers.Authorization as string
       const id = req.params.id
 
       const result = await AlbumController.AlbumBusiness.getAlbumDetails(id, token);

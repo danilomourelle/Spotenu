@@ -18,7 +18,7 @@ export class MusicController {
   async create(req: Request, res: Response) {
     try {
       const { name, albumIdToAddMusic } = req.body;
-      const token = req.headers.authorization as string
+      const token = req.headers.authorization || req.headers.Authorization as string
 
       const result = await MusicController.MusicBusiness.create(name, albumIdToAddMusic, token);
 
@@ -33,7 +33,7 @@ export class MusicController {
   async getMusicByAlbum(req: Request, res: Response) {
     try {
       const albumId = req.params.albumId
-      const token = req.headers.authorization as string
+      const token = req.headers.authorization || req.headers.Authorization as string
 
       const result = await MusicController.MusicBusiness.getMusicByAlbum(albumId, token);
 
@@ -48,7 +48,7 @@ export class MusicController {
   async delete(req: Request, res: Response) {
     try {
       const id = req.params.id
-      const token = req.headers.authorization as string
+      const token = req.headers.authorization || req.headers.Authorization as string
 
       const result = await MusicController.MusicBusiness.delete(id, token);
 
