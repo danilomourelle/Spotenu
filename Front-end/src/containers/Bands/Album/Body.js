@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { routes } from '../../../Router/router'
-import Playlist from '../../../components/Playlist'
 import { BaseBody } from '../../../components/Body'
 import { BtnGreen } from '../../../components/Buttons'
 import { Input, Checkbox } from '../../../components/Input'
-import { createNewAlbum } from '../../../actions/band'
+import { createNewAlbum, fetchMyAlbunsList, deleteAlbum, setAlbumIdToDelete } from '../../../actions/band'
 import { fetchAllMusicGenre } from '../../../actions/admin'
+import Album from '../../../components/Album'
 
 const Wrapper = styled(BaseBody)`
   margin: 0 auto;
@@ -41,7 +41,10 @@ const SideWrapperLeft = styled(BaseSideWrapper)`
   }
 `
 const SideWrapperRight = styled(BaseSideWrapper)`
-  border: 48px solid #fff;
+  border-top:    50px solid #fff;
+  border-bottom: 50px solid #fff;
+  padding-right:  120px;
+  padding-left:   120px;
   display: grid;
   grid-gap: 25px;
   align-content:flex-start;
@@ -78,18 +81,31 @@ const CheckOptions = styled.span`
   }
 `
 
-function Body() {
+function Body(props) {
   const dispatch = useDispatch()
   const history = useHistory()
   const genreList = useSelector(state => state.admin.genreList)
-  const [form, setForm] = useState({ name: '', genreIdList: [] })
+  const albunsList = useSelector(state => state.band.myAlbunsList)
+  const albumIdToDelete = useSelector(state => state.band.albumIdToDelete)
+  const [form, setForm] = useState({ name: '', genreIdList: [], image: '' })
 
   useEffect(() => {
     if (!window.localStorage.getItem('token')) {
       history.push(routes.home)
     }
     dispatch(fetchAllMusicGenre())
+    dispatch(fetchMyAlbunsList())
   }, [history, dispatch])
+
+  useEffect(() => {
+    console.log('passou')
+    if (props.response === true && albumIdToDelete) {
+      console.log('aqui')
+      dispatch(deleteAlbum(albumIdToDelete))
+      dispatch(setAlbumIdToDelete(undefined))
+    }
+  }, [props.response, dispatch, albumIdToDelete])
+
 
   const handleInputChange = (e) => {
     setForm({
@@ -117,12 +133,11 @@ function Body() {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(createNewAlbum(form))
-    setForm({ name: '', genreIdList: [] })
+    setForm({ name: '', genreIdList: [], image: '' })
     //!A stackOverflow, como eu te amo!!!!!
     document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false)
   }
-
-  console.log(form)
+  console.log(props.response)
   return (
     <Wrapper>
       <SideWrapperLeft>
@@ -139,6 +154,7 @@ function Body() {
         </CkeckWrapper>
         <Form onSubmit={handleSubmit}>
           <Input name='name' type='text' placeholder='Nome do Album' value={form.name} onChange={handleInputChange} />
+          <Input name='image' type='text' placeholder='Enderço imagem do Album' value={form.image} onChange={handleInputChange} />
           <BtnGreen>Enviar</BtnGreen>
         </Form>
       </SideWrapperLeft>
@@ -147,15 +163,13 @@ function Body() {
       {/* --------------------------------------------------------------------------------- */}
       <SideWrapperRight>
         <h1>Albuns</h1>
-        <Playlist />
-        <Playlist />
-        <Playlist />
-        <Playlist />
-        <Playlist />
-        <Playlist />
-        <Playlist />
-        <Playlist />
-        <Playlist />
+        {
+          albunsList[0].id !== '001' &&
+          albunsList.map(album => (
+            <Album key={album.id} album={album} />
+          ))
+        }
+
       </SideWrapperRight>
     </Wrapper>
   )

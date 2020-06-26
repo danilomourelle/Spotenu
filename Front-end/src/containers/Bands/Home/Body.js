@@ -39,8 +39,8 @@ function Body() {
   return (
     <Wrapper>
       {
-        cards.map(card => (
-          <Card card={card} />
+        cards.map((card, index) => (
+          <Card key={index} card={card} />
         ))
       }
     </Wrapper>

@@ -6,7 +6,7 @@ import { routes } from '../../../Router/router'
 import { BtnGreen } from '../../../components/Buttons'
 import { Select, LittleSelect, Input } from '../../../components/Input'
 import { fetchMyMusicsList, fetchMyAlbunsList } from '../../../actions/band'
-import Playlist from '../../../components/Playlist'
+import Playlist from '../../../components/Album'
 import { BaseBody } from '../../../components/Body'
 
 const Wrapper = styled(BaseBody)`
@@ -41,9 +41,9 @@ const SideWrapperLeft = styled(BaseSideWrapper)`
 `
 const SideWrapperRight = styled(BaseSideWrapper)`
   border-top:    50px solid #fff;
-  border-right:  120px solid #fff;
   border-bottom: 50px solid #fff;
-  border-left:   120px solid #fff;
+  padding-right:  120px;
+  padding-left:   120px;
   display: grid;
   grid-gap: 25px;
   align-content:flex-start;

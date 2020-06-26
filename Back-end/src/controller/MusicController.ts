@@ -34,10 +34,10 @@ export class MusicController {
     try {
       const albumId = req.params.albumId
       const token = req.headers.authorization as string
-      console.log(albumId, token)
+
       const result = await MusicController.MusicBusiness.getMusicByAlbum(albumId, token);
 
-      res.status(result.statusCode).send({musics: result.message})
+      res.status(result.statusCode).send({ musics: result.message })
     } catch (err) {
       res.status(err.errorCode || 400).send({ message: err.message });
     } finally {
@@ -45,18 +45,18 @@ export class MusicController {
     }
   }
 
- /*  async getDetails(req: Request, res: Response) {
-    try {
-      const id  = req.params.musicId;
-      const token = req.headers.authorization as string
-
-      const result = await MusicController.MusicBusiness.getDetails(id, token);
-
-      res.status(result.msgCode).send(result.message)
-    } catch (err) {
-      res.status(err.errorCode || 400).send({ message: err.message });
-    } finally {
-      await BaseDatabase.desconnectDB()
-    }
-  } */
+  /*  async getDetails(req: Request, res: Response) {
+     try {
+       const id  = req.params.musicId;
+       const token = req.headers.authorization as string
+ 
+       const result = await MusicController.MusicBusiness.getDetails(id, token);
+ 
+       res.status(result.msgCode).send(result.message)
+     } catch (err) {
+       res.status(err.errorCode || 400).send({ message: err.message });
+     } finally {
+       await BaseDatabase.desconnectDB()
+     }
+   } */
 }

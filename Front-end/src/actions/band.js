@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { baseURL } from './authenticator'
+import { setAlbumResponse } from './responses';
+import { replace } from 'connected-react-router';
+import { routes } from '../Router/router';
 
 //*****ASSÍNCRONAS*****//
 export const createNewAlbum = (form) => async (dispatch) => {
@@ -11,9 +14,31 @@ export const createNewAlbum = (form) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     });
+    dispatch(fetchMyAlbunsList())
+    dispatch(setAlbumResponse(
+      {
+        isOpen: true,
+        message: "Abum criado com sucesso",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setAlbumResponse(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+    }, 2000)
   }
   catch (error) {
     console.error(error)
+    dispatch(setAlbumResponse({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 
@@ -45,12 +70,49 @@ export const fetchMyAlbunsList = () => async (dispatch) => {
 
     const myAlbunsList = response.data.albuns //TODO: Ajustar res.data
 
+
     dispatch(setMyAlbunsList(myAlbunsList))
+  }
+  catch (error) {
+    console.error(error)
+    dispatch(setAlbumResponse(
+      {
+        isOpen: true,
+        message: "Aconteceu algo errado. \n Você será redirecionado para página inicial",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setAlbumResponse(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+      dispatch(replace(routes.home))
+    }, 3000)
+  }
+}
+
+export const fetchAlbumDetails = (id) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem('token')
+    const response = await axios.get(`${baseURL}/album/my-albuns/${id}`, {
+      headers: {
+        authorization: token,
+        "Content-Type": 'application/json'
+      }
+    });
+
+    const albumDetails = response.data.details //TODO: Ajustar res.data
+    return albumDetails
   }
   catch (error) {
     console.error(error)
   }
 }
+
 
 export const fetchMyMusicsList = (albumId) => async (dispatch) => {
   try {
@@ -69,6 +131,60 @@ export const fetchMyMusicsList = (albumId) => async (dispatch) => {
   }
   catch (error) {
     console.error(error)
+    dispatch(setAlbumResponse(
+      {
+        isOpen: true,
+        message: "Aconteceu algo errado. \n Você será redirecionado para página inicial",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setAlbumResponse(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+      dispatch(replace(routes.home))
+    }, 3000)
+  }
+}
+
+export const deleteAlbum = (id) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem('token')
+    await axios.delete(`${baseURL}/album/${id}`, {
+      headers: {
+        authorization: token,
+        "Content-Type": 'application/json'
+      }
+    });
+    dispatch(fetchMyAlbunsList())
+    dispatch(setAlbumResponse(
+      {
+        isOpen: true,
+        message: "Abum deletado",
+        type: "info"
+      }
+    ))
+    setTimeout(() => {
+      dispatch(setAlbumResponse(
+        {
+          isOpen: false,
+          message: "",
+          type: "info"
+        }
+      ))
+    }, 2000)
+  }
+  catch (error) {
+    console.error(error)
+    dispatch(setAlbumResponse({
+      isOpen: true,
+      message: error.response.data.message,
+      type: 'confirm'
+    }))
   }
 }
 
@@ -84,5 +200,12 @@ export const setMusicsList = (myMusicsList) => (
   {
     type: 'SET_MY_MUSICS_LIST',
     payload: { myMusicsList }
+  }
+)
+
+export const setAlbumIdToDelete = (albumIdToDelete) => (
+  {
+    type: 'SET_ALBUM_ID_TO_DELETE',
+    payload: { albumIdToDelete }
   }
 )

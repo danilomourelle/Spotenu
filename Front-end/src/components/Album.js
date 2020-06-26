@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { LittleBtn } from './Buttons'
+import { useDispatch } from 'react-redux'
+import { setAlbumIdToDelete } from '../actions/band'
+import { setAlbumResponse } from '../actions/responses'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,9 +23,9 @@ const PlaylistPhoto = styled.img`
 const PlaylistInfos = styled.section`
   display: grid;
   grid-auto-flow:row;
-  grid-template-rows: 2fr 3fr 3fr;
+  grid-template-rows: 2fr 3fr;
   justify-items: center;
-  h3{
+  h2{
     align-self: center;
   }
 `
@@ -33,24 +36,31 @@ const BtnWrapper = styled.div`
   align-items: center;
 `
 
-function Playlist(props) {
+function Album(props) {
+  const { album } = props
+  const dispatch = useDispatch()
+
+  const handleDeleteAlbum = () => {
+    dispatch(setAlbumIdToDelete(album.id))
+    dispatch(setAlbumResponse({
+      isOpen: true,
+      message: `Você deseja apagar o album ${album.name}`,
+      type: 'decision'
+    }))
+  }
   return (
     <Wrapper>
-      <PlaylistPhoto src='https://cdn.pixabay.com/photo/2016/11/19/13/57/drum-set-1839383_960_720.jpg' alt='test' />
+      <PlaylistPhoto src={album.image} alt='Imagem do Album' />
       <PlaylistInfos>
-        <h3>Nome do Album</h3>
-        <span>
-          <p>Infos do album e várias outras coisas a mais</p>
-          <p>Infos do album e várias outras coisas a mais</p>
-        </span>
+        <h2>{album.name}</h2>
         <BtnWrapper>
           <LittleBtn>Editar</LittleBtn>
           <LittleBtn>Detalhes</LittleBtn>
-          <LittleBtn color="#b70811">Apagar</LittleBtn>
+          <LittleBtn onClick={handleDeleteAlbum} color="#b70811">Apagar</LittleBtn>
         </BtnWrapper>
       </PlaylistInfos>
     </Wrapper>
   )
 }
 
-export default Playlist
+export default Album

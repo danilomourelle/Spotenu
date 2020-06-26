@@ -15,7 +15,6 @@ function MusicGenre() {
     dispatch(setGenreResponse({ isOpen: false, message: '' }))
   }
 
-
   return <>
     <Header text={`ADMIN: ${user.name}`} />
     <Body />
