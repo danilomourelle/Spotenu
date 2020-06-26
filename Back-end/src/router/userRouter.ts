@@ -13,5 +13,4 @@ userRouter.get("/band-to-approve", user.getBandsToApprove)
 
 userRouter.put("/band/:id", user.approveBand)
 userRouter.put("/band", user.approveAllBands)
-userRouter.put('/customer/:id', user.approveCustomer)
 userRouter.put('/', user.updateUser)
