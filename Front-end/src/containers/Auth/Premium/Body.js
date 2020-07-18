@@ -28,7 +28,7 @@ const Form = styled.form`
     color: red;
   }
 `
-const BottonWrapper = styled.div`
+const BottomWrapper = styled.div`
   display: grid;
   grid-gap: 15px;
   align-content:flex-start;
@@ -74,10 +74,10 @@ function Body(props) {
         <BtnGreen>Enviar</BtnGreen>
       </Form>
       <br />
-      <BottonWrapper>
+      <BottomWrapper>
         <p>Já tem uma conta?</p>
         <Link to={routes.login}><BtnWhite>Faça login</BtnWhite></Link>
-      </BottonWrapper>
+      </BottomWrapper>
     </Wrapper>
   )
 }
