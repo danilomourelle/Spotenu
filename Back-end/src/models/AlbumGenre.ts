@@ -1,7 +1,7 @@
 export class AlbumGenre{
   constructor(
     private albumId: string,
-    private genreid: string
+    private genreId: string
     ){}
 
     public getAlbumId(): string{
@@ -9,6 +9,6 @@ export class AlbumGenre{
     }
 
     public getGenreId():string {
-      return this.genreid
+      return this.genreId
     }
 }
