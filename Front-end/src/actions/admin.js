@@ -48,7 +48,7 @@ export const approveBand = (id) => async (dispatch) => {
     await axios.put(`${baseURL}/user/band/${id}`, null, {
       headers: {
         authorization: token,
-        "Content-Type": 'application/jsons'
+        "Content-Type": 'application/json'
       }
     })
     dispatch(setDialog(
@@ -149,7 +149,7 @@ export const createNewMusicGenre = (name) => async (dispatch) => {
     dispatch(setDialog(
       {
         isOpen: true,
-        message: "Genero Musical cadastrado com sucesso",
+        message: "Gênero Musical cadastrado com sucesso",
         type: "info"
       }
     ))

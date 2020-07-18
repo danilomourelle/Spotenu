@@ -14,11 +14,11 @@ export const createNewAlbum = (form) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     });
-    dispatch(fetchMyAlbunsList())
+    dispatch(fetchMyAlbumsList())
     dispatch(setDialog(
       {
         isOpen: true,
-        message: "Abum criado com sucesso",
+        message: "Album criado com sucesso",
         type: "info"
       }
     ))
@@ -42,20 +42,20 @@ export const createNewAlbum = (form) => async (dispatch) => {
   }
 }
 
-export const fetchMyAlbunsList = () => async (dispatch) => {
+export const fetchMyAlbumsList = () => async (dispatch) => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.get(`${baseURL}/album/my-albuns`, {
+    const response = await axios.get(`${baseURL}/album/my-albums`, {
       headers: {
         authorization: token,
         "Content-Type": 'application/json'
       }
     });
 
-    const myAlbunsList = response.data.albuns //TODO: Ajustar res.data
+    const myAlbumsList = response.data.albums //TODO: Ajustar res.data
 
 
-    dispatch(setMyAlbunsList(myAlbunsList))
+    dispatch(setMyAlbumsList(myAlbumsList))
   }
   catch (error) {
     console.error(error)
@@ -82,7 +82,7 @@ export const fetchMyAlbunsList = () => async (dispatch) => {
 export const fetchAlbumDetails = (id) => async (dispatch) => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.get(`${baseURL}/album/my-albuns/${id}`, {
+    const response = await axios.get(`${baseURL}/album/my-albums/${id}`, {
       headers: {
         authorization: token,
         "Content-Type": 'application/json'
@@ -106,11 +106,11 @@ export const deleteAlbum = (id) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     });
-    dispatch(fetchMyAlbunsList())
+    dispatch(fetchMyAlbumsList())
     dispatch(setDialog(
       {
         isOpen: true,
-        message: "Abum deletado",
+        message: "Album deletado",
         type: "info"
       }
     ))
@@ -179,7 +179,7 @@ export const createNewMusic = (form) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     });
-    dispatch(fetchMyAlbunsList())
+    dispatch(fetchMyAlbumsList())
     dispatch(fetchMyMusicsList('all'))
     dispatch(setDialog(
       {
@@ -217,7 +217,7 @@ export const deleteMusic = (id) => async (dispatch) => {
         "Content-Type": 'application/json'
       }
     });
-    dispatch(fetchMyAlbunsList())
+    dispatch(fetchMyAlbumsList())
     dispatch(fetchMyMusicsList('all'))
     dispatch(setDialog(
       {
@@ -248,10 +248,10 @@ export const deleteMusic = (id) => async (dispatch) => {
 
 
 //*****SÍNCRONAS*****//
-export const setMyAlbunsList = (myAlbunsList) => (
+export const setMyAlbumsList = (myAlbumsList) => (
   {
-    type: 'SET_MY_ALBUNS_LIST',
-    payload: { myAlbunsList }
+    type: 'SET_MY_ALBUMS_LIST',
+    payload: { myAlbumsList: myAlbumsList }
   }
 )
 
