@@ -42,7 +42,7 @@ const ImageGrid = styled.div`
     width:100%;
   }
 `
-function Meddium() {
+function Medium() {
 
   return (
     <Wrapper>
@@ -59,4 +59,4 @@ function Meddium() {
   )
 }
 
-export default Meddium
+export default Medium
