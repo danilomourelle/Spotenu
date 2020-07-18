@@ -12,7 +12,7 @@ export class PlaylistDatabase extends BaseDatabase {
         dbModel.id,
         dbModel.name,
         dbModel.customer_id,
-        super.convertTinyintToBoolean(dbModel.privacy),
+        super.convertTinyIntToBoolean(dbModel.privacy),
       )
     )
   }
@@ -22,7 +22,7 @@ export class PlaylistDatabase extends BaseDatabase {
       .insert({
         id: playlist.getId(),
         name: playlist.getName(),
-        is_collaborative: super.convertBooleanToTinyint(playlist.getIsCollaborative()),
+        is_collaborative: super.convertBooleanToTinyInt(playlist.getIsCollaborative()),
         customer_id: playlist.getCustomerId()
       })
       .into(PlaylistDatabase.TABLE_NAME);
@@ -56,7 +56,7 @@ export class PlaylistDatabase extends BaseDatabase {
 
   public async share(id: string): Promise<void> {
     await this.setConnection()
-      .update({ privacy: super.convertBooleanToTinyint(false) })
+      .update({ privacy: super.convertBooleanToTinyInt(false) })
       .from(PlaylistDatabase.TABLE_NAME)
       .where({ id })
   }

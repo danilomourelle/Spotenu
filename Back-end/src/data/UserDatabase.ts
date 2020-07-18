@@ -15,7 +15,7 @@ export class UserDatabase extends BaseDatabase {
         dbModel.email,
         dbModel.password,
         stringToUserType(dbModel.type),
-        super.convertTinyintToBoolean(dbModel.is_active),
+        super.convertTinyIntToBoolean(dbModel.is_active),
         dbModel.description
       )
     )
@@ -30,13 +30,13 @@ export class UserDatabase extends BaseDatabase {
         email: user.getEmail(),
         password: user.getPassword(),
         type: user.getType(),
-        is_active: super.convertBooleanToTinyint(user.getIsActive()),
+        is_active: super.convertBooleanToTinyInt(user.getIsActive()),
         description: user.getDescription() || null
       })
       .into(UserDatabase.TABLE_NAME);
   }
 
-  public async getUserByEmailorNick(user: string): Promise<User | undefined> {
+  public async getUserByEmailOrNick(user: string): Promise<User | undefined> {
     const result = await this.setConnection()
       .select("*")
       .from(UserDatabase.TABLE_NAME)
@@ -71,7 +71,7 @@ export class UserDatabase extends BaseDatabase {
       .select("*")
       .from(UserDatabase.TABLE_NAME)
       .where({ type: UserType.BAND })
-      .andWhere({ is_active: super.convertBooleanToTinyint(false) });
+      .andWhere({ is_active: super.convertBooleanToTinyInt(false) });
 
     return result.map((band: any) => {
       return this.toModel(band) as User
@@ -80,14 +80,14 @@ export class UserDatabase extends BaseDatabase {
 
   public async activate(id:string): Promise<void> {
     await this.setConnection()
-      .update({ is_active: super.convertBooleanToTinyint(true) })
+      .update({ is_active: super.convertBooleanToTinyInt(true) })
       .from(UserDatabase.TABLE_NAME)
       .where({ id }) 
   }
 
   public async activateAll(idList:string[]): Promise<void> {
     await this.setConnection()
-      .update({ is_active: super.convertBooleanToTinyint(true) })
+      .update({ is_active: super.convertBooleanToTinyInt(true) })
       .from(UserDatabase.TABLE_NAME)
       .whereIn('id', idList) 
   }
