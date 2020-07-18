@@ -19,10 +19,10 @@ export class GenreController {
 
       const result = await GenreController.GenreBusiness.create(name, token);
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.sendStatus(result.statusCode);
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
@@ -33,10 +33,10 @@ export class GenreController {
 
       const result = await GenreController.GenreBusiness.getAllGenre(token);
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(result.statusCode).send({ genres: result.message });
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }

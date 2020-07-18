@@ -37,11 +37,11 @@ export class UserController {
         token
       );
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(result.statusCode).send(result.message)
 
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
@@ -59,10 +59,10 @@ export class UserController {
         password
       );
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(result.statusCode).send(result.message);
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
@@ -73,10 +73,10 @@ export class UserController {
 
       const result = await UserController.UserBusiness.getAllBands(token);
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(200).send({ bands: result.message });
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
@@ -87,10 +87,10 @@ export class UserController {
 
       const result = await UserController.UserBusiness.getBandsToApprove(token);
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(result.statusCode).send({ bands: result.message });
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
@@ -102,10 +102,10 @@ export class UserController {
 
       const result = await UserController.UserBusiness.approveBand(token, id);
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.sendStatus(result.statusCode);
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
@@ -117,10 +117,10 @@ export class UserController {
 
       const result = await UserController.UserBusiness.approveAllBands(token, idList);
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.sendStatus(result.statusCode);
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
@@ -132,10 +132,10 @@ export class UserController {
 
       const result = await UserController.UserBusiness.updateUser(token, name);
 
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.sendStatus(result.statusCode);
     } catch (err) {
-      await BaseDatabase.desconnectDB()
+      await BaseDatabase.disconnectDB()
       res.status(err.errorCode || 400).send({ message: err.message });
     }
   }
