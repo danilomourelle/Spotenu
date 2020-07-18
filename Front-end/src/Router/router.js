@@ -20,11 +20,11 @@ export const routes = {
   home: "/",
   login: "/login",
   signIn: "/signin",
-  premiun: "/premiun",
+  premium: "/premium",
   //bands
   allBands: "/band/all",
   bandHome: "/band",
-  myAlbuns: '/band/my-albuns',
+  myAlbums: '/band/my-albums',
   myMusics: '/band/my-music',
   //admin
   adminHome: '/admin',
@@ -41,11 +41,11 @@ function Router(props) {
         <Route exact path={routes.home} component={Home} />
         <Route exact path={routes.login} component={Login} />
         <Route exact path={routes.signIn} component={SignIn} />
-        <Route exact path={routes.premiun} component={Premium} />
+        <Route exact path={routes.premium} component={Premium} />
         {/* bands */}
         <Route exact path={routes.bandHome} component={HomeBand} />
         <Route exact path={routes.allBands} component={AllBands} />
-        <Route exact path={routes.myAlbuns} component={Album} />
+        <Route exact path={routes.myAlbums} component={Album} />
         <Route exact path={routes.myMusics} component={Music} />
         {/* admin */}
         <Route exact path={routes.adminHome} component={HomeAdmin} />

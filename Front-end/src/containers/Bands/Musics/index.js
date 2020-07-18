@@ -12,7 +12,8 @@ function Music() {
       <Header text='SPOTENU - MINHAS MÚSICA' />
       <Body />
       <Dialog />
-    </>)
+    </>
+  )
 }
 
 export default Music

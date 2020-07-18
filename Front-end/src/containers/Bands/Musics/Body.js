@@ -7,7 +7,7 @@ import { Select, LittleSelect, Input } from '../../../components/Input'
 import { BtnGreen } from '../../../components/Buttons'
 import Music from '../../../components/Music'
 import { routes } from '../../../Router/router'
-import { fetchMyMusicsList, fetchMyAlbunsList, createNewMusic, deleteMusic, setMusicIdToDelete } from '../../../actions/band'
+import { fetchMyMusicsList, fetchMyAlbumsList, createNewMusic, deleteMusic, setMusicIdToDelete } from '../../../actions/band'
 import { setDialog } from '../../../actions/dialog'
 
 const Wrapper = styled(BaseBody)`
@@ -68,7 +68,7 @@ function Body(props) {
   const [albumListToFilter, setAlbumListToFilter] = useState([])
   const [form, setForm] = useState({ name: '', albumIdToAddMusic: '' })
   const myMusicsList = useSelector(state => state.band.myMusicsList)
-  const myAlbunsList = useSelector(state => state.band.myAlbunsList)
+  const myAlbumsList = useSelector(state => state.band.myAlbumsList)
   const musicIdToDelete = useSelector(state => state.band.musicIdToDelete)
   const dialogResponse = useSelector(state => state.dialog.response)
 
@@ -76,7 +76,7 @@ function Body(props) {
     if (!window.localStorage.getItem('token')) {
       history.push(routes.home)
     }
-    dispatch(fetchMyAlbunsList())
+    dispatch(fetchMyAlbumsList())
   }, [history, dispatch])
 
   //Refazendo busca quando o Id do Album que filtra muda
@@ -84,21 +84,21 @@ function Body(props) {
     dispatch(fetchMyMusicsList(albumIdToFilter))
   }, [albumIdToFilter, dispatch])
 
-  //Refazendo lógica ao trazer lista de albuns
+  //Refazendo lógica ao trazer lista de álbuns
   useEffect(() => {
-    if (myAlbunsList.length > 0) {
-      //Cria lista de filtradgem adicionado opção de todos os albuns
-      setAlbumListToFilter(insertAllAlbunsOption(myAlbunsList))
+    if (myAlbumsList.length > 0) {
+      //Cria lista de filtragem adicionado opção de todos os álbuns
+      setAlbumListToFilter(insertAllAlbumsOption(myAlbumsList))
       //Atualiza o albumIdToAddMusic para o primeiro album da lista
       setForm((currentForm) => ({
         ...currentForm,
-        albumIdToAddMusic: myAlbunsList[0].id
+        albumIdToAddMusic: myAlbumsList[0].id
       }))
     }
     else {
       setAlbumIdToFilter('')
     }
-  }, [myAlbunsList])
+  }, [myAlbumsList])
 
   //Recolocando primeiro item da lista de filtragem no id para filtrar
   useEffect(() => {
@@ -107,7 +107,7 @@ function Body(props) {
     }
   }, [albumListToFilter])
 
-  //Deletando a música depois de receber a consifrmação
+  //Deletando a música depois de receber a confirmação
   useEffect(() => {
     if (dialogResponse === true && musicIdToDelete) {
       dispatch(deleteMusic(musicIdToDelete))
@@ -121,12 +121,12 @@ function Body(props) {
     }
   }, [dialogResponse, dispatch, musicIdToDelete])
 
-  const insertAllAlbunsOption = (albunsList) => {
-    let filterOptions = [...albunsList]
+  const insertAllAlbumsOption = (albumsList) => {
+    let filterOptions = [...albumsList]
     if (filterOptions[0].id !== "all") {
       filterOptions.unshift({
         id: 'all',
-        name: 'Todos os Albuns'
+        name: 'Todos os Álbuns'
       })
     }
     return filterOptions
@@ -146,7 +146,7 @@ function Body(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(createNewMusic(form))
-    setForm({ name: '', albumIdToAddMusic: myAlbunsList[0].id })
+    setForm({ name: '', albumIdToAddMusic: myAlbumsList[0].id })
   }
 
   return (
@@ -154,15 +154,15 @@ function Body(props) {
       <SideWrapperLeft>
         <h3>Preencha os campos abaixo</h3>
         <Form onSubmit={handleSubmit}>
-          <Select name='albumIdToAddMusic' value={form.albumIdToAddMusic} onChange={handleInputChange} disabled={myAlbunsList.length === 0}>
-            {myAlbunsList.length > 0 ?
-              myAlbunsList.map(album => (
+          <Select name='albumIdToAddMusic' value={form.albumIdToAddMusic} onChange={handleInputChange} disabled={myAlbumsList.length === 0}>
+            {myAlbumsList.length > 0 ?
+              myAlbumsList.map(album => (
                 <option value={album.id} key={album.id}>{album.name}</option>
               )) :
               <option>Necessário ter um album criado</option>}
           </Select>
           <Input name='name' type='text' placeholder='Nome da Musica' value={form.name} onChange={handleInputChange} />
-          <BtnGreen disabled={myAlbunsList.length === 0} >Enviar</BtnGreen>
+          <BtnGreen disabled={myAlbumsList.length === 0} >Enviar</BtnGreen>
         </Form>
       </SideWrapperLeft>
       {/* --------------------------------------------------------------------------------- */}
@@ -170,8 +170,8 @@ function Body(props) {
       {/* --------------------------------------------------------------------------------- */}
       <SideWrapperRight>
         <h1>Musicas</h1>
-        <LittleSelect name='albumIdToFilter' value={albumIdToFilter} onChange={handleFilterSelectChange} disabled={myAlbunsList.length === 0}>
-          {myAlbunsList.length > 0 ?
+        <LittleSelect name='albumIdToFilter' value={albumIdToFilter} onChange={handleFilterSelectChange} disabled={myAlbumsList.length === 0}>
+          {myAlbumsList.length > 0 ?
             albumListToFilter.map(album => (
               <option value={album.id} key={album.id}>{album.name}</option>
             )) :

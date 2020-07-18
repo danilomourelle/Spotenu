@@ -16,9 +16,9 @@ function Body() {
   const cards = [
     {
       src: 'https://cdn.pixabay.com/photo/2016/11/21/12/59/electronics-1845272_960_720.jpg',
-      alt: 'Gerenciar meus albuns',
-      text: 'Meus Albuns',
-      to: routes.myAlbuns
+      alt: 'Gerenciar meus álbuns',
+      text: 'Meus Álbuns',
+      to: routes.myAlbums
     },
     {
       src: 'https://cdn.pixabay.com/photo/2019/11/20/22/34/music-4641313_960_720.jpg',

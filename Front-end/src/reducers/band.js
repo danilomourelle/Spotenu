@@ -1,5 +1,5 @@
 const initialState = {
-  myAlbunsList: [
+  myAlbumsList: [
     { name: 'Buscando...', id: '001' }
   ],
   myMusicsList: [
@@ -11,9 +11,9 @@ const initialState = {
 
 const band = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_MY_ALBUNS_LIST":
+    case "SET_MY_ALBUMS_LIST":
       return {
-        ...state, myAlbunsList: action.payload.myAlbunsList
+        ...state, myAlbumsList: action.payload.myAlbumsList
       }
     case "SET_MY_MUSICS_LIST":
       return {

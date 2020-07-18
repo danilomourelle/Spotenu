@@ -46,7 +46,7 @@ function Upper() {
       <Titulo>Curta 3 meses de Premium grátis</Titulo>
       <SubTitle>Música sem parar, zero propagando e até offline</SubTitle>
       <BtnWrapper>
-        <Link to={routes.premiun}><BtnGreen>SEJA PREMIUM</BtnGreen></Link>
+        <Link to={routes.premium}><BtnGreen>SEJA PREMIUM</BtnGreen></Link>
         <Link to={routes.signIn}><BtnWhite>CONTA FREE</BtnWhite></Link>
       </BtnWrapper>
     </Wrapper>
