@@ -41,17 +41,17 @@ function Body() {
     <Wrapper>
       <Cards>
         <Link to={routes.createAlbum}>
-          <img src='https://cdn.pixabay.com/photo/2016/11/21/12/59/electronics-1845272_960_720.jpg' alt='Aprovão de Banda' />
+          <img src='https://cdn.pixabay.com/photo/2016/11/21/12/59/electronics-1845272_960_720.jpg' alt='Aprovação de Banda' />
           <div>
             <p>Criar Album</p>
           </div>
         </Link>
       </Cards>
       <Cards>
-        <Link to={routes.myAlbuns}>
+        <Link to={routes.myAlbums}>
           <img src='https://cdn.pixabay.com/photo/2015/03/14/14/22/cd-673227_960_720.jpg' alt='Cadastro de Novo Admin' />
           <div>
-            <p>Meus Albuns</p>
+            <p>Meus Álbuns</p>
           </div>
         </Link>
       </Cards>
