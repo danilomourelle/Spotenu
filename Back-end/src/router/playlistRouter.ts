@@ -9,7 +9,7 @@ playlistRouter.post('/create', playlist.create)
 playlistRouter.post('/music/add', playlist.addMusic)
 playlistRouter.post('/follow/:id',playlist.followPlaylist)
 
-playlistRouter.get('/getall/:page', playlist.getAll)
+playlistRouter.get('/getAll/:page', playlist.getAll)
 
 playlistRouter.put('/edit/:id', playlist.editPlaylist)
 playlistRouter.put('/share/:id', playlist.sharePlaylist)
