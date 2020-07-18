@@ -41,7 +41,7 @@ export class UserBusiness {
     if (newUserType === UserType.ADMIN && token) {
       const userData = this.tokenManager.retrieveDataFromToken(token)
       if (userData.type !== UserType.ADMIN) {
-        throw new InvalidParameterError("Usuários do tipo ADMINISTRADOR precisam ser craidos a partir de outro ADMINISTRADOR previamente logado");
+        throw new InvalidParameterError("Usuários do tipo ADMINISTRADOR precisam ser criados a partir de outro ADMINISTRADOR previamente logado");
       }
     }
     if (email.indexOf("@") === -1) {
@@ -51,11 +51,11 @@ export class UserBusiness {
       throw new InvalidParameterError("Senha Inválida, necessário pelo menos 6 dígitos");
     }
 
-    let result = await this.userDatabase.getUserByEmailorNick(email)
+    let result = await this.userDatabase.getUserByEmailOrNick(email)
     if (result) {
       throw new InvalidParameterError("Email já cadastrado");
     }
-    result = await this.userDatabase.getUserByEmailorNick(nickname)
+    result = await this.userDatabase.getUserByEmailOrNick(nickname)
     if (result) {
       throw new InvalidParameterError("Nickname já cadastrado");
     }
@@ -102,7 +102,7 @@ export class UserBusiness {
       throw new InvalidParameterError("Preencha todos os campos");
     }
 
-    const userFound = await this.userDatabase.getUserByEmailorNick(user)
+    const userFound = await this.userDatabase.getUserByEmailOrNick(user)
 
     if (!userFound) {
       throw new NotFoundError("Usuário não encontrado")
@@ -158,7 +158,7 @@ export class UserBusiness {
     token: string,
   ): Promise<ContentList> {
     if (!token) {
-      throw new InvalidParameterError("Necessário relogar no sistema");
+      throw new InvalidParameterError("Necessário logar no sistema");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)

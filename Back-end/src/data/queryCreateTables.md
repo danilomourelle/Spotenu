@@ -1,3 +1,4 @@
+```SQL
 CREATE TABLE Users (
 	id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -23,7 +24,7 @@ CREATE TABLE UserPlaylistRelation (
     FOREIGN KEY (user_creator_id) REFERENCES Users (id),
     FOREIGN KEY (playlist_id) REFERENCEs Playlist (id));  
     
-CREATE TABLE Albuns (
+CREATE TABLE Albums (
 	id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
     band_id VARCHAR(255) NOT NULL,
@@ -38,7 +39,7 @@ CREATE TABLE Genre (
 CREATE TABLE AlbumGenreRelation (
 	album_id VARCHAR(255) NOT NULL,
     genre_id VARCHAR(255) NOT NULL,
-    FOREIGN KEY (album_id) REFERENCES Albuns (id),
+    FOREIGN KEY (album_id) REFERENCES Albums (id),
     FOREIGN KEY (genre_id) REFERENCEs Genre (id)
     );
     
@@ -49,7 +50,7 @@ CREATE TABLE Musics (
     album_id VARCHAR(255) NOT NULL,
     source_link VARCHAR(255),
     FOREIGN KEY (band_id) REFERENCES Users (id),
-    FOREIGN KEY (album_id) REFERENCES Albuns (id)
+    FOREIGN KEY (album_id) REFERENCES Albums (id)
     );
 
 CREATE TABLE MusicPlaylistRelation (
@@ -58,3 +59,4 @@ CREATE TABLE MusicPlaylistRelation (
     FOREIGN KEY (music_id) REFERENCES Musics (id),
     FOREIGN KEY (playlist_id) REFERENCEs Playlist (id)
     );
+```

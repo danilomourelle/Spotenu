@@ -20,17 +20,17 @@ export abstract class BaseDatabase {
     return BaseDatabase.CONNECTION_KNEX
   }
 
-  public static async desconnectDB() {
+  public static async disconnectDB() {
     if (BaseDatabase.CONNECTION_KNEX !== null) {
       await BaseDatabase.CONNECTION_KNEX.destroy()
       BaseDatabase.CONNECTION_KNEX = null
     }
   }
 
-  protected convertTinyintToBoolean(value: number): boolean {
+  protected convertTinyIntToBoolean(value: number): boolean {
     return value === 1
   }
-  protected convertBooleanToTinyint(value: boolean): number {
+  protected convertBooleanToTinyInt(value: boolean): number {
     return value ? 1 : 0
   }
 }

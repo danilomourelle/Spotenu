@@ -1,5 +1,5 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { MusicPlaylistRelation } from "../models/MusicPlaylisRelation";
+import { MusicPlaylistRelation } from "../models/MusicPlaylistRelation";
 
 export class MusicPlaylistRelationDatabase extends BaseDatabase {
   public static TABLE_NAME: string = 'MusicPlaylistRelation'
