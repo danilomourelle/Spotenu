@@ -36,7 +36,7 @@ export class MusicBusiness {
       throw new NotFoundError("Album not found")
     }
     if (userData.id !== album.getBandId()) {
-      throw new UnauthorizedError("This album doesn't belong to Band loged")
+      throw new UnauthorizedError("This album doesn't belong to Band logged")
     }
 
     const music = await this.musicDatabase.getMusicIntoAlbumByName(name, albumId)

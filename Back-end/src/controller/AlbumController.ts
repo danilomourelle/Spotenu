@@ -49,7 +49,7 @@ export class AlbumController {
     try {
       const token = req.headers.authorization || req.headers.Authorization as string
 
-      const result = await AlbumController.AlbumBusiness.getAlbunsByBandId(token);
+      const result = await AlbumController.AlbumBusiness.getAlbumsByBandId(token);
       await BaseDatabase.desconnectDB()
       res.status(result.statusCode).send({ albuns: result.message });
     } catch (err) {

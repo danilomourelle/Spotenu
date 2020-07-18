@@ -11,7 +11,7 @@ import { UnauthorizedError } from "../errors/UnauthorizedError";
 
 export class GenreBusiness {
   constructor(
-    private genreDatabse: GenreDatabase,
+    private genreDatabase: GenreDatabase,
     private tokenManager: TokenManager,
     private idManager: IdManager
   ) { }
@@ -26,14 +26,14 @@ export class GenreBusiness {
       throw new UnauthorizedError("Acesso negado")
     }
 
-    const result = await this.genreDatabse.getGenreByName(name)
+    const result = await this.genreDatabase.getGenreByName(name)
     if (result) {
       throw new GenericError("Este gênero já existe")
     }
 
     const id = this.idManager.generateId()
 
-    await this.genreDatabse.createGenre(
+    await this.genreDatabase.createGenre(
       new Genre(id, name)
     );
 
@@ -50,7 +50,7 @@ export class GenreBusiness {
       throw new UnauthorizedError("Access denied")
     }
 
-    const genresList = await this.genreDatabse.getAllGenre()
+    const genresList = await this.genreDatabase.getAllGenre()
 
     return new ContentList(
       genresList.map(genre => ({

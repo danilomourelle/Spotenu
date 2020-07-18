@@ -17,7 +17,7 @@ export class AlbumBusiness {
   constructor(
     private albumDatabase: AlbumDatabase,
     private albumGenreDatabase: AlbumGenreDatabase,
-    private genrerDatabase: GenreDatabase,
+    private genreDatabase: GenreDatabase,
     private tokenManager: TokenManager,
     private idManager: IdManager
   ) { }
@@ -43,7 +43,7 @@ export class AlbumBusiness {
       new Album(albumId, name, userData.id, image)
     );
 
-    const genreListFromDB = await this.genrerDatabase.getAllGenre()
+    const genreListFromDB = await this.genreDatabase.getAllGenre()
 
     for (const genre of genreListFromDB) {
       if (genreIdList.includes(genre.getId())) {
@@ -75,9 +75,9 @@ export class AlbumBusiness {
     return new GenericResult("Album deletado")
   }
 
-  public async getAlbunsByBandId(token: string): Promise<ContentList> {
+  public async getAlbumsByBandId(token: string): Promise<ContentList> {
     if (!token) {
-      throw new InvalidParameterError("No user logeg in");
+      throw new InvalidParameterError("No user logged in");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
@@ -85,14 +85,14 @@ export class AlbumBusiness {
       throw new UnauthorizedError("Access denied")
     }
 
-    const result = await this.albumDatabase.getAlbunsByBandId(userData.id)
+    const result = await this.albumDatabase.getAlbumsByBandId(userData.id)
 
     return new ContentList(result)
   }
 
   public async getAlbumDetails(id: string, token: string): Promise<GenericResult> {
     if (!token) {
-      throw new InvalidParameterError("No user logeg in");
+      throw new InvalidParameterError("No user logged in");
     }
 
     const userData = this.tokenManager.retrieveDataFromToken(token)
