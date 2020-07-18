@@ -6,7 +6,7 @@ import Dialog from '../../../components/Dialog'
 function Album() {
 
   return <>
-    <Header text='SPOTENU - MEUS ALBUNS' />
+    <Header text='SPOTENU - MEUS ÁLBUNS' />
     <Body />
     <Dialog />
   </>

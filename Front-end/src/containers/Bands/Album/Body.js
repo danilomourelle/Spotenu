@@ -7,7 +7,7 @@ import { Input, Checkbox } from '../../../components/Input'
 import { BtnGreen } from '../../../components/Buttons'
 import Album from '../../../components/Album'
 import { routes } from '../../../Router/router'
-import { createNewAlbum, fetchMyAlbunsList, deleteAlbum, setAlbumIdToDelete } from '../../../actions/band'
+import { createNewAlbum, fetchMyAlbumsList, deleteAlbum, setAlbumIdToDelete } from '../../../actions/band'
 import { fetchAllMusicGenre } from '../../../actions/admin'
 import { setDialog } from '../../../actions/dialog'
 
@@ -61,7 +61,7 @@ const Form = styled.form`
   align-content:flex-start;
   justify-items: center;
 `
-const CkeckWrapper = styled.div`
+const CheckWrapper = styled.div`
   width: 100%;
   max-width:400px;
   max-height: 70vh;
@@ -86,7 +86,7 @@ function Body() {
   const dispatch = useDispatch()
   const history = useHistory()
   const genreList = useSelector(state => state.admin.genreList)
-  const albunsList = useSelector(state => state.band.myAlbunsList)
+  const albumsList = useSelector(state => state.band.myAlbumsList)
   const albumIdToDelete = useSelector(state => state.band.albumIdToDelete)
   const dialogResponse = useSelector(state => state.dialog.response)
   const [form, setForm] = useState({ name: '', genreIdList: [], image: '' })
@@ -96,7 +96,7 @@ function Body() {
       history.push(routes.home)
     }
     dispatch(fetchAllMusicGenre())
-    dispatch(fetchMyAlbunsList())
+    dispatch(fetchMyAlbumsList())
   }, [history, dispatch])
 
   useEffect(() => {
@@ -119,7 +119,7 @@ function Body() {
       [e.target.name]: e.target.value
     })
   }
-  const handleCkeckChange = (e) => {
+  const handleCheckChange = (e) => {
     const genreId = e.target.name
     const checked = e.target.checked
     if (checked) {
@@ -148,19 +148,19 @@ function Body() {
     <Wrapper>
       <SideWrapperLeft>
         <h3>Preencha os campos abaixo</h3>
-        <CkeckWrapper>
+        <CheckWrapper>
           {
             genreList.map(genre => (
               <CheckOptions key={genre.id}>
-                <Checkbox type='checkbox' id={genre.id} name={genre.id} onChange={handleCkeckChange} />
+                <Checkbox type='checkbox' id={genre.id} name={genre.id} onChange={handleCheckChange} />
                 <label htmlFor={genre.id}>{genre.name}</label>
               </CheckOptions>
             ))
           }
-        </CkeckWrapper>
+        </CheckWrapper>
         <Form onSubmit={handleSubmit}>
           <Input name='name' type='text' placeholder='Nome do Album' value={form.name} onChange={handleInputChange} />
-          <Input name='image' type='text' placeholder='Enderço imagem do Album' value={form.image} onChange={handleInputChange} />
+          <Input name='image' type='text' placeholder='Endereço imagem do Album' value={form.image} onChange={handleInputChange} />
           <BtnGreen>Enviar</BtnGreen>
         </Form>
       </SideWrapperLeft>
@@ -168,10 +168,10 @@ function Body() {
       {/* ----------------------       CADA LADO DA TELA     ------------------------------ */}
       {/* --------------------------------------------------------------------------------- */}
       <SideWrapperRight>
-        <h1>Albuns</h1>
+        <h1>Álbuns</h1>
         {
-          albunsList[0].id !== '001' &&
-          albunsList.map(album => (
+          albumsList[0].id !== '001' &&
+          albumsList.map(album => (
             <Album key={album.id} album={album} />
           ))
         }
