@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   isOpen: false,
   message: '',
   type: '',
@@ -6,7 +6,7 @@ const initialState = {
 }
 
 
-const dialog = (state = initialState, action) => {
+export const dialog = (state, action) => {
 
   switch (action.type) {
     case "SET_DIALOG_RESPONSE":

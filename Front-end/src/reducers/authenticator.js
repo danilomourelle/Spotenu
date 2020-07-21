@@ -1,10 +1,10 @@
-const initialState = {
+export const initialState = {
   user: {
     name: ''
   },
 }
 
-const authenticator = (state = initialState, action) => {
+export const authenticator = (state, action) => {
   switch (action.type) {
     case "SET_USER":
       return {

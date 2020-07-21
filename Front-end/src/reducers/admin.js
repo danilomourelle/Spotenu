@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   bandsListToApprove: [
     { name: 'Buscando...', id: '001' },
   ],
@@ -7,7 +7,7 @@ const initialState = {
   ]
 }
 
-const admin = (state = initialState, action) => {
+export const admin = (state, action) => {
   switch (action.type) {
     case "SET_BAND_LIST_TO_APPROVE":
       return {

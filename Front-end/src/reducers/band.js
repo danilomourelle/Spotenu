@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   myAlbumsList: [
     { name: 'Buscando...', id: '001' }
   ],
@@ -9,7 +9,7 @@ const initialState = {
   musicIdToDelete: undefined
 }
 
-const band = (state = initialState, action) => {
+export const band = (state, action) => {
   switch (action.type) {
     case "SET_MY_ALBUMS_LIST":
       return {
