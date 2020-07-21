@@ -1,14 +1,14 @@
 import React from "react";
 import { createGlobalStyle } from 'styled-components'
-import { createStore, applyMiddleware, compose } from "redux";
+// import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import { routerMiddleware } from "connected-react-router";
-import thunk from "redux-thunk";
-import { createBrowserHistory } from "history";
+// import { routerMiddleware } from "connected-react-router";
+// import thunk from "redux-thunk";
+// import { createBrowserHistory } from "history";
 import Router from '../../Router/router.js'
-import { generateReducers } from "../../reducers";
+// import { generateReducers } from "../../reducers";
 
-export const history = createBrowserHistory();
+/* export const history = createBrowserHistory();
 
 const middlewares = [
   applyMiddleware(routerMiddleware(history), thunk),
@@ -17,7 +17,7 @@ const middlewares = [
     : f => f
 ];
 
-const store = createStore(generateReducers(history), compose(...middlewares));
+const store = createStore(generateReducers(history), compose(...middlewares)); */
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
 export const App = () => (
   <Provider store={store}>
     <GlobalStyle />
-    <Router history={history} />
+    <Router />
   </Provider>
 );
 
