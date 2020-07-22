@@ -1,4 +1,4 @@
-export const initialState = {
+export const initialAdmin = {
   bandsListToApprove: [
     { name: 'Buscando...', id: '001' },
   ],

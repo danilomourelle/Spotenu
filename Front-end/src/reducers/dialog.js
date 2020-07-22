@@ -1,4 +1,4 @@
-export const initialState = {
+export const initialDialog = {
   isOpen: false,
   message: '',
   type: '',
