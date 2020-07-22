@@ -1,18 +1,9 @@
-import React, { useReducer } from "react";
-import { createGlobalStyle } from 'styled-components'
+import React from "react";
+import { createGlobalStyle } from "styled-components";
 
-import AdminContext from '../../context/admin'
-import AuthenticatorContext from '../../context/authenticator'
-import BandContext from '../../context/band'
-import DialogContext from '../../context/dialog'
-
-import { admin, initialAdmin } from '../../reducers/admin'
-import { authenticator, initialAuthenticator } from '../../reducers/authenticator'
-import { band, initialBand } from '../../reducers/band'
-import { dialog, initialDialog } from '../../reducers/dialog'
-
-import Router from '../../Router/router.js'
-
+import { useAppStore } from "../../hooks/useAppStore";
+import AppStoreContext from "../../context/store";
+// import Router from '../../Router/router.js'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -23,26 +14,17 @@ const GlobalStyle = createGlobalStyle`
   body {
     min-width: 800px;
   }
-`
+`;
 
 export const App = () => {
-  const [adminState, adminDispatch] = useReducer(admin, initialAdmin)
-  const [authenticatorState, authenticatorDispatch] = useReducer(authenticator, initialAuthenticator)
-  const [bandState, bandDispatch] = useReducer(band, initialBand)
-  const [dialogState, dialogDispatch] = useReducer(dialog, initialDialog)
+  const { store, dispatch } = useAppStore();
 
   return (
-    <AdminContext.Provider value={[adminState, adminDispatch]}>
-      <AuthenticatorContext.Provider value={[authenticatorState, authenticatorDispatch]}>
-        <BandContext.Provider value={[bandState, bandDispatch]}>
-          <DialogContext.Provider value={[dialogState, dialogDispatch]}>
-            <GlobalStyle />
-            <Router />
-          </DialogContext.Provider>
-        </BandContext.Provider >
-      </AuthenticatorContext.Provider >
-    </AdminContext.Provider >
-  )
+    <AppStoreContext.Provider value={{ ...store, ...dispatch }}>
+      <GlobalStyle />
+      {/* <Router /> */}
+    </AppStoreContext.Provider>
+  );
 };
 
 export default App;

@@ -7,7 +7,7 @@ export const initialAdmin = {
   ]
 }
 
-export const admin = (state, action) => {
+export const adminReducer = (state, action) => {
   switch (action.type) {
     case "SET_BAND_LIST_TO_APPROVE":
       return {
@@ -22,4 +22,4 @@ export const admin = (state, action) => {
   }
 }
 
-export default admin
+export default adminReducer

@@ -9,7 +9,7 @@ export const initialBand = {
   musicIdToDelete: undefined
 }
 
-export const band = (state, action) => {
+export const bandReducer = (state, action) => {
   switch (action.type) {
     case "SET_MY_ALBUMS_LIST":
       return {
@@ -32,4 +32,4 @@ export const band = (state, action) => {
   }
 }
 
-export default band
+export default bandReducer

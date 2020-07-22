@@ -6,7 +6,7 @@ export const initialDialog = {
 }
 
 
-export const dialog = (state, action) => {
+export const dialogReducer = (state, action) => {
 
   switch (action.type) {
     case "SET_DIALOG_RESPONSE":
@@ -16,4 +16,4 @@ export const dialog = (state, action) => {
       return state
   }
 }
-export default dialog
+export default dialogReducer
