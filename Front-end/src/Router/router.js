@@ -1,6 +1,6 @@
 import React from "react";
-import { ConnectedRouter } from "connected-react-router";
-import { Switch, Route } from "react-router-dom";
+// import { ConnectedRouter } from "connected-react-router";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "../containers/HomePage";
 import Login from "../containers/Auth/Login";
 import SignIn from "../containers/Auth/SignIn";
@@ -35,25 +35,25 @@ export const routes = {
 
 function Router(props) {
   return (
-    <ConnectedRouter history={props.history}>
+    <BrowserRouter>
       <Switch>
         {/* auth */}
-        <Route exact path={routes.home} component={Home} />
-        <Route exact path={routes.login} component={Login} />
-        <Route exact path={routes.signIn} component={SignIn} />
-        <Route exact path={routes.premium} component={Premium} />
+        <Route exact path={routes.home}> <Home /> </Route>
+        <Route exact path={routes.login}> <Login /> </Route>
+        <Route exact path={routes.signIn}> <SignIn /> </Route>
+        <Route exact path={routes.premium}> <Premium /> </Route>
         {/* bands */}
-        <Route exact path={routes.bandHome} component={HomeBand} />
-        <Route exact path={routes.allBands} component={AllBands} />
-        <Route exact path={routes.myAlbums} component={Album} />
-        <Route exact path={routes.myMusics} component={Music} />
+        <Route exact path={routes.bandHome}> <HomeBand /> </Route>
+        <Route exact path={routes.allBands}> <AllBands /> </Route>
+        <Route exact path={routes.myAlbums}> <Album /> </Route>
+        <Route exact path={routes.myMusics}> <Music /> </Route>
         {/* admin */}
-        <Route exact path={routes.adminHome} component={HomeAdmin} />
-        <Route exact path={routes.approveBand} component={ApproveBand} />
-        <Route exact path={routes.createMusicalGenre} component={MusicGenre} />
-        <Route exact path={routes.createOtherAdmin} component={SignOtherAdmin} />
+        <Route exact path={routes.adminHome}> <HomeAdmin /> </Route>
+        <Route exact path={routes.approveBand}> <ApproveBand /> </Route>
+        <Route exact path={routes.createMusicalGenre}> <MusicGenre /> </Route>
+        <Route exact path={routes.createOtherAdmin}> <SignOtherAdmin /> </Route>
       </Switch>
-    </ConnectedRouter>
+    </BrowserRouter>
   );
 }
 

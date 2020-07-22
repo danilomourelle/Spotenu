@@ -1,23 +1,9 @@
 import React from "react";
-import { createGlobalStyle } from 'styled-components'
-import { createStore, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
-import { routerMiddleware } from "connected-react-router";
-import thunk from "redux-thunk";
-import { createBrowserHistory } from "history";
-import Router from '../../Router/router.js'
-import { generateReducers } from "../../reducers";
+import { createGlobalStyle } from "styled-components";
 
-export const history = createBrowserHistory();
-
-const middlewares = [
-  applyMiddleware(routerMiddleware(history), thunk),
-  window.__REDUX_DEVTOOLS_EXTENSION__
-    ? window.__REDUX_DEVTOOLS_EXTENSION__()
-    : f => f
-];
-
-const store = createStore(generateReducers(history), compose(...middlewares));
+import { useAppStore } from "../../hooks/useAppStore";
+import AppStoreContext from "../../context/store";
+// import Router from '../../Router/router.js'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -28,13 +14,17 @@ const GlobalStyle = createGlobalStyle`
   body {
     min-width: 800px;
   }
-`
+`;
 
-export const App = () => (
-  <Provider store={store}>
-    <GlobalStyle />
-    <Router history={history} />
-  </Provider>
-);
+export const App = () => {
+  const { store, dispatch } = useAppStore();
+
+  return (
+    <AppStoreContext.Provider value={{ ...store, ...dispatch }}>
+      <GlobalStyle />
+      {/* <Router /> */}
+    </AppStoreContext.Provider>
+  );
+};
 
 export default App;

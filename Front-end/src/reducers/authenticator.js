@@ -1,10 +1,10 @@
-const initialState = {
+export const initialAuthenticator = {
   user: {
     name: ''
   },
 }
 
-const authenticator = (state = initialState, action) => {
+export const authenticatorReducer = (state, action) => {
   switch (action.type) {
     case "SET_USER":
       return {
@@ -15,4 +15,4 @@ const authenticator = (state = initialState, action) => {
   }
 }
 
-export default authenticator
+export default authenticatorReducer
